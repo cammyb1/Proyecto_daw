@@ -8,25 +8,18 @@
     <meta name="keywords" content="HTML,CSS,JavaScript,Inca,Imperio,Cultura">
     <link rel="shortcut icon" href="resources/logo.png">
     <link rel="stylesheet" href="css/main_style.css">
-    <link rel="stylesheet" href="css/landing.css">
     <title>Imperio inca</title>
   </head>
   <body>
     <div id="root">
-      <div class="background">
-        <div id="blackcoat"></div>
-        <img src="resources/machu-picchu.jpg" alt="Machu Pichu">
-      </div>
-      <div class="l_content">
-        <div class="title">
-          <div class="m-title">
-            <img src="resources/logo.png" alt="Logo">
-            <h1>Cultura Incaica</h1>
+      <div class="Login">
+        <form class="" action="" method="post">
+          <div class="">
+            <label for="">User </label><input type="text" name="" value="">
+            <label for="">Password </label><input type="password" name="" value="">
+            <input type="submit" name="admin-login" value="Login">
           </div>
-
-          <p>La civilizacion más grande y poderosa de América</p>
-        </div>
-        <a href="php/">DESCUBRIR</a>
+        </form>
       </div>
     </div>
   </body>

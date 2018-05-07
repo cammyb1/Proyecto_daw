@@ -1,7 +1,9 @@
 *{
 	margin:0;
 	padding:0;
-	color:white;
+}
+#root{
+	position: relative;
 }
 a{
 	text-decoration: none;
