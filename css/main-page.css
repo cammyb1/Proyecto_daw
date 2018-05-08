@@ -13,6 +13,8 @@ header{
   min-width: 1000px;
   max-width: 1000px;
   margin:0 auto;
+  border:1px dotted pink;
+  overflow: hidden;
 }
 .logo img{
   width: 100px;
@@ -47,11 +49,24 @@ header{
   border-right: 1px dotted white;
 }
 
+section,aside{
+  float:left;
+}
 
+section{
+  border: 1px dotted blue;
+}
+aside{
+  border:1px dotted red;
+}
 /*ARTICLE*/
 article{
-  width: 500px;
+  width: 600px;
   background-color: #fff;
+  padding: 20px;
+  position:relative;
+  margin:20px 0;
+  box-shadow: 0px 0px 10px rgba(0,0,0,.2);
 }
 article .upper div{
   padding: 5px;
@@ -66,4 +81,49 @@ article .lower img{
   height: 150px;
   display: block;
   float:left;
+}
+article .lower p{
+  height: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+article .lower .share{
+  clear:both;
+  width: 100%;
+}
+
+article .more{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+article .more a{
+  background-color: tomato;
+  padding: 5px;
+  display: block;
+}
+
+.aside{
+  margin:20px;
+  width: 316px;
+  background-color: tomato;
+}
+
+.aside .title{
+  background-color: #333;
+  padding: 10px;
+  color:White;
+}
+.aside .article-container,.aside .category-container{
+  padding: 5px 10px;
+}
+.aside .article{
+  margin:10px auto;
+  background-color: rgba(255,255,255,0.5);
+}
+
+.aside .category-container li{
+  border-bottom: 1px dotted white;
 }
