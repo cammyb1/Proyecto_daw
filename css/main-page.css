@@ -13,7 +13,7 @@ header{
   min-width: 1000px;
   max-width: 1000px;
   margin:0 auto;
-  border:1px dotted pink;
+  /* border:1px dotted pink; */
   overflow: hidden;
 }
 .logo img{
@@ -52,13 +52,13 @@ header{
 section,aside{
   float:left;
 }
-
+/*
 section{
   border: 1px dotted blue;
 }
 aside{
   border:1px dotted red;
-}
+} */
 /*ARTICLE*/
 article{
   width: 600px;
