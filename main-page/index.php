@@ -9,7 +9,6 @@
     <link rel="shortcut icon" href="resources/logo.png">
     <link rel="stylesheet" href="../css/main_style.css">
     <link rel="stylesheet" href="../css/main-page/main-page.css">
-    <!-- <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css"> -->
     <title>Imperio inca</title>
   </head>
   <body>
@@ -142,9 +141,16 @@
         </div>
       </aside>
     </div>
+    <footer>
+      <div class="row">
+        <span></span>
+        <ul>
+          <li><a href="">item1</a></li>
+          <li><a href="">item2</a></li>
+          <li><a href="">item3</a></li>
+        </ul>
+      </div>
+    </footer>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="../js/bootstrap/bootstrap.min.js"></script>
   </body>
 </html>

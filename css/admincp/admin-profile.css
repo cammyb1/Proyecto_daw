@@ -1,0 +1,52 @@
+.menu{
+  background-color: #333;
+  position: fixed;
+  left:0;
+  top:0;
+  height: 100%;
+  width: 240px;
+  color:white;
+  overflow: hidden;
+}
+.menu footer a{
+  position: absolute;
+  bottom:0;
+  width:100%;
+}
+.menu a{
+  color:white;
+  display: block;
+  padding: 20px;
+  font-size: 16px;
+}
+nav{
+  margin-top:100px;
+}
+
+.header{
+  display: block;
+  height:50px;
+  width: 200px;
+  padding: 0px 20px;
+  line-height: 50px;
+  float:left;
+  background-color: tomato;
+}
+
+header a{
+  color:white;
+  display: block;
+  height: 50px;
+  line-height: 50px;
+}
+nav a{
+  border-top:1px solid #222;
+}
+
+.container header{
+  position:fixed;
+  top:0;
+  height: 50px;
+  width: 100%;
+  background-color: #333;
+}
