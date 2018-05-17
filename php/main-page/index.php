@@ -7,8 +7,7 @@
   <meta name="description" content="Pagina cultural del imperio incaico">
     <meta name="keywords" content="HTML,CSS,JavaScript,Inca,Imperio,Cultura">
     <link rel="shortcut icon" href="resources/logo.png">
-    <link rel="stylesheet" href="../css/main_style.css">
-    <link rel="stylesheet" href="../css/main-page/main-page.css">
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
     <title>Imperio inca</title>
   </head>
   <body>
@@ -152,5 +151,9 @@
       </div>
     </footer>
     </div>
+
+    <!--Bootstrap and jquery js-->
+    <script src="../js/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
   </body>
 </html>

@@ -9,10 +9,11 @@
   <meta name="author" content="Jonathan Vasquez Morales">
   <meta name="description" content="Pagina cultural del imperio incaico">
   <meta name="keywords" content="HTML,CSS,JavaScript,Inca,Imperio,Cultura">
-  <link rel="shortcut icon" href="../resources/logo.png">
-  <link rel="stylesheet" type="text/css" href="../css/main_style.css">
-  <link rel="stylesheet" type="text/css" href="../css/admincp/admin-profile.css">
-  <script type="text/javascript" src="../js/cp-profile.js"></script>
+  <link rel="shortcut icon" href="../../resources/logo.png">
+  <link rel="stylesheet" type="text/css" href="../../css/main_style.css">
+  <link rel="stylesheet" type="text/css" href="../../css/admincp/admin-profile.css">
+  <script type="text/javascript" src="../../js/cp-profile.js"></script>
+  <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
   <title>Admin control panel</title>
 </head>
 <body>
@@ -39,8 +40,12 @@
       <a href="">Log out</a>
     </header>
     <section>
-      
+
     </section>
   </div>
+
+  <!--Bootstrap and jquery js-->
+  <script src="../../js/jquery/jquery-3.3.1.min.js"></script>
+  <script src="../../js/bootstrap/bootstrap.min.js"></script>
 </body>
 </html>
