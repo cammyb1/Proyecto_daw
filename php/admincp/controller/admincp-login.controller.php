@@ -1,6 +1,5 @@
 <?php
   include "model/admincp-login.model.php";
-  include "view/admincp-login.view.php";
 
   $consultor = new Consultor("users");
 
@@ -8,7 +7,12 @@
     $username = $_POST["login_user"];
     $password = $_POST["login_password"];
 
-    $consultor->getUser($username,$password);
+    $usuario = $consultor->getUser($username,$password);
 
+    if($usuario!=null){
+      $_SESSION["usuario"]=$usuario;
+    }
   }
+
+  include "view/admincp-login.view.php";
 ?>

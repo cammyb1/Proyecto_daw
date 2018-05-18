@@ -17,33 +17,26 @@
   <title>Admin control panel</title>
 </head>
 <body>
-  <div id="menu" class="menu">
-    <nav>
-      <ul>
-        <li><a href="">Dashboard</a></li>
-        <li><a href="">Tables</a></li>
-        <li><a href="">UI Elements</a></li>
-        <li><a href="">Components</a></li>
-      </ul>
-    </nav>
-
-    <footer>
-      <a id="collapse" href="">Collapse</a>
-    </footer>
-  </div>
-
-  <div class="container">
-    <header>
-      <div class="header">
-        <h3>Panel de administracion</h3>
+  <div class="row">
+    <div class="col-md-2 color1 fullvh">
+      <div class="container">
+        <div class="row">
+          <h1>Dashboard</h1>
+        </div>
+        <div>
+          <ul>
+            <li><a class="btn btn-default" href="">DashBoard</a></li>
+            <li><a class="btn btn-default" href="">Articles</a></li>
+            <li><a class="btn btn-default" href="">Tables</a></li>
+            <li><a class="btn btn-default" href="">UI config</a></li>
+          </ul>
+        </div>
       </div>
-      <a href="">Log out</a>
-    </header>
-    <section>
+    </div>
+    <section class="col-md-10 color2">
 
     </section>
   </div>
-
   <!--Bootstrap and jquery js-->
   <script src="../../js/jquery/jquery-3.3.1.min.js"></script>
   <script src="../../js/bootstrap/bootstrap.min.js"></script>
