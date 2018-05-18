@@ -25,10 +25,10 @@
         </div>
         <div>
           <ul>
-            <li><a class="btn btn-default" href="">DashBoard</a></li>
-            <li><a class="btn btn-default" href="">Articles</a></li>
-            <li><a class="btn btn-default" href="">Tables</a></li>
-            <li><a class="btn btn-default" href="">UI config</a></li>
+            <li><a class="btn btn-dark" href="">DashBoard</a></li>
+            <li><a class="btn btn-dark" href="">Articles</a></li>
+            <li><a class="btn btn-dark" href="">Tables</a></li>
+            <li><a class="btn btn-dark" href="">UI config</a></li>
           </ul>
         </div>
       </div>

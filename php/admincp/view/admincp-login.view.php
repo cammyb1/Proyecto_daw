@@ -2,13 +2,6 @@
     <div class="col-12">
       <h1>Admin CP</h1>
     </div>
-    <div class="warning">
-      <?php
-        if(isset($_SESSION["mensaje"])){
-          echo $_SESSION["mensaje"];
-        }
-      ?>
-    </div>
     <div class="form-group">
       <div class="input-group">
         <label for="" class="input-group-addon">Username</label>

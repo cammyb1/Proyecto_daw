@@ -9,7 +9,7 @@
       $this->lastname = $lastname;
       $this->name = $name;
       $this->email = $email;
-      $this->date = new Date($date);
+      $this->date = date($date);
       $this->type = $type;
     }
 
