@@ -29,7 +29,6 @@ class Consultor{
     if($this->userExist($username,$password)){
       if($resultado = $this->db->query($consulta)){
         $fila = $resultado->fetch_assoc();
-        $this->console_log($fila);
         $object_output = new User($fila["user_id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["fecha"],$fila["type"]);
 
         header("location:profile.php");
@@ -51,13 +50,33 @@ class Consultor{
       return false;
   }
 
-  function console_log( $data ) {
-    $output = $data;
-    if ( is_array( $output ) )
-        $output = implode( ',', $output);
+  public function getFullTable($table_name){
+    $consulta = "SELECT * FROM $table_name";
+    $result = array();
+    $table_name = $this->db->escape_string($table_name);
 
-    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+    if($resultado=$this->db->query($consulta)){
+      while($fila = $resultado->fetch_assoc()){
+        $row = array();
+        foreach($fila as $k=>$v){
+          $row[$k]=$v;
+        }
+        $result[]= $row;
+      }
+    }
+
+    return $result;
   }
 
+  public function getThisTables($tables){
+    $result_tables = array();
+    $logger = new Logger();
+
+    foreach($tables as $table){
+      $result_tables[$table] = $this->getFullTable($table);
+    }
+
+    return $result_tables;
+  }
 }
 ?>

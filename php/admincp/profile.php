@@ -25,16 +25,18 @@
         </div>
         <div>
           <ul>
-            <li><a class="btn btn-dark" href="">DashBoard</a></li>
-            <li><a class="btn btn-dark" href="">Articles</a></li>
-            <li><a class="btn btn-dark" href="">Tables</a></li>
-            <li><a class="btn btn-dark" href="">UI config</a></li>
+            <li><a class="btn btn-dark" href="profile.php?dash">DashBoard</a></li>
+            <li><a class="btn btn-dark" href="profile.php?articles">Articles</a></li>
+            <li><a class="btn btn-dark" href="profile.php?tables">Tables</a></li>
+            <li><a class="btn btn-dark" href="profile.php?config">UI config</a></li>
           </ul>
         </div>
       </div>
     </div>
     <section class="col-md-10 color2">
-
+      <?php
+        include "controller/admincp-profile.controller.php";
+      ?>
     </section>
   </div>
   <!--Bootstrap and jquery js-->
