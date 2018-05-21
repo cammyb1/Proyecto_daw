@@ -18,22 +18,41 @@
 </head>
 <body>
   <div class="row">
-    <div class="col-md-2 color1 fullvh">
+    <div class="col-md-2 fullvh">
       <div class="container">
         <div class="row">
           <h1>Dashboard</h1>
         </div>
         <div>
           <ul>
-            <li><a class="btn btn-dark" href="profile.php?dash">DashBoard</a></li>
-            <li><a class="btn btn-dark" href="profile.php?articles">Articles</a></li>
-            <li><a class="btn btn-dark" href="profile.php?tables">Tables</a></li>
-            <li><a class="btn btn-dark" href="profile.php?config">UI config</a></li>
+            <li><a class="btn btn-primary" href="profile.php?dash">DashBoard</a></li>
+            <li>
+              <a class="btn btn-primary" href="profile.php?articles">Articles</a>
+              <ul>
+                <li><a href="profile.php?articles">Add new Article</a></li>
+                <li><a href="profile.php?articles">Remove Article</a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="btn btn-primary" href="profile.php?tables">Tables</a>
+              <ul>
+                <li><a href="profile.php?tables&u">Users</a></li>
+                <li><a href="profile.php?tables&a">Articles</a></li>
+                <li><a href="profile.php?tables&c">Comments</a></li>
+                <li><a href="profile.php?tables&i">Images</a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="btn btn-primary" href="profile.php?config">Config</a>
+              <ul>
+                <li><a href="profile.php?config">Manage Main Page</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
     </div>
-    <section class="col-md-10 color2">
+    <section class="col-md-10 color1">
       <?php
         include "controller/admincp-profile.controller.php";
       ?>
