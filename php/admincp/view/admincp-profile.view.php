@@ -26,7 +26,6 @@
     $user_table = $all_tables["users"];
     $article_table = $all_tables["articles"];
     $comments_table = $all_tables["comments"];
-    $images_table = $all_tables["imagenes"];
 
     if(isset($_GET["tables"])&&(!isset($_GET["u"])&&!isset($_GET["a"])&&!isset($_GET["c"])&&!isset($_GET["i"]))){
       foreach($all_tables as $label=>$tables){
@@ -73,10 +72,6 @@
         if(isset($_GET["c"])){
           $used_table = $comments_table;
           $name = "comments";
-        }
-        if(isset($_GET["i"])){
-          $used_table = $images_table;
-          $name = "imagenes";
         }
 
         echo "<div><h2>$name</h2>";

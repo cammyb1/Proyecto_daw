@@ -8,6 +8,7 @@
     <meta name="keywords" content="HTML,CSS,JavaScript,Inca,Imperio,Cultura">
     <link rel="shortcut icon" href="../../resources/logo.png">
     <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/fa/fontawesome-all.css">
     <title>Imperio inca</title>
   </head>
   <body>

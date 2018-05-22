@@ -13,7 +13,9 @@
   <link rel="stylesheet" type="text/css" href="../../css/main_style.css">
   <link rel="stylesheet" type="text/css" href="../../css/admincp/admin-profile.css">
   <script type="text/javascript" src="../../js/cp-profile.js"></script>
+  <script type="text/javascript" src="../../js/cp-editor.js"></script>
   <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="../../css/fa/fontawesome-all.css">
   <title>Admin control panel</title>
 </head>
 <body>
@@ -39,7 +41,6 @@
                 <li><a href="profile.php?tables&u">Users</a></li>
                 <li><a href="profile.php?tables&a">Articles</a></li>
                 <li><a href="profile.php?tables&c">Comments</a></li>
-                <li><a href="profile.php?tables&i">Images</a></li>
               </ul>
             </li>
             <li>

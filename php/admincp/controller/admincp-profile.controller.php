@@ -2,7 +2,7 @@
   include "model/admincp-profile.model.php";
 
   $log = new Logger();
-  $t_names = array("users","articles","comments","imagenes");
+  $t_names = array("users","articles","comments");
   $consultor = new Consultor($t_names[1]);
 
   if(!isset($_SESSION["usuario"])){

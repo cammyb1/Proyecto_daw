@@ -66,7 +66,7 @@ class Consultor{
         $result[]= $row;
       }
     }else{
-      $logger->console("[BD-ERR] $table_name no existe en la base de datos.");
+      $this->logger->console("[BD-ERR] $table_name no existe en la base de datos.");
     }
 
     return $result;
@@ -81,18 +81,19 @@ class Consultor{
         $sets[$i]=$this->db->escape_string($columns[$i]);
       }
 
-      $columns = implode(",",$columns)
+      $columns = implode(",",$columns);
       $sets = implode(",",$sets);
 
-      $consulta = "INSERT INTO ".$this->table."($columns) VALUES ($sets);"
+      $consulta = "INSERT INTO ".$this->table."($columns) VALUES ($sets);";
 
+      $this->logger->console($consulta);
       if($resultado = $this->db->query($consulta)){
-        $logger->console("[DB-LOG] Elemento ingresado correctamente");
+        $this->logger->console("[DB-LOG] Elemento ingresado correctamente");
       }else{
-        $logger->console("[DB-LOG] No se pudo ingresar el elemento");
+        $this->logger->console("[DB-LOG] No se pudo ingresar el elemento");
       }
     }else{
-      $logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
+      $this->logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
     }
   }
 
@@ -103,31 +104,31 @@ class Consultor{
 
       if($resulto = $this->db->query($consulta)){
         if($this->db->affected_rows > 0){
-          $logger->console("[DB-LOG] Hubo un total de ".$this->db->affected_rows." filas afectadas.");
+          $this->logger->console("[DB-LOG] Hubo un total de ".$this->db->affected_rows." filas afectadas.");
         }else{
-          $logger->console("[DB-LOG] No hubo filas afectadas");
+          $this->logger->console("[DB-LOG] No hubo filas afectadas");
         }
       }
     }else{
-      $logger->console("[COND-ERR] Comprueba los parametros de 'removeElement'");
+      $this->logger->console("[COND-ERR] Comprueba los parametros de 'removeElement'");
     }
   }
 
   public function updateElement($sets,$conditions,$operator=" AND "){
     if(is_array($conditions)&&is_array($sets)){
 
-      $conditions = implode($operator,$conditions)
+      $conditions = implode($operator,$conditions);
       $sets = implode(",",$sets);
 
-      $consulta = "UPDATE ".$this->table." SET $sets WHERE $conditions;"
+      $consulta = "UPDATE ".$this->table." SET $sets WHERE $conditions;";
 
       if($resultado = $this->db->query($consulta)){
-        $logger->console("[DB-LOG] Elemento actualizado correctamente");
+        $this->logger->console("[DB-LOG] Elemento actualizado correctamente");
       }else{
-        $logger->console("[DB-LOG] No se pudo ingresar el elemento");
+        $this->logger->console("[DB-LOG] No se pudo ingresar el elemento");
       }
     }else{
-      $logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
+      $this->logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
     }
   }
 
