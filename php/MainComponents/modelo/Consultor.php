@@ -3,6 +3,7 @@ class Consultor{
   private $table;
   private $db;
   private $conectar;
+  private $logger;
 
   public function __construct($table) {
       $this->table=(string) $table;
@@ -10,6 +11,7 @@ class Consultor{
       require_once 'Conexion.php';
       $this->conectar=new Connect();
       $this->db=$this->conectar->conectar();
+      $this->logger = new Logger();
   }
 
   public function getConetar(){
@@ -63,14 +65,74 @@ class Consultor{
         }
         $result[]= $row;
       }
+    }else{
+      $logger->console("[BD-ERR] $table_name no existe en la base de datos.");
     }
 
     return $result;
   }
 
+  public function insertElement($columns,$sets){
+    if(is_array($columns)&&is_array($sets)){
+      for ($i=0;$i<size_of($columns);$i++) {
+        $columns[$i]=$this->db->escape_string($columns[$i]);
+      }
+      for ($i=0;$i<size_of($sets);$i++) {
+        $sets[$i]=$this->db->escape_string($columns[$i]);
+      }
+
+      $columns = implode(",",$columns)
+      $sets = implode(",",$sets);
+
+      $consulta = "INSERT INTO ".$this->table."($columns) VALUES ($sets);"
+
+      if($resultado = $this->db->query($consulta)){
+        $logger->console("[DB-LOG] Elemento ingresado correctamente");
+      }else{
+        $logger->console("[DB-LOG] No se pudo ingresar el elemento");
+      }
+    }else{
+      $logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
+    }
+  }
+
+  public function removeElement($conditions,$operator=" AND "){
+    if(is_array($conditions)){
+      $condition = implode($operator,$conditions);
+      $consulta = "DELETE FROM $this->table WHERE $condition";
+
+      if($resulto = $this->db->query($consulta)){
+        if($this->db->affected_rows > 0){
+          $logger->console("[DB-LOG] Hubo un total de ".$this->db->affected_rows." filas afectadas.");
+        }else{
+          $logger->console("[DB-LOG] No hubo filas afectadas");
+        }
+      }
+    }else{
+      $logger->console("[COND-ERR] Comprueba los parametros de 'removeElement'");
+    }
+  }
+
+  public function updateElement($sets,$conditions,$operator=" AND "){
+    if(is_array($conditions)&&is_array($sets)){
+
+      $conditions = implode($operator,$conditions)
+      $sets = implode(",",$sets);
+
+      $consulta = "UPDATE ".$this->table." SET $sets WHERE $conditions;"
+
+      if($resultado = $this->db->query($consulta)){
+        $logger->console("[DB-LOG] Elemento actualizado correctamente");
+      }else{
+        $logger->console("[DB-LOG] No se pudo ingresar el elemento");
+      }
+    }else{
+      $logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
+    }
+  }
+
   public function getThisTables($tables){
     $result_tables = array();
-    $logger = new Logger();
 
     foreach($tables as $table){
       $result_tables[$table] = $this->getFullTable($table);
@@ -78,5 +140,7 @@ class Consultor{
 
     return $result_tables;
   }
+
+
 }
 ?>
