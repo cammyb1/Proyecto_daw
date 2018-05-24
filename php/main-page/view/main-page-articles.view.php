@@ -6,29 +6,28 @@
 
   if(isset($articles)){
     foreach($articles as $article){
-      $article_date = date($article["fecha"]);
+      $article_date = date($article["date"]);
 
-
-      echo `
+      echo '
         <article>
           <div class="upper">
-            <h1>{$article["title"]}</h1>
+            <h1>'.$article["title"].'</h1>
             <div>
-              <span>{date("h:i A",$article_date)}</span>/<span>{$users_names[$articles["user_id"]]}</span><span>{$article["topic"]}</span><span>{$article_likes[$article["id"]]}</span>
+              <span>'.date("h:i A",strtotime($article_date)).'</span>/<span>'.$users_names[$article["user_id"]].'</span>/<span>'.$article["topic"].'</span>/<span>'.$article_likes[$article["article_id"]].'</span>
             </div>
           </div>
           <div class="lower">
             <img src="" alt="previewimg">
-            <p>{$article["body"]}</p>
+            <p>'.$article["body"].'</p>
             <div class="share">
               <span>Share this at</span>
             </div>
           </div>
           <div class="more">
-            <a href="?{$article["id"]}">+</a>
+            <a href="?'.$article["article_id"].'">+</a>
           </div>
         </article>
-      `;
+      ';
     }
   }else{
     echo "<span>No se encontraron articulos</span>";

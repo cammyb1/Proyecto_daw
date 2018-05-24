@@ -1,6 +1,9 @@
 <?php
   session_start();
 
+  include "model/main-page-articles.model.php";
+
+
 
   $consultor = new Consultor("articles");
 
@@ -12,14 +15,17 @@
   $article_likes = array();
 
   foreach($users as $user){
-    $user_id[$user["id"]]=$user[$user["username"]];
+    $users_names[$user["user_id"]]=$user["username"];
   }
 
-  foreach($article_likes as $likes){
-    $article_likes[$likes["id"]]=$likes["amount"];
+  foreach($likes as $like){
+    $article_likes[$like["article_id"]]=$like["likes"];
   }
 
   $_SESSION["users_names"] = $users_names;
   $_SESSION["articles"] = $articles;
   $_SESSION["article_likes"] = $article_likes;
+
+
+  include "view/main-page-articles.view.php";
 ?>

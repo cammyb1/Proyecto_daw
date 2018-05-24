@@ -22,6 +22,10 @@ class Consultor{
       return $this->db;
   }
 
+  public function getTableName(){
+    return $this->table;
+  }
+
   public function getUser($username,$password){
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
@@ -40,14 +44,14 @@ class Consultor{
     return $object_output;
   }
 
-  public function getItemsBy($column,$value,$table = $this->table){
+  public function getItemsBy($column,$value,$table){
     $column = $this->db->escape_string($column);
     $value = $this->db->escape_string($value);
     $table = $this->db->escape_string($table);
     $result = array();
     $consulta = "SELECT * FROM $table WHERE $column=$value";
 
-    if($resultado = $this->db->query($consulta) {
+    if($resultado = $this->db->query($consulta) ){
       while($fila = $resultado->fetch_assoc()){
         $result[] = $fila;
       }

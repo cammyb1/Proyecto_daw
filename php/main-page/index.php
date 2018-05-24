@@ -37,7 +37,7 @@
       <div class="container">
       <section>
           <?php
-            include "main-page-articles.controller.php";
+            include "controller/main-page-articles.controller.php";
           ?>
       </section>
       <aside>
