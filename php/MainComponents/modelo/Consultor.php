@@ -22,11 +22,15 @@ class Consultor{
       return $this->db;
   }
 
+  public function getTableName(){
+    return $this->table;
+  }
+
   public function getUser($username,$password){
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
     $object_output = null;
-    $consulta = "SELECT user_id,name,lastname,username,email,fecha,type FROM $this->table WHERE username='$username' AND password=PASSWORD($password)";
+    $consulta = "SELECT user_id,name,lastname,username,email,fecha,type FROM users WHERE username='$username' AND password=PASSWORD($password)";
 
     if($this->userExist($username,$password)){
       if($resultado = $this->db->query($consulta)){
@@ -38,6 +42,25 @@ class Consultor{
     }
 
     return $object_output;
+  }
+
+  public function getItemsBy($column,$value,$table){
+    $column = $this->db->escape_string($column);
+    $value = $this->db->escape_string($value);
+    $table = $this->db->escape_string($table);
+    $result = array();
+    $consulta = "SELECT * FROM $table WHERE $column=$value";
+
+    if($resultado = $this->db->query($consulta) ){
+      while($fila = $resultado->fetch_assoc()){
+        $result[] = $fila;
+      }
+    }else{
+      $this->logger->console("[COND-ERR] Comprueba los parametros de 'getItemsBy'");
+      $result = array();
+    }
+
+    return $result;
   }
 
   public function userExist($username) {
@@ -54,6 +77,38 @@ class Consultor{
 
   public function getFullTable($table_name){
     $consulta = "SELECT * FROM $table_name";
+    $result = array();
+    $table_name = $this->db->escape_string($table_name);
+
+    if($resultado=$this->db->query($consulta)){
+      while($fila = $resultado->fetch_assoc()){
+        $row = array();
+        foreach($fila as $k=>$v){
+          $row[$k]=$v;
+        }
+        $result[]= $row;
+      }
+    }else{
+      $this->logger->console("[BD-ERR] $table_name no existe en la base de datos.");
+    }
+
+    return $result;
+  }
+
+  public function getTableSize($table_name){
+    $consulta = "SELECT COUNT(*) as size FROM $table_name";
+
+    if($resultado = $this->db->query($consulta)){
+      $row = $resultado->fetch_assoc();
+
+      return $row["size"];
+    }
+
+    return 0;
+  }
+
+  public function getLimitedTable($table_name,$limit_start,$limit_end){
+    $consulta = "SELECT * FROM $table_name LIMIT $limit_start,$limit_end";
     $result = array();
     $table_name = $this->db->escape_string($table_name);
 
