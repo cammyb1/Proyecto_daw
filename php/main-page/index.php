@@ -36,60 +36,9 @@
       </nav>
       <div class="container">
       <section>
-          <article>
-            <div class="upper">
-              <h1>titulo</h1>
-              <div>
-                <span>10:24PM</span>/<span>admin</span>/cultura/254
-              </div>
-            </div>
-            <div class="lower">
-              <img src="" alt="previewimg">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat labore molestias provident iure ipsa odit sit, vel minima debitis, error nisi accusantium incidunt natus delectus, autem voluptatum quae aliquid quaerat.l Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo aspernatur laboriosam, a officiis, accusantium minima autem. Cumque iusto explicabo maiores dolor quasi, ex cum omnis, modi delectus. Rem voluptate, asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos optio laudantium doloremque voluptatum aut cumque saepe, debitis aperiam corporis, tenetur expedita nam fugiat quidem sequi incidunt dolores mollitia vero a.</p>
-              <div class="share">
-                <span>Share this at</span>
-              </div>
-            </div>
-            <div class="more">
-              <a href="">+</a>
-            </div>
-          </article>
-          <article>
-            <div class="upper">
-              <h1>titulo</h1>
-              <div>
-                <span>10:24PM</span>/<span>admin</span>/cultura/254
-              </div>
-            </div>
-            <div class="lower">
-              <img src="" alt="previewimg">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat labore molestias provident iure ipsa odit sit, vel minima debitis, error nisi accusantium incidunt natus delectus, autem voluptatum quae aliquid quaerat.l Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo aspernatur laboriosam, a officiis, accusantium minima autem. Cumque iusto explicabo maiores dolor quasi, ex cum omnis, modi delectus. Rem voluptate, asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos optio laudantium doloremque voluptatum aut cumque saepe, debitis aperiam corporis, tenetur expedita nam fugiat quidem sequi incidunt dolores mollitia vero a.</p>
-              <div class="share">
-                <span>Share this at</span>
-              </div>
-            </div>
-            <div class="more">
-              <a href="">+</a>
-            </div>
-          </article>
-          <article>
-            <div class="upper">
-              <h1>titulo</h1>
-              <div>
-                <span>10:24PM</span>/<span>admin</span>/cultura/254
-              </div>
-            </div>
-            <div class="lower">
-              <img src="" alt="previewimg">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat labore molestias provident iure ipsa odit sit, vel minima debitis, error nisi accusantium incidunt natus delectus, autem voluptatum quae aliquid quaerat.l Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo aspernatur laboriosam, a officiis, accusantium minima autem. Cumque iusto explicabo maiores dolor quasi, ex cum omnis, modi delectus. Rem voluptate, asperiores.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos optio laudantium doloremque voluptatum aut cumque saepe, debitis aperiam corporis, tenetur expedita nam fugiat quidem sequi incidunt dolores mollitia vero a.</p>
-              <div class="share">
-                <span>Share this at</span>
-              </div>
-            </div>
-            <div class="more">
-              <a href="">+</a>
-            </div>
-          </article>
+          <?php
+            include "main-page-articles.controller.php";
+          ?>
       </section>
       <aside>
           <div class="aside popular">
