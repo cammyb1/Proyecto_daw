@@ -3,6 +3,7 @@ class Consultor{
   private $table;
   private $db;
   private $conectar;
+  private $logger;
 
   public function __construct($table) {
       $this->table=(string) $table;
@@ -10,6 +11,7 @@ class Consultor{
       require_once 'Conexion.php';
       $this->conectar=new Connect();
       $this->db=$this->conectar->conectar();
+      $this->logger = new Logger();
   }
 
   public function getConetar(){
@@ -20,16 +22,19 @@ class Consultor{
       return $this->db;
   }
 
+  public function getTableName(){
+    return $this->table;
+  }
+
   public function getUser($username,$password){
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
     $object_output = null;
-    $consulta = "SELECT user_id,name,lastname,username,email,fecha,type FROM $this->table WHERE username='$username' AND password=PASSWORD($password)";
+    $consulta = "SELECT user_id,name,lastname,username,email,fecha,type FROM users WHERE username='$username' AND password=PASSWORD($password)";
 
     if($this->userExist($username,$password)){
       if($resultado = $this->db->query($consulta)){
         $fila = $resultado->fetch_assoc();
-        $this->console_log($fila);
         $object_output = new User($fila["user_id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["fecha"],$fila["type"]);
 
         header("location:profile.php");
@@ -37,6 +42,25 @@ class Consultor{
     }
 
     return $object_output;
+  }
+
+  public function getItemsBy($column,$value,$table){
+    $column = $this->db->escape_string($column);
+    $value = $this->db->escape_string($value);
+    $table = $this->db->escape_string($table);
+    $result = array();
+    $consulta = "SELECT * FROM $table WHERE $column=$value";
+
+    if($resultado = $this->db->query($consulta) ){
+      while($fila = $resultado->fetch_assoc()){
+        $result[] = $fila;
+      }
+    }else{
+      $this->logger->console("[COND-ERR] Comprueba los parametros de 'getItemsBy'");
+      $result = array();
+    }
+
+    return $result;
   }
 
   public function userExist($username) {
@@ -51,13 +75,128 @@ class Consultor{
       return false;
   }
 
-  function console_log( $data ) {
-    $output = $data;
-    if ( is_array( $output ) )
-        $output = implode( ',', $output);
+  public function getFullTable($table_name){
+    $consulta = "SELECT * FROM $table_name";
+    $result = array();
+    $table_name = $this->db->escape_string($table_name);
 
-    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+    if($resultado=$this->db->query($consulta)){
+      while($fila = $resultado->fetch_assoc()){
+        $row = array();
+        foreach($fila as $k=>$v){
+          $row[$k]=$v;
+        }
+        $result[]= $row;
+      }
+    }else{
+      $this->logger->console("[BD-ERR] $table_name no existe en la base de datos.");
+    }
+
+    return $result;
   }
+
+  public function getTableSize($table_name){
+    $consulta = "SELECT COUNT(*) as size FROM $table_name";
+
+    if($resultado = $this->db->query($consulta)){
+      $row = $resultado->fetch_assoc();
+
+      return $row["size"];
+    }
+
+    return 0;
+  }
+
+  public function getLimitedTable($table_name,$limit_start,$limit_end){
+    $consulta = "SELECT * FROM $table_name LIMIT $limit_start,$limit_end";
+    $result = array();
+    $table_name = $this->db->escape_string($table_name);
+
+    if($resultado=$this->db->query($consulta)){
+      while($fila = $resultado->fetch_assoc()){
+        $row = array();
+        foreach($fila as $k=>$v){
+          $row[$k]=$v;
+        }
+        $result[]= $row;
+      }
+    }else{
+      $this->logger->console("[BD-ERR] $table_name no existe en la base de datos.");
+    }
+
+    return $result;
+  }
+
+  public function insertElement($columns,$sets){
+    if(is_array($columns)&&is_array($sets)){
+      for ($i=0;$i<size_of($columns);$i++) {
+        $columns[$i]=$this->db->escape_string($columns[$i]);
+      }
+      for ($i=0;$i<size_of($sets);$i++) {
+        $sets[$i]=$this->db->escape_string($columns[$i]);
+      }
+
+      $columns = implode(",",$columns);
+      $sets = implode(",",$sets);
+
+      $consulta = "INSERT INTO ".$this->table."($columns) VALUES ($sets);";
+
+      $this->logger->console($consulta);
+      if($resultado = $this->db->query($consulta)){
+        $this->logger->console("[DB-LOG] Elemento ingresado correctamente");
+      }else{
+        $this->logger->console("[DB-LOG] No se pudo ingresar el elemento");
+      }
+    }else{
+      $this->logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
+    }
+  }
+
+  public function removeElement($conditions,$operator=" AND "){
+    if(is_array($conditions)){
+      $condition = implode($operator,$conditions);
+      $consulta = "DELETE FROM $this->table WHERE $condition";
+
+      if($resulto = $this->db->query($consulta)){
+        if($this->db->affected_rows > 0){
+          $this->logger->console("[DB-LOG] Hubo un total de ".$this->db->affected_rows." filas afectadas.");
+        }else{
+          $this->logger->console("[DB-LOG] No hubo filas afectadas");
+        }
+      }
+    }else{
+      $this->logger->console("[COND-ERR] Comprueba los parametros de 'removeElement'");
+    }
+  }
+
+  public function updateElement($sets,$conditions,$operator=" AND "){
+    if(is_array($conditions)&&is_array($sets)){
+
+      $conditions = implode($operator,$conditions);
+      $sets = implode(",",$sets);
+
+      $consulta = "UPDATE ".$this->table." SET $sets WHERE $conditions;";
+
+      if($resultado = $this->db->query($consulta)){
+        $this->logger->console("[DB-LOG] Elemento actualizado correctamente");
+      }else{
+        $this->logger->console("[DB-LOG] No se pudo ingresar el elemento");
+      }
+    }else{
+      $this->logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
+    }
+  }
+
+  public function getThisTables($tables){
+    $result_tables = array();
+
+    foreach($tables as $table){
+      $result_tables[$table] = $this->getFullTable($table);
+    }
+
+    return $result_tables;
+  }
+
 
 }
 ?>

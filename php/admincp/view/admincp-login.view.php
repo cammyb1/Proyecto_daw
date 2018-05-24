@@ -1,4 +1,4 @@
-<form method="post" action="">
+<form method="POST" action="">
     <div class="col-12">
       <h1>Admin CP</h1>
     </div>

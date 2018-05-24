@@ -13,28 +13,50 @@
   <link rel="stylesheet" type="text/css" href="../../css/main_style.css">
   <link rel="stylesheet" type="text/css" href="../../css/admincp/admin-profile.css">
   <script type="text/javascript" src="../../js/cp-profile.js"></script>
+  <script type="text/javascript" src="../../js/cp-editor.js"></script>
   <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="../../css/fa/fontawesome-all.css">
   <title>Admin control panel</title>
 </head>
 <body>
   <div class="row">
-    <div class="col-md-2 color1 fullvh">
+    <div class="col-md-2 fullvh">
       <div class="container">
         <div class="row">
           <h1>Dashboard</h1>
         </div>
         <div>
           <ul>
-            <li><a class="btn btn-dark" href="">DashBoard</a></li>
-            <li><a class="btn btn-dark" href="">Articles</a></li>
-            <li><a class="btn btn-dark" href="">Tables</a></li>
-            <li><a class="btn btn-dark" href="">UI config</a></li>
+            <li><a class="btn btn-primary" href="profile.php?dash">DashBoard</a></li>
+            <li>
+              <a class="btn btn-primary" href="profile.php?articles">Articles</a>
+              <ul>
+                <li><a href="profile.php?articles">Add new Article</a></li>
+                <li><a href="profile.php?articles">Remove Article</a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="btn btn-primary" href="profile.php?tables">Tables</a>
+              <ul>
+                <li><a href="profile.php?tables&u">Users</a></li>
+                <li><a href="profile.php?tables&a">Articles</a></li>
+                <li><a href="profile.php?tables&c">Comments</a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="btn btn-primary" href="profile.php?config">Config</a>
+              <ul>
+                <li><a href="profile.php?config">Manage Main Page</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
     </div>
-    <section class="col-md-10 color2">
-
+    <section class="col-md-10 color1">
+      <?php
+        include "controller/admincp-profile.controller.php";
+      ?>
     </section>
   </div>
   <!--Bootstrap and jquery js-->
