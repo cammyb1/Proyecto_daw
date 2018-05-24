@@ -95,6 +95,38 @@ class Consultor{
     return $result;
   }
 
+  public function getTableSize($table_name){
+    $consulta = "SELECT COUNT(*) as size FROM $table_name";
+
+    if($resultado = $this->db->query($consulta)){
+      $row = $resultado->fetch_assoc();
+
+      return $row["size"];
+    }
+
+    return 0;
+  }
+
+  public function getLimitedTable($table_name,$limit_start,$limit_end){
+    $consulta = "SELECT * FROM $table_name LIMIT $limit_start,$limit_end";
+    $result = array();
+    $table_name = $this->db->escape_string($table_name);
+
+    if($resultado=$this->db->query($consulta)){
+      while($fila = $resultado->fetch_assoc()){
+        $row = array();
+        foreach($fila as $k=>$v){
+          $row[$k]=$v;
+        }
+        $result[]= $row;
+      }
+    }else{
+      $this->logger->console("[BD-ERR] $table_name no existe en la base de datos.");
+    }
+
+    return $result;
+  }
+
   public function insertElement($columns,$sets){
     if(is_array($columns)&&is_array($sets)){
       for ($i=0;$i<size_of($columns);$i++) {

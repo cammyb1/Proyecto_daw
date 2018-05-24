@@ -24,16 +24,6 @@
           </div>
         </div>
       </header>
-      <nav class="menu">
-        <div class="container">
-          <ul>
-            <li><a href="">Inicio</a></li>
-            <li><a href="">Cultura</a></li>
-            <li><a href="">Idioma</a></li>
-            <li><a href="">Guias</a></li>
-          </ul>
-        </div>
-      </nav>
       <div class="container">
       <section>
           <?php
@@ -103,7 +93,7 @@
     </div>
 
     <!--Bootstrap and jquery js-->
-    <script src="../js/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../js/bootstrap/bootstrap.min.js"></script>
+    <script src="../../js/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap/bootstrap.min.js"></script>
   </body>
 </html>
