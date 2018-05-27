@@ -26,8 +26,10 @@
     $user_table = $all_tables["users"];
     $article_table = $all_tables["articles"];
     $comments_table = $all_tables["comments"];
+    $likes_table = $all_tables["article_likes"];
+    $topics_table = $all_tables["topics"];
 
-    if(isset($_GET["tables"])&&(!isset($_GET["u"])&&!isset($_GET["a"])&&!isset($_GET["c"])&&!isset($_GET["i"]))){
+    if(isset($_GET["tables"])&&(!isset($_GET["u"])&&!isset($_GET["a"])&&!isset($_GET["c"])&&!isset($_GET["i"])&&!isset($_GET["t"])&&!isset($_GET["l"]))){
       foreach($all_tables as $label=>$tables){
         echo "<div><h2>$label</h2>";
         echo "<table class='table table-dark table-bordered'>";
@@ -63,15 +65,23 @@
 
         if(isset($_GET["u"])){
           $used_table = $user_table;
-          $name = "users";
+          $name = "Users";
         }
         if(isset($_GET["a"])){
           $used_table = $article_table;
-          $name = "articles";
+          $name = "Articles";
         }
         if(isset($_GET["c"])){
           $used_table = $comments_table;
-          $name = "comments";
+          $name = "Comments";
+        }
+        if(isset($_GET["t"])){
+          $used_table = $topics_table;
+          $name = "Topics";
+        }
+        if(isset($_GET["l"])){
+          $used_table = $likes_table;
+          $name = "Likes";
         }
 
         echo "<div><h2>$name</h2>";

@@ -41,6 +41,8 @@
                 <li><a href="profile.php?tables&u">Users</a></li>
                 <li><a href="profile.php?tables&a">Articles</a></li>
                 <li><a href="profile.php?tables&c">Comments</a></li>
+                <li><a href="profile.php?tables&t">Topics</a></li>
+                <li><a href="profile.php?tables&l">Likes</a></li>
               </ul>
             </li>
             <li>
