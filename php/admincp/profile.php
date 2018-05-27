@@ -12,9 +12,9 @@
   <link rel="shortcut icon" href="../../resources/logo.png">
   <link rel="stylesheet" type="text/css" href="../../css/main_style.css">
   <link rel="stylesheet" type="text/css" href="../../css/admincp/admin-profile.css">
-  <script type="text/javascript" src="../../js/cp-profile.js"></script>
-  <script type="text/javascript" src="../../js/cp-editor.js"></script>
   <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="../../css/bootstrap/bootstrap-tokenfield.min.css">
+  <link rel="stylesheet" href="../../css/jquery-ui/jquery-ui.min.css">
   <link rel="stylesheet" href="../../css/fa/fontawesome-all.css">
   <title>Admin control panel</title>
 </head>
@@ -61,6 +61,11 @@
   </div>
   <!--Bootstrap and jquery js-->
   <script src="../../js/jquery/jquery-3.3.1.min.js"></script>
+  <script src="../../js/jquery/jquery-ui.min.js"></script>
   <script src="../../js/bootstrap/bootstrap.min.js"></script>
+  <script src="../../js/bootstrap/bootstrap-tokenfield.js"></script>
+  <script src="../../js/bootstrap/bootstrap-tokenfield.min.js"></script>
+  <script type="text/javascript" src="../../js/cp-profile.js"></script>
+  <script type="text/javascript" src="../../js/cp-editor.js"></script>
 </body>
 </html>

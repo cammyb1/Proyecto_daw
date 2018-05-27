@@ -1,34 +1,48 @@
-window.onload = function(){
-  if(getParameterByName("articles")!=undefined){
-    richTextArea.document.designMode = "On";
-  }
-}
+$(document).ready(function () {
+    if(getParameterByName("articles")!=undefined){
+      richTextArea.document.designMode = "On";
 
-var showingSource = false;
+      $("#tags").tokenfield({
+        autocomplete:{
+          source:[],
+          delay:100
+        },
+        showAutocompleteOnFocus:true
+      });
+    }
+ });
 
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
 
-function execComm(command){
-  richTextArea.document.execCommand(command,false,null);
-}
+ var showingSource = false;
 
-function execCommWithArg(command,arg){
-  richTextArea.document.execCommand(command,false,arg);
-}
-function toggleSource(){
-  if(showingSource){
-    richTextArea.document.getElementsByTagName("body")[0].innerHTML = richTextArea.document.getElementsByTagName("body")[0].textContent;
-    showingSource=false;
-  }else{
-    richTextArea.document.getElementsByTagName("body")[0].textContent = richTextArea.document.getElementsByTagName("body")[0].innerHTML;
-    showingSource=true;
-  }
-}
+ function getParameterByName(name, url) {
+     if (!url) url = window.location.href;
+     name = name.replace(/[\[\]]/g, "\\$&");
+     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+         results = regex.exec(url);
+     if (!results) return null;
+     if (!results[2]) return '';
+     return decodeURIComponent(results[2].replace(/\+/g, " "));
+ }
+
+ function execComm(command){
+   richTextArea.document.execCommand(command,false,null);
+ }
+
+ function execCommWithArg(command,arg){
+   richTextArea.document.execCommand(command,false,arg);
+ }
+ function toggleSource(){
+   if(showingSource){
+     richTextArea.document.getElementsByTagName("body")[0].innerHTML = richTextArea.document.getElementsByTagName("body")[0].textContent;
+     showingSource=false;
+   }else{
+     richTextArea.document.getElementsByTagName("body")[0].textContent = richTextArea.document.getElementsByTagName("body")[0].innerHTML;
+     showingSource=true;
+   }
+ }
+
+ function submitForm(){
+   article_form.body.innerHTML = richTextArea.document.getElementsByTagName("body")[0].innerHTML;
+   article_form.submit();
+ }

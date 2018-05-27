@@ -1,8 +1,11 @@
 <div>
-  <form action="POST">
-    <label for="">Title</label><br>
-    <input type="text" name="a_title" size="100"><br><br>
+  <form action="" method="GET" name="article_form">
     <div>
+      <div class="form-group">
+        <label for="">Title</label><input type="text" name="a_title" size="100">
+        <label for="">Topic : </label><input type="text">
+        <label for="">Tags  </label><input type="text" class="form-control" id="tags">
+      </div>
       <div class="btn-group">
         <select class="custom-select" name="a_font" onclick="execCommWithArg('fontName',this.value)">
           <option value="Arial">Arial</option>
@@ -21,6 +24,8 @@
         <button type="button" class="btn btn-primary" onclick="execComm('justifyLeft')"><i class="fas fa-align-left"></i></button>
         <button type="button" class="btn btn-primary" onclick="execComm('justifyCenter')"><i class="fas fa-align-center"></i></button>
         <button type="button" class="btn btn-primary" onclick="execComm('justifyRight')"><i class="fas fa-align-right"></i></button>
+      </div>
+      <div class="btn-group">
         <button type="button" class="btn btn-primary" onclick="execComm('justifyFull')"><i class="fas fa-align-justify"></i></button>
         <button type="button" class="btn btn-primary" onclick="execComm('indent')"><i class="fas fa-indent"></i></button>
         <button type="button" class="btn btn-primary" onclick="execComm('outdent')"><i class="fas fa-outdent"></i></button>
@@ -34,14 +39,15 @@
         <button type="button" class="btn btn-primary" onclick="execComm('unlink')"><i class="fas fa-unlink"></i></button>
         <button type="button" class="btn btn-primary" onclick="execCommWithArg('insertImage',prompt('Ingresa la ruta de la imagen',''))"><i class="fas fa-image"></i></button>
         <button type="button" class="btn btn-primary" onclick="toggleSource()"><i class="fas fa-code"></i></button>
-
       </div>
       <div>
-        <textarea name="body" rows="8" cols="80" maxlength="5000" style="display:none;"></textarea>
+        <textarea name="body" rows="8" cols="80" maxlength="50000" style="display:none;"></textarea>
         <iframe name="richTextArea" style="width:1000px; height:500px; background-color: #fff;"></iframe>
       </div>
     </div>
-
+    <div>
+      <button type="button" class="btn btn-info" name="enviar" onclick="submitForm()">Enviar</button>
+    </div>
   </form>
 
 </div>

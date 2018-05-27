@@ -95,6 +95,25 @@ class Consultor{
     return $result;
   }
 
+  /*
+    $table_name = "Nombre de la tabla"
+    $cols = "Array de columnas a buscar"
+    $conditions = "Si hay alguna condicion de busqueda"
+    $orderBy = "Columna por la cual se quiere ordenar"
+    $groupBy = "Columna por la cual se quiere agrupar"
+  */
+  public function getTableComplex($table_name,$cols,$conditions,$orderBy,$groupBy,$operator=" OR "){
+    $table_name = $this->db->escape_string($table_name);
+    $orderBy = isset($orderBy)?"ORDER BY ".$this->db->escape_string($orderBy):"";
+    $groupBy = isset($groupBy)?"GROUP BY ".$this->db->escape_string($groupBy):"";
+    $conditions = isset($conditions)?"WHERE ".implode($operator, $conditions):"";
+    $cols = implode(",",$cols);
+
+    $consulta = "SELECT $cols FROM $table_name $conditions $orderBy $groupBy";
+
+    $this->logger->console($consulta);
+  }
+
   public function getTableSize($table_name){
     $consulta = "SELECT COUNT(*) as size FROM $table_name";
 

@@ -12,5 +12,7 @@
     $_SESSION["tables"] = $consultor->getThisTables($t_names);
   }
 
+  $consultor->getTableComplex("users",["username","id","password"],["id=15","username='cammyb'"],"username",null);
+
   include "view/admincp-profile.view.php";
 ?>
