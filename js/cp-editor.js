@@ -1,29 +1,31 @@
 $(document).ready(function () {
     if(getParameterByName("articles")!=undefined){
       richTextArea.document.designMode = "On";
+    }
 
+
+    get("model/admincp-tags.xhr.php",function(data){
       $("#tags").tokenfield({
         autocomplete:{
-          source:[],
+          source:JSON.parse(data),
           delay:100
         },
         showAutocompleteOnFocus:true
       });
-    }
+    });
+
+    get("model/admincp-topics.xhr.php",function(data){
+      let info = JSON.parse(data);
+      for(var i=0;i<info.length;i++){
+        $("#topic").append("<option value="+info[i]+">"+info[i]+"</option>");
+      }
+    });
+
  });
 
 
- var showingSource = false;
 
- function getParameterByName(name, url) {
-     if (!url) url = window.location.href;
-     name = name.replace(/[\[\]]/g, "\\$&");
-     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-         results = regex.exec(url);
-     if (!results) return null;
-     if (!results[2]) return '';
-     return decodeURIComponent(results[2].replace(/\+/g, " "));
- }
+ var showingSource = false;
 
  function execComm(command){
    richTextArea.document.execCommand(command,false,null);

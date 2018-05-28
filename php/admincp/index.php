@@ -24,7 +24,6 @@
     <script src="../../js/bootstrap/bootstrap.min.js"></script>
     <script src="../../js/bootstrap/bootstrap-tokenfield.js"></script>
     <script src="../../js/bootstrap/bootstrap-tokenfield.min.js"></script>
-    <script type="text/javascript" src="../../js/cp-profile.js"></script>
-    <script type="text/javascript" src="../../js/cp-editor.js"></script>
+    <script type="text/javascript" src="../../js/js-utils.js"></script>
   </body>
 </html>

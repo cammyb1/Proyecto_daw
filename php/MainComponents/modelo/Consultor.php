@@ -30,12 +30,13 @@ class Consultor{
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
     $object_output = null;
-    $consulta = "SELECT user_id,name,lastname,username,email,fecha,type FROM users WHERE username='$username' AND password=PASSWORD($password)";
+    $consulta = "SELECT id,name,lastname,username,email,fecha,type FROM users WHERE username='$username' AND password=PASSWORD($password)";
 
     if($this->userExist($username,$password)){
+      $this->logger->console($consulta);
       if($resultado = $this->db->query($consulta)){
         $fila = $resultado->fetch_assoc();
-        $object_output = new User($fila["user_id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["fecha"],$fila["type"]);
+        $object_output = new User($fila["id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["fecha"],$fila["type"]);
 
         header("location:profile.php");
       }
@@ -68,10 +69,15 @@ class Consultor{
       $consulta = "SELECT * FROM $this->table WHERE username='$username'";
       if($resultado=$this->db->query($consulta)){
         if($resultado->num_rows>0){
+
+          //TODO: Remember to delete this for security
+          $this->logger->console("[DB-RESULT] User $username exist in database.");
           return true;
         }
       }
 
+      //TODO: this too
+      $this->logger->console("[DB-ERROR] User $username does not exist in database.");
       return false;
   }
 
@@ -108,10 +114,35 @@ class Consultor{
     $groupBy = isset($groupBy)?"GROUP BY ".$this->db->escape_string($groupBy):"";
     $conditions = isset($conditions)?"WHERE ".implode($operator, $conditions):"";
     $cols = implode(",",$cols);
+    $result = array();
 
     $consulta = "SELECT $cols FROM $table_name $conditions $orderBy $groupBy";
 
-    $this->logger->console($consulta);
+    if($resultado = $this->db->query($consulta)){
+      while($row = $resultado->fetch_assoc()){
+        $row_values = array();
+        foreach($row as $k=>$v){
+          $row_values[$k]=$v;
+        }
+        $result[] = $row_values;
+      }
+    }
+
+    return $result;
+  }
+
+  public function getTableCol($col_name,$table_name){
+    $col_name = $this->db->escape_string($col_name);
+    $consulta = "SELECT $col_name FROM $table_name";
+    $result = array();
+
+    if($resultado = $this->db->query($consulta)){
+      while($row = $resultado->fetch_assoc()){
+        $result[] = $row[$col_name];
+      }
+    }
+
+    return $result;
   }
 
   public function getTableSize($table_name){

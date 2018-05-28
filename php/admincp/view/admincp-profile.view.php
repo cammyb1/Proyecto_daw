@@ -28,8 +28,11 @@
     $comments_table = $all_tables["comments"];
     $likes_table = $all_tables["article_likes"];
     $topics_table = $all_tables["topics"];
+    $tags_table = $all_tables["tags"];
+    $tumbnail_table = $all_tables["tumbnails"];
 
-    if(isset($_GET["tables"])&&(!isset($_GET["u"])&&!isset($_GET["a"])&&!isset($_GET["c"])&&!isset($_GET["i"])&&!isset($_GET["t"])&&!isset($_GET["l"]))){
+    if(isset($_GET["tables"])&&(!isset($_GET["u"])&&!isset($_GET["a"])
+    &&!isset($_GET["c"])&&!isset($_GET["i"])&&!isset($_GET["t"])&&!isset($_GET["l"])&&!isset($_GET["ta"])&&!isset($_GET["tumb"]))){
       foreach($all_tables as $label=>$tables){
         echo "<div><h2>$label</h2>";
         echo "<table class='table table-dark table-bordered'>";
@@ -83,6 +86,14 @@
           $used_table = $likes_table;
           $name = "Likes";
         }
+        if(isset($_GET["ta"])){
+          $used_table = $tags_table;
+          $name = "Tags";
+        }
+        if(isset($_GET["tumb"])){
+          $used_table = $tumbnail_table;
+          $name = "Tumbnails";
+        }
 
         echo "<div><h2>$name</h2>";
         echo "<table class='table table-dark table-bordered'>";
@@ -113,6 +124,10 @@
 
       }
     }
+    echo "<div class='jumbotron'>
+      <h2>Titulo jumbo</h2>
+      <p>texto de prueba</p>
+    </div>";
   }
   //-- FIN TABLAS --
 

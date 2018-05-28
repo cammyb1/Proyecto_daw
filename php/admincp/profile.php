@@ -43,6 +43,8 @@
                 <li><a href="profile.php?tables&c">Comments</a></li>
                 <li><a href="profile.php?tables&t">Topics</a></li>
                 <li><a href="profile.php?tables&l">Likes</a></li>
+                <li><a href="profile.php?tables&ta">Tags</a></li>
+                <li><a href="profile.php?tables&tumb">Tumbnails</a></li>
               </ul>
             </li>
             <li>
@@ -69,5 +71,6 @@
   <script src="../../js/bootstrap/bootstrap-tokenfield.min.js"></script>
   <script type="text/javascript" src="../../js/cp-profile.js"></script>
   <script type="text/javascript" src="../../js/cp-editor.js"></script>
+  <script type="text/javascript" src="../../js/js-utils.js"></script>
 </body>
 </html>

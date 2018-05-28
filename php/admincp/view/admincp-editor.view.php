@@ -1,10 +1,17 @@
 <div>
-  <form action="" method="GET" name="article_form">
+  <form action="" method="POST" enctype="multipart/form-data" name="article_form">
     <div>
       <div class="form-group">
         <label for="">Title</label><input type="text" name="a_title" size="100">
-        <label for="">Topic : </label><input type="text">
-        <label for="">Tags  </label><input type="text" class="form-control" id="tags">
+        <div class="input-group">
+          <label for="">Topic : </label>
+          <select class="custom-select" name="a_topic" id="topic">
+
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="">Tags  </label><input type="text" id="tags">
+        </div>
       </div>
       <div class="btn-group">
         <select class="custom-select" name="a_font" onclick="execCommWithArg('fontName',this.value)">
@@ -40,13 +47,16 @@
         <button type="button" class="btn btn-primary" onclick="execCommWithArg('insertImage',prompt('Ingresa la ruta de la imagen',''))"><i class="fas fa-image"></i></button>
         <button type="button" class="btn btn-primary" onclick="toggleSource()"><i class="fas fa-code"></i></button>
       </div>
-      <div>
+      <div class="form-group">
         <textarea name="body" rows="8" cols="80" maxlength="50000" style="display:none;"></textarea>
         <iframe name="richTextArea" style="width:1000px; height:500px; background-color: #fff;"></iframe>
       </div>
+      <div class="form-group">
+        <input type="file" name="article_tumb" class="file">
+      </div>
     </div>
     <div>
-      <button type="button" class="btn btn-info" name="enviar" onclick="submitForm()">Enviar</button>
+      <button type="button" class="btn btn-info" name="enviar" onclick="submitForm()">Subir articulo</button>
     </div>
   </form>
 
