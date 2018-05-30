@@ -3,6 +3,9 @@ $(document).ready(function () {
       richTextArea.document.designMode = "On";
     }
 
+    $("#alert-close").click(function(){
+      $("#alert-box").hide("fade");
+    });
 
     get("model/admincp-tags.xhr.php",function(data){
       $("#tags").tokenfield({
@@ -46,5 +49,7 @@ $(document).ready(function () {
 
  function submitForm(){
    article_form.body.innerHTML = richTextArea.document.getElementsByTagName("body")[0].innerHTML;
-   article_form.submit();
+    if(formValidation(article_form)){
+      article_form.submit();
+    }
  }

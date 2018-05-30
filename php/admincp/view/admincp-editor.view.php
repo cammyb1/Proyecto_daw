@@ -1,16 +1,20 @@
 <div>
+  <div id="alert-box" class="alert alert-danger collapse">
+    <h4 class="alert-heading" id="alert-title"></h4>
+    <div id='alert-message'>
+      <ul id="alert-list"></ul>
+    </div>
+    <a href="#" class="close" id="alert-close">&times;</a>
+  </div>
   <form action="" method="POST" enctype="multipart/form-data" name="article_form">
     <div>
       <div class="form-group">
-        <label for="">Title</label><input type="text" name="a_title" size="100">
+        <label for="" id="input-label">Title</label><input type="text" name="a_title" size="100">
         <div class="input-group">
-          <label for="">Topic : </label>
-          <select class="custom-select" name="a_topic" id="topic">
-
-          </select>
+          <label for="">Topic : </label><select class="custom-select" name="a_topic" id="topic"></select>
         </div>
         <div class="input-group">
-          <label for="">Tags  </label><input type="text" id="tags">
+          <label for="" id="input-label">Tags  </label><input type="text" name="tags" id="tags">
         </div>
       </div>
       <div class="btn-group">
@@ -31,8 +35,6 @@
         <button type="button" class="btn btn-primary" onclick="execComm('justifyLeft')"><i class="fas fa-align-left"></i></button>
         <button type="button" class="btn btn-primary" onclick="execComm('justifyCenter')"><i class="fas fa-align-center"></i></button>
         <button type="button" class="btn btn-primary" onclick="execComm('justifyRight')"><i class="fas fa-align-right"></i></button>
-      </div>
-      <div class="btn-group">
         <button type="button" class="btn btn-primary" onclick="execComm('justifyFull')"><i class="fas fa-align-justify"></i></button>
         <button type="button" class="btn btn-primary" onclick="execComm('indent')"><i class="fas fa-indent"></i></button>
         <button type="button" class="btn btn-primary" onclick="execComm('outdent')"><i class="fas fa-outdent"></i></button>
@@ -52,11 +54,11 @@
         <iframe name="richTextArea" style="width:1000px; height:500px; background-color: #fff;"></iframe>
       </div>
       <div class="form-group">
-        <input type="file" name="article_tumb" class="file">
+        <label for="" id="input-label">Archivo: </label><input type="file" name="article_tumb" class="file">
       </div>
     </div>
     <div>
-      <button type="button" class="btn btn-info" name="enviar" onclick="submitForm()">Subir articulo</button>
+      <input type="button" class="btn btn-info" name="enviar" onclick="submitForm()" value="Subir articulo"/>
     </div>
   </form>
 

@@ -12,7 +12,7 @@
   <link rel="shortcut icon" href="../../resources/logo.png">
   <link rel="stylesheet" type="text/css" href="../../css/main_style.css">
   <link rel="stylesheet" type="text/css" href="../../css/admincp/admin-profile.css">
-  <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="../../css/bootstrap/bootstrap.css">
   <link rel="stylesheet" href="../../css/bootstrap/bootstrap-tokenfield.min.css">
   <link rel="stylesheet" href="../../css/jquery-ui/jquery-ui.min.css">
   <link rel="stylesheet" href="../../css/fa/fontawesome-all.css">

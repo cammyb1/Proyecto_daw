@@ -1,7 +1,7 @@
 <?php
   include "model/admincp-profile.model.php";
+  include "model/admincp-editor.model.php";
 
-  $log = new Logger();
   $t_names = array("users","articles","comments","topics","article_likes","tags","tumbnails");
   $consultor = new Consultor($t_names[1]);
 
