@@ -3,6 +3,7 @@
   // -- DASHBOARD!!! --
   if(isset($_GET["dash"])){
     echo "<h1>Dashboard!!</h1>";
+    include "view/admincp-dashboard.view.php";
   }
   // -- FIN dashboard!!! --
 

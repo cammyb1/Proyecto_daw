@@ -179,11 +179,11 @@ class Consultor{
 
   public function insertElement($columns,$sets){
     if(is_array($columns)&&is_array($sets)){
-      for ($i=0;$i<size_of($columns);$i++) {
+      for ($i=0;$i<sizeof($columns);$i++) {
         $columns[$i]=$this->db->escape_string($columns[$i]);
       }
-      for ($i=0;$i<size_of($sets);$i++) {
-        $sets[$i]=$this->db->escape_string($columns[$i]);
+      for ($i=0;$i<sizeof($sets);$i++) {
+        $sets[$i]="'".$this->db->escape_string($sets[$i])."'";
       }
 
       $columns = implode(",",$columns);

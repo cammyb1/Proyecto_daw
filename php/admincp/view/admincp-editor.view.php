@@ -14,11 +14,11 @@
           <label for="">Topic : </label><select class="custom-select" name="a_topic" id="topic"></select>
         </div>
         <div class="input-group">
-          <label for="" id="input-label">Tags  </label><input type="text" name="tags" id="tags">
+          <label for="" id="input-label">Tags  </label><input type="text" name="a_tags" id="tags">
         </div>
       </div>
       <div class="btn-group">
-        <select class="custom-select" name="a_font" onclick="execCommWithArg('fontName',this.value)">
+        <select class="custom-select" onclick="execCommWithArg('fontName',this.value)">
           <option value="Arial">Arial</option>
           <option value="Calibri">Calibri</option>
           <option value="Courier">Courier</option>
@@ -58,7 +58,7 @@
       </div>
     </div>
     <div>
-      <input type="button" class="btn btn-info" name="enviar" onclick="submitForm()" value="Subir articulo"/>
+      <input type="button" class="btn btn-info" name="Enviar" id="a_send" value="Subir articulo"/>
     </div>
   </form>
 

@@ -7,6 +7,8 @@ $(document).ready(function () {
       $("#alert-box").hide("fade");
     });
 
+    $("#a_send").click(submitForm);
+
     get("model/admincp-tags.xhr.php",function(data){
       $("#tags").tokenfield({
         autocomplete:{
