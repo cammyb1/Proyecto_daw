@@ -1,10 +1,24 @@
 <div>
-  <form action="POST">
-    <label for="">Title</label><br>
-    <input type="text" name="a_title" size="100"><br><br>
+  <div id="alert-box" class="alert alert-danger collapse">
+    <h4 class="alert-heading" id="alert-title"></h4>
+    <div id='alert-message'>
+      <ul id="alert-list"></ul>
+    </div>
+    <a href="#" class="close" id="alert-close">&times;</a>
+  </div>
+  <form action="" method="POST" enctype="multipart/form-data" name="article_form">
     <div>
+      <div class="form-group">
+        <label for="" id="input-label">Title</label><input type="text" name="a_title" size="100">
+        <div class="input-group">
+          <label for="">Topic : </label><select class="custom-select" name="a_topic" id="topic"></select>
+        </div>
+        <div class="input-group">
+          <label for="" id="input-label">Tags  </label><input type="text" name="a_tags" id="tags">
+        </div>
+      </div>
       <div class="btn-group">
-        <select class="custom-select" name="a_font" onclick="execCommWithArg('fontName',this.value)">
+        <select class="custom-select" onclick="execCommWithArg('fontName',this.value)">
           <option value="Arial">Arial</option>
           <option value="Calibri">Calibri</option>
           <option value="Courier">Courier</option>
@@ -34,14 +48,18 @@
         <button type="button" class="btn btn-primary" onclick="execComm('unlink')"><i class="fas fa-unlink"></i></button>
         <button type="button" class="btn btn-primary" onclick="execCommWithArg('insertImage',prompt('Ingresa la ruta de la imagen',''))"><i class="fas fa-image"></i></button>
         <button type="button" class="btn btn-primary" onclick="toggleSource()"><i class="fas fa-code"></i></button>
-
       </div>
-      <div>
-        <textarea name="body" rows="8" cols="80" maxlength="5000" style="display:none;"></textarea>
+      <div class="form-group">
+        <textarea name="body" rows="8" cols="80" maxlength="50000" style="display:none;"></textarea>
         <iframe name="richTextArea" style="width:1000px; height:500px; background-color: #fff;"></iframe>
       </div>
+      <div class="form-group">
+        <label for="" id="input-label">Archivo: </label><input type="file" name="article_tumb" class="file">
+      </div>
     </div>
-
+    <div>
+      <input type="submit" class="btn btn-info" name="Enviar" id="a_send" value="Subir articulo"/>
+    </div>
   </form>
 
 </div>

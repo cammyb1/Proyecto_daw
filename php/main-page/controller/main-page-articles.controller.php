@@ -31,7 +31,7 @@
   $article_likes = array();
 
   foreach($users as $user){
-    $users_names[$user["user_id"]]=$user["username"];
+    $users_names[$user["id"]]=$user["username"];
   }
 
   foreach($likes as $like){

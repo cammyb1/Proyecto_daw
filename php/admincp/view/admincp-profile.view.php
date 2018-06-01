@@ -1,8 +1,8 @@
 <?php
-
   // -- DASHBOARD!!! --
-  if(isset($_GET["dash"])){
+  if(sizeof($_GET)==0){
     echo "<h1>Dashboard!!</h1>";
+    include "view/admincp-dashboard.view.php";
   }
   // -- FIN dashboard!!! --
 
@@ -26,8 +26,12 @@
     $user_table = $all_tables["users"];
     $article_table = $all_tables["articles"];
     $comments_table = $all_tables["comments"];
+    $likes_table = $all_tables["article_likes"];
+    $topics_table = $all_tables["topics"];
+    $tags_table = $all_tables["tags"];
 
-    if(isset($_GET["tables"])&&(!isset($_GET["u"])&&!isset($_GET["a"])&&!isset($_GET["c"])&&!isset($_GET["i"]))){
+    if(isset($_GET["tables"])&&(!isset($_GET["u"])&&!isset($_GET["a"])
+    &&!isset($_GET["c"])&&!isset($_GET["i"])&&!isset($_GET["t"])&&!isset($_GET["l"])&&!isset($_GET["ta"]))){
       foreach($all_tables as $label=>$tables){
         echo "<div><h2>$label</h2>";
         echo "<table class='table table-dark table-bordered'>";
@@ -63,15 +67,27 @@
 
         if(isset($_GET["u"])){
           $used_table = $user_table;
-          $name = "users";
+          $name = "Users";
         }
         if(isset($_GET["a"])){
           $used_table = $article_table;
-          $name = "articles";
+          $name = "Articles";
         }
         if(isset($_GET["c"])){
           $used_table = $comments_table;
-          $name = "comments";
+          $name = "Comments";
+        }
+        if(isset($_GET["t"])){
+          $used_table = $topics_table;
+          $name = "Topics";
+        }
+        if(isset($_GET["l"])){
+          $used_table = $likes_table;
+          $name = "Likes";
+        }
+        if(isset($_GET["ta"])){
+          $used_table = $tags_table;
+          $name = "Tags";
         }
 
         echo "<div><h2>$name</h2>";
@@ -103,6 +119,10 @@
 
       }
     }
+    echo "<div class='jumbotron'>
+      <h2>Titulo jumbo</h2>
+      <p>texto de prueba</p>
+    </div>";
   }
   //-- FIN TABLAS --
 

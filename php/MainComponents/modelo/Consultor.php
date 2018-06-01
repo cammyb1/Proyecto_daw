@@ -30,12 +30,13 @@ class Consultor{
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
     $object_output = null;
-    $consulta = "SELECT user_id,name,lastname,username,email,fecha,type FROM users WHERE username='$username' AND password=PASSWORD($password)";
+    $consulta = "SELECT id,name,lastname,username,email,fecha,type FROM users WHERE username='$username' AND password=PASSWORD($password)";
 
     if($this->userExist($username,$password)){
+      $this->logger->console($consulta);
       if($resultado = $this->db->query($consulta)){
         $fila = $resultado->fetch_assoc();
-        $object_output = new User($fila["user_id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["fecha"],$fila["type"]);
+        $object_output = new User($fila["id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["fecha"],$fila["type"]);
 
         header("location:profile.php");
       }
@@ -68,10 +69,15 @@ class Consultor{
       $consulta = "SELECT * FROM $this->table WHERE username='$username'";
       if($resultado=$this->db->query($consulta)){
         if($resultado->num_rows>0){
+
+          //TODO: Remember to delete this for security
+          $this->logger->console("[DB-RESULT] User $username exist in database.");
           return true;
         }
       }
 
+      //TODO: this too
+      $this->logger->console("[DB-ERROR] User $username does not exist in database.");
       return false;
   }
 
@@ -90,6 +96,50 @@ class Consultor{
       }
     }else{
       $this->logger->console("[BD-ERR] $table_name no existe en la base de datos.");
+    }
+
+    return $result;
+  }
+
+  /*
+    $table_name = "Nombre de la tabla"
+    $cols = "Array de columnas a buscar"
+    $conditions = "Si hay alguna condicion de busqueda"
+    $orderBy = "Columna por la cual se quiere ordenar"
+    $groupBy = "Columna por la cual se quiere agrupar"
+  */
+  public function getTableComplex($table_name,$cols,$conditions,$orderBy,$groupBy,$operator=" OR "){
+    $table_name = $this->db->escape_string($table_name);
+    $orderBy = isset($orderBy)?"ORDER BY ".$this->db->escape_string($orderBy):"";
+    $groupBy = isset($groupBy)?"GROUP BY ".$this->db->escape_string($groupBy):"";
+    $conditions = isset($conditions)?"WHERE ".implode($operator, $conditions):"";
+    $cols = implode(",",$cols);
+    $result = array();
+
+    $consulta = "SELECT $cols FROM $table_name $conditions $orderBy $groupBy";
+
+    if($resultado = $this->db->query($consulta)){
+      while($row = $resultado->fetch_assoc()){
+        $row_values = array();
+        foreach($row as $k=>$v){
+          $row_values[$k]=$v;
+        }
+        $result[] = $row_values;
+      }
+    }
+
+    return $result;
+  }
+
+  public function getTableCol($col_name,$table_name){
+    $col_name = $this->db->escape_string($col_name);
+    $consulta = "SELECT $col_name FROM $table_name";
+    $result = array();
+
+    if($resultado = $this->db->query($consulta)){
+      while($row = $resultado->fetch_assoc()){
+        $result[] = $row[$col_name];
+      }
     }
 
     return $result;
@@ -129,11 +179,15 @@ class Consultor{
 
   public function insertElement($columns,$sets){
     if(is_array($columns)&&is_array($sets)){
-      for ($i=0;$i<size_of($columns);$i++) {
+      for ($i=0;$i<sizeof($columns);$i++) {
         $columns[$i]=$this->db->escape_string($columns[$i]);
       }
-      for ($i=0;$i<size_of($sets);$i++) {
-        $sets[$i]=$this->db->escape_string($columns[$i]);
+      for ($i=0;$i<sizeof($sets);$i++) {
+        if(strpos($sets[$i],"()") !== false){
+          $sets[$i]=$this->db->escape_string($sets[$i]);
+        }else{
+          $sets[$i]="'".$this->db->escape_string($sets[$i])."'";
+        }
       }
 
       $columns = implode(",",$columns);
@@ -144,12 +198,15 @@ class Consultor{
       $this->logger->console($consulta);
       if($resultado = $this->db->query($consulta)){
         $this->logger->console("[DB-LOG] Elemento ingresado correctamente");
+        return true;
       }else{
         $this->logger->console("[DB-LOG] No se pudo ingresar el elemento");
       }
     }else{
       $this->logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
     }
+
+    return false;
   }
 
   public function removeElement($conditions,$operator=" AND "){
