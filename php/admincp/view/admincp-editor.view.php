@@ -58,7 +58,7 @@
       </div>
     </div>
     <div>
-      <input type="button" class="btn btn-info" name="Enviar" id="a_send" value="Subir articulo"/>
+      <input type="submit" class="btn btn-info" name="Enviar" id="a_send" value="Subir articulo"/>
     </div>
   </form>
 

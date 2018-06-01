@@ -15,7 +15,7 @@
       <?php
           echo "<ul class='list-group'>";
           for($i=0;$i<5;$i++){
-            $article = isset($articles[$i])?$articles[$i]:null;
+            $article = isset($articles[($total_articles-1)-$i])?$articles[($total_articles-1)-$i]:null;
             if(isset($article)){
               echo "<li class='list-group-item'><span class='badge badge-primary'>".($i+1)."</span> ".$article["title"]." <span class='float-right'>".date("H:i a",strtotime($article["date"]))."</span></li>";
             }

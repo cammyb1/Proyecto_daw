@@ -27,7 +27,7 @@
         </div>
         <div>
           <ul>
-            <li><a class="btn btn-primary" href="profile.php?dash">DashBoard</a></li>
+            <li><a class="btn btn-primary" href="profile.php">DashBoard</a></li>
             <li>
               <a class="btn btn-primary" href="profile.php?articles">Articles</a>
               <ul>
@@ -44,7 +44,6 @@
                 <li><a href="profile.php?tables&t">Topics</a></li>
                 <li><a href="profile.php?tables&l">Likes</a></li>
                 <li><a href="profile.php?tables&ta">Tags</a></li>
-                <li><a href="profile.php?tables&tumb">Tumbnails</a></li>
               </ul>
             </li>
             <li>

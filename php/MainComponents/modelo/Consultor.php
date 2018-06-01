@@ -183,7 +183,11 @@ class Consultor{
         $columns[$i]=$this->db->escape_string($columns[$i]);
       }
       for ($i=0;$i<sizeof($sets);$i++) {
-        $sets[$i]="'".$this->db->escape_string($sets[$i])."'";
+        if(strpos($sets[$i],"()") !== false){
+          $sets[$i]=$this->db->escape_string($sets[$i]);
+        }else{
+          $sets[$i]="'".$this->db->escape_string($sets[$i])."'";
+        }
       }
 
       $columns = implode(",",$columns);
@@ -194,12 +198,15 @@ class Consultor{
       $this->logger->console($consulta);
       if($resultado = $this->db->query($consulta)){
         $this->logger->console("[DB-LOG] Elemento ingresado correctamente");
+        return true;
       }else{
         $this->logger->console("[DB-LOG] No se pudo ingresar el elemento");
       }
     }else{
       $this->logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
     }
+
+    return false;
   }
 
   public function removeElement($conditions,$operator=" AND "){

@@ -21,14 +21,14 @@
               </div>
             </div>
             <div class="lower">
-              <img src="" alt="previewimg">
+              <img src="../../resources/tumbnails/'.$article["tumbnail"].'" alt="previewimg">
               <p>'.$article["body"].'</p>
               <div class="share">
                 <span>Share this at</span>
               </div>
             </div>
             <div class="more">
-              <a href="?article='.$article["article_id"].'">+</a>
+              <a href="index.php?article='.$article["article_id"].'">+</a>
             </div>
           </article>
         ';
