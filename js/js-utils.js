@@ -5,6 +5,14 @@ function get(url,success){
    success
   });
 }
+function post(url,data,success){
+  $.ajax({
+   url,
+   type:"post",
+   data,
+   success
+  });
+}
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;

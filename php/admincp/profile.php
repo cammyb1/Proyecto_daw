@@ -57,9 +57,14 @@
       </div>
     </div>
     <section class="col-md-10 color1">
-      <?php
-        include "controller/admincp-profile.controller.php";
-      ?>
+      <div class="bg-dark clearfix container-fluid">
+        <a class="btn btn-primary float-right" href="logout.php">Log out</a>
+      </div>
+      <div>
+        <?php
+          include "controller/admincp-profile.controller.php";
+        ?>
+      </div>
     </section>
   </div>
   <!--Bootstrap and jquery js-->

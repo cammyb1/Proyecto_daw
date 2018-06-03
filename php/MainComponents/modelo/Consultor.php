@@ -1,14 +1,11 @@
 <?php
 class Consultor{
-  private $table;
   private $db;
   private $conectar;
   private $logger;
 
-  public function __construct($table) {
-      $this->table=(string) $table;
-
-      require_once 'Conexion.php';
+  public function __construct() {
+      require_once('Conexion.php');
       $this->conectar=new Connect();
       $this->db=$this->conectar->conectar();
       $this->logger = new Logger();
@@ -22,17 +19,13 @@ class Consultor{
       return $this->db;
   }
 
-  public function getTableName(){
-    return $this->table;
-  }
-
   public function getUser($username,$password){
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
     $object_output = null;
     $consulta = "SELECT id,name,lastname,username,email,fecha,type FROM users WHERE username='$username' AND password=PASSWORD($password)";
 
-    if($this->userExist($username,$password)){
+    if($this->elemetExist("users","username",$username)){
       $this->logger->console($consulta);
       if($resultado = $this->db->query($consulta)){
         $fila = $resultado->fetch_assoc();
@@ -45,13 +38,14 @@ class Consultor{
     return $object_output;
   }
 
-  public function getItemsBy($column,$value,$table){
+  public function getItemsBy($table,$column,$value){
     $column = $this->db->escape_string($column);
     $value = $this->db->escape_string($value);
     $table = $this->db->escape_string($table);
     $result = array();
     $consulta = "SELECT * FROM $table WHERE $column=$value";
 
+    $this->logger->console($consulta);
     if($resultado = $this->db->query($consulta) ){
       while($fila = $resultado->fetch_assoc()){
         $result[] = $fila;
@@ -64,9 +58,10 @@ class Consultor{
     return $result;
   }
 
-  public function userExist($username) {
-      $username = $this->db->escape_string($username);
-      $consulta = "SELECT * FROM $this->table WHERE username='$username'";
+  public function elemetExist($table_name,$column_name,$colum_value) {
+      $column_name = $this->db->escape_string($column_name);
+      $colum_value = $this->db->escape_string($colum_value);
+      $consulta = "SELECT * FROM $table_name WHERE $column_name='$colum_value'";
       if($resultado=$this->db->query($consulta)){
         if($resultado->num_rows>0){
 
@@ -82,10 +77,11 @@ class Consultor{
   }
 
   public function getFullTable($table_name){
-    $consulta = "SELECT * FROM $table_name";
     $result = array();
     $table_name = $this->db->escape_string($table_name);
+    $consulta = "SELECT * FROM $table_name";
 
+    $this->logger->console($consulta);
     if($resultado=$this->db->query($consulta)){
       while($fila = $resultado->fetch_assoc()){
         $row = array();
@@ -157,10 +153,11 @@ class Consultor{
     return 0;
   }
 
-  public function getLimitedTable($table_name,$limit_start,$limit_end){
-    $consulta = "SELECT * FROM $table_name LIMIT $limit_start,$limit_end";
+  public function getLimitedTable($table_name,$limit_start,$limit_end,$col_name,$order="DESC"){
     $result = array();
     $table_name = $this->db->escape_string($table_name);
+    $col_name = $this->db->escape_string($col_name);
+    $consulta = "SELECT * FROM $table_name ORDER BY $col_name $order LIMIT $limit_start,$limit_end";
 
     if($resultado=$this->db->query($consulta)){
       while($fila = $resultado->fetch_assoc()){
@@ -177,7 +174,7 @@ class Consultor{
     return $result;
   }
 
-  public function insertElement($columns,$sets){
+  public function insertElement($table_name,$columns,$sets){
     if(is_array($columns)&&is_array($sets)){
       for ($i=0;$i<sizeof($columns);$i++) {
         $columns[$i]=$this->db->escape_string($columns[$i]);
@@ -193,7 +190,7 @@ class Consultor{
       $columns = implode(",",$columns);
       $sets = implode(",",$sets);
 
-      $consulta = "INSERT INTO ".$this->table."($columns) VALUES ($sets);";
+      $consulta = "INSERT INTO $table_name($columns) VALUES ($sets);";
 
       $this->logger->console($consulta);
       if($resultado = $this->db->query($consulta)){
@@ -209,10 +206,10 @@ class Consultor{
     return false;
   }
 
-  public function removeElement($conditions,$operator=" AND "){
+  public function removeElement($table_name,$conditions,$operator=" AND "){
     if(is_array($conditions)){
       $condition = implode($operator,$conditions);
-      $consulta = "DELETE FROM $this->table WHERE $condition";
+      $consulta = "DELETE FROM $table_name WHERE $condition";
 
       if($resulto = $this->db->query($consulta)){
         if($this->db->affected_rows > 0){
@@ -226,13 +223,13 @@ class Consultor{
     }
   }
 
-  public function updateElement($sets,$conditions,$operator=" AND "){
+  public function updateElement($table_name,$sets,$conditions,$operator=" AND "){
     if(is_array($conditions)&&is_array($sets)){
 
       $conditions = implode($operator,$conditions);
       $sets = implode(",",$sets);
 
-      $consulta = "UPDATE ".$this->table." SET $sets WHERE $conditions;";
+      $consulta = "UPDATE $table_name SET $sets WHERE $conditions;";
 
       if($resultado = $this->db->query($consulta)){
         $this->logger->console("[DB-LOG] Elemento actualizado correctamente");
@@ -254,6 +251,44 @@ class Consultor{
     return $result_tables;
   }
 
+  function getOS($userAgent) {
+      // Create list of operating systems with operating system name as array key
+      $oses = array (
+          'iPhone'            => '(iPhone)',
+          'Windows 3.11'      => 'Win16',
+          'Windows 95'        => '(Windows 95)|(Win95)|(Windows_95)',
+          'Windows 98'        => '(Windows 98)|(Win98)',
+          'Windows 2000'      => '(Windows NT 5.0)|(Windows 2000)',
+          'Windows XP'        => '(Windows NT 5.1)|(Windows XP)',
+          'Windows 2003'      => '(Windows NT 5.2)',
+          'Windows Vista'     => '(Windows NT 6.0)|(Windows Vista)',
+          'Windows 7'         => '(Windows NT 6.1)|(Windows 7)',
+          'Windows NT 4.0'    => '(Windows NT 4.0)|(WinNT4.0)|(WinNT)|(Windows NT)',
+          'Windows ME'        => 'Windows ME',
+          'Open BSD'          => 'OpenBSD',
+          'Sun OS'            => 'SunOS',
+          'Linux'             => '(Linux)|(X11)',
+          'Safari'            => '(Safari)',
+          'Mac OS'            => '(Mac_PowerPC)|(Macintosh)',
+          'QNX'               => 'QNX',
+          'BeOS'              => 'BeOS',
+          'OS/2'              => 'OS/2',
+          'Search Bot'        => '(nuhk)|(Googlebot)|(Yammybot)|(Openbot)|(Slurp/cat)|(msnbot)|(ia_archiver)'
+      );
+
+      // Loop through $oses array
+      foreach($oses as $os => $preg_pattern) {
+          // Use regular expressions to check operating system type
+          if ( preg_match('@' . $preg_pattern . '@', $userAgent) ) {
+              // Operating system was matched so return $oses key
+              return $os;
+          }
+      }
+
+      // Cannot find operating system so return Unknown
+
+      return 'n/a';
+  }
 
 }
 ?>

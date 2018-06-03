@@ -52,7 +52,7 @@
           echo "<tr>";
           foreach ($table as $key=>$value) {
             if($key!="password"){
-              echo "<td>$value</td>";
+              echo "<td>".strip_tags($value)."</td>";
             }
           }
           echo "</tr>";

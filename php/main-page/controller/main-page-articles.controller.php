@@ -1,55 +1,21 @@
 <?php
-  session_start();
-
   include "model/main-page-articles.model.php";
 
+  $consultor = new Consultor();
+    
+  //GUEST USER!
+  $time = time();
+  $guest_timeout = $time - (2*60);
+  $current_ip = $_SERVER["REMOTE_ADDR"];
+  $geo_data = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$current_ip));
+  $current_country = $geo_data["geoplugin_countryName"];
+  $current_os = $consultor->getOS($_SERVER["HTTP_USER_AGENT"]);
 
-
-  $consultor = new Consultor("articles");
-
-  $users = $consultor -> getFullTable("users");
-  $likes = $consultor -> getFullTable("article_likes");
-
-
-  //ARTICLES PAGINATION
-  $results_per_page = 10;
-  $pagination = array();
-  $number_of_results = $consultor -> getTableSize("articles");
-  $number_of_pages = ceil($number_of_results/$results_per_page);
-
-  if (!isset($_GET['page'])) {
-    $page = 1;
-  } else {
-    $page = $_GET['page'];
+  if(isset($_SESSION["usuario"])){
+    $consultor->removeElement("guest_users",["guest_ip=$current_ip"]);
+  }else{
+    $consultor->insertElement("guest_users",["guest_ip","time_visited","country","os"],[$current_ip,$time,$current_country,$current_os]);
   }
 
-
-  $this_page_first_result = ($page-1)*$results_per_page;
-
-  //Save user_names with id key and articles likes with article_id key
-  $users_names = array();
-  $article_likes = array();
-
-  foreach($users as $user){
-    $users_names[$user["id"]]=$user["username"];
-  }
-
-  foreach($likes as $like){
-    $article_likes[$like["article_id"]]=$like["likes"];
-  }
-
-  //Save links for pagination
-  for($page=1;$page<=$number_of_pages;$page++){
-    $pagination[] = '<a href="?page='.$page.'">'.$page.'</a>';
-  }
-
-  $articles = $consultor -> getLimitedTable($consultor->getTableName(),$this_page_first_result,$results_per_page);
-
-  $_SESSION["users_names"] = $users_names;
-  $_SESSION["articles"] = $articles;
-  $_SESSION["article_likes"] = $article_likes;
-  $_SESSION["pagination"] = implode(" | ",$pagination);
-
-
-  include "view/main-page-articles.view.php";
+   $consultor->removeElement("guest_users",["time_visited<$guest_timeout"]);
 ?>

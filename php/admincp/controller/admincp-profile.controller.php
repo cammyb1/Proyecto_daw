@@ -3,13 +3,14 @@
   include "model/admincp-dashboard.model.php";
 
   $t_names = array("users","articles","comments","topics","article_likes","tags");
-  $consultor_articles = new Consultor($t_names[1]);
+  $consultor = new Consultor();
   $logger = new Logger();
+  $_SESSION["guest_users"] = $consultor->getTableSize("guest_users");
 
   if(!isset($_SESSION["usuario"])){
     header("Location:index.php");
   }else{
-    $_SESSION["tables"] = $consultor_articles->getThisTables($t_names);
+    $_SESSION["tables"] = $consultor->getThisTables($t_names);
   }
 
   if(isset($_POST["Enviar"])){
@@ -37,8 +38,8 @@
         if($file_size<1000000){
           $file_without_path = time().".".strtolower($file_actual_ext);
           $file_with_path = $file_path.$file_without_path;
-          $current_article_id = $consultor_articles->getTableSize("articles")+1;
-          $inserted_article = $consultor_articles->insertElement(["article_id","title","topic","body","tags","date","user_id","tumbnail"],[$current_article_id,$a_title,$a_topic,$a_body,$a_tags,"NOW()",$_SESSION["usuario"]->getId(),$file_without_path]);
+          $current_article_id = $consultor->getTableSize("articles")+1;
+          $inserted_article = $consultor->insertElement("articles",["article_id","title","topic","body","tags","date","user_id","tumbnail"],[$current_article_id,$a_title,$a_topic,$a_body,$a_tags,"NOW()",$_SESSION["usuario"]->getId(),$file_without_path]);
           if($inserted_article){
             move_uploaded_file($file_temp,$file_with_path);
           }

@@ -12,6 +12,7 @@
     <title>Imperio inca</title>
   </head>
   <body>
+    <?php include "controller/main-page-articles.controller.php"; ?>
     <div id="root">
       <header>
         <div class="container">
@@ -25,10 +26,10 @@
         </div>
       </header>
       <div class="container">
-      <section>
-          <?php
-            include "controller/main-page-articles.controller.php";
-          ?>
+      <section id="articles">
+        
+        <div id="pagination" class="pagination">
+        </div>
       </section>
       <aside>
           <div class="aside popular">
@@ -99,5 +100,6 @@
     <script src="../../js/bootstrap/bootstrap-tokenfield.js"></script>
     <script src="../../js/bootstrap/bootstrap-tokenfield.min.js"></script>
     <script type="text/javascript" src="../../js/js-utils.js"></script>
+    <script type="text/javascript" src="../../js/mp-main.js"></script>
   </body>
 </html>
