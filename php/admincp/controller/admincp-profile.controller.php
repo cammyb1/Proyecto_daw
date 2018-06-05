@@ -1,11 +1,9 @@
 <?php
   include "model/admincp-profile.model.php";
-  include "model/admincp-dashboard.model.php";
 
   $t_names = array("users","articles","comments","topics","article_likes","tags");
   $consultor = new Consultor();
   $logger = new Logger();
-  $_SESSION["guest_users"] = $consultor->getTableSize("guest_users");
 
   if(!isset($_SESSION["usuario"])){
     header("Location:index.php");

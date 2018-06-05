@@ -74,11 +74,11 @@
 
         echo "<div class='pagination'>";
         if($number_of_pages!=1){
-          if($pn>1){
-            echo '<button class="btn btn-primary float-left" onclick="request_page('.($pn-1).')">Newer posts</button>';
-          }
           if($pn!=$number_of_pages){
             echo '<button class="btn btn-primary float-rigth" onclick="request_page('.($pn+1).')">Older posts</button>';
+          }
+          if($pn>1){
+            echo '<button class="btn btn-primary float-left" onclick="request_page('.($pn-1).')">Newer posts</button>';
           }
         }
         echo "</div>";

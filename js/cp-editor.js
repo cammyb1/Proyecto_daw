@@ -10,7 +10,6 @@ $(document).ready(function () {
     $("#a_send").click(submitForm);
 
     get("model/admincp-tags.xhr.php",function(data){
-      console.log(data);
       $("#tags").tokenfield({
         autocomplete:{
           source:JSON.parse(data),

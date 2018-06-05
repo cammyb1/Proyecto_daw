@@ -81,7 +81,6 @@ class Consultor{
     $table_name = $this->db->escape_string($table_name);
     $consulta = "SELECT * FROM $table_name";
 
-    $this->logger->console($consulta);
     if($resultado=$this->db->query($consulta)){
       while($fila = $resultado->fetch_assoc()){
         $row = array();

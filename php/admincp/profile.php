@@ -58,7 +58,7 @@
     </div>
     <section class="col-md-10 color1">
       <div class="bg-dark clearfix container-fluid">
-        <a class="btn btn-primary float-right" href="logout.php">Log out</a>
+        <a class="btn text-white float-right" href="logout.php">Log out</a>
       </div>
       <div>
         <?php
@@ -70,11 +70,13 @@
   <!--Bootstrap and jquery js-->
   <script src="../../js/jquery/jquery-3.3.1.min.js"></script>
   <script src="../../js/jquery/jquery-ui.min.js"></script>
+  <script src="../../js/jquery/jquery.canvasjs.min.js"></script>
   <script src="../../js/bootstrap/bootstrap.min.js"></script>
   <script src="../../js/bootstrap/bootstrap-tokenfield.js"></script>
   <script src="../../js/bootstrap/bootstrap-tokenfield.min.js"></script>
   <script type="text/javascript" src="../../js/cp-profile.js"></script>
   <script type="text/javascript" src="../../js/cp-editor.js"></script>
+  <script type="text/javascript" src="../../js/cp-dashboard.js"></script>
   <script type="text/javascript" src="../../js/js-utils.js"></script>
 </body>
 </html>

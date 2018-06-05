@@ -1,7 +1,13 @@
 <?php
   // -- DASHBOARD!!! --
   if(sizeof($_GET)==0){
-    echo "<h1>Dashboard!!</h1>";
+    echo "<div>
+      <h2 class='h2'>Dashboard</h2>
+      <div class='clearfix'>
+        <p class='float-left'>Profile dashboard for incaWeb</p>
+        <p class='float-right'>Current Time: <span id='ct-db'></span></p>
+      </div>
+    </div>";
     include "view/admincp-dashboard.view.php";
   }
   // -- FIN dashboard!!! --
@@ -41,7 +47,7 @@
           echo "<tr>";
           foreach ($headers as $value) {
             if($value!="password"){
-              echo "<th>$value</th>";
+              echo "<th>".strtoupper($value)."</th>";
             }
           }
           echo "</tr>";
