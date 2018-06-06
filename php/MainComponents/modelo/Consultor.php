@@ -23,7 +23,7 @@ class Consultor{
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
     $object_output = null;
-    $consulta = "SELECT id,name,lastname,username,email,fecha,type FROM users WHERE username='$username' AND password=PASSWORD($password)";
+    $consulta = "SELECT id,name,lastname,username,email,fecha,type FROM users WHERE username='$username' AND password=PASSWORD($password) AND type='1'";
 
     if($this->elemetExist("users","username",$username)){
       $this->logger->console($consulta);
@@ -66,13 +66,13 @@ class Consultor{
         if($resultado->num_rows>0){
 
           //TODO: Remember to delete this for security
-          $this->logger->console("[DB-RESULT] User $username exist in database.");
+          $this->logger->console("[DB-RESULT] Value $colum_value exist in database.");
           return true;
         }
       }
 
       //TODO: this too
-      $this->logger->console("[DB-ERROR] User $username does not exist in database.");
+      $this->logger->console("[DB-ERROR] Value $colum_value does not exist in database.");
       return false;
   }
 

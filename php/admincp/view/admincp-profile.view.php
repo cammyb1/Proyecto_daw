@@ -1,13 +1,6 @@
 <?php
   // -- DASHBOARD!!! --
   if(sizeof($_GET)==0){
-    echo "<div>
-      <h2 class='h2'>Dashboard</h2>
-      <div class='clearfix'>
-        <p class='float-left'>Profile dashboard for incaWeb</p>
-        <p class='float-right'>Current Time: <span id='ct-db'></span></p>
-      </div>
-    </div>";
     include "view/admincp-dashboard.view.php";
   }
   // -- FIN dashboard!!! --
@@ -16,7 +9,6 @@
 
   // -- Articles!!! --
   if(isset($_GET["articles"])){
-    echo "<h1>Articles!!</h1>";
     include "view/admincp-editor.view.php";
   }
   // -- FIN Articles!!! --
@@ -32,12 +24,11 @@
     $user_table = $all_tables["users"];
     $article_table = $all_tables["articles"];
     $comments_table = $all_tables["comments"];
-    $likes_table = $all_tables["article_likes"];
     $topics_table = $all_tables["topics"];
     $tags_table = $all_tables["tags"];
 
     if(isset($_GET["tables"])&&(!isset($_GET["u"])&&!isset($_GET["a"])
-    &&!isset($_GET["c"])&&!isset($_GET["i"])&&!isset($_GET["t"])&&!isset($_GET["l"])&&!isset($_GET["ta"]))){
+    &&!isset($_GET["c"])&&!isset($_GET["i"])&&!isset($_GET["t"])&&!isset($_GET["ta"]))){
       foreach($all_tables as $label=>$tables){
         echo "<div><h2>$label</h2>";
         echo "<table class='table table-dark table-bordered'>";
@@ -87,10 +78,6 @@
           $used_table = $topics_table;
           $name = "Topics";
         }
-        if(isset($_GET["l"])){
-          $used_table = $likes_table;
-          $name = "Likes";
-        }
         if(isset($_GET["ta"])){
           $used_table = $tags_table;
           $name = "Tags";
@@ -125,10 +112,6 @@
 
       }
     }
-    echo "<div class='jumbotron'>
-      <h2>Titulo jumbo</h2>
-      <p>texto de prueba</p>
-    </div>";
   }
   //-- FIN TABLAS --
 

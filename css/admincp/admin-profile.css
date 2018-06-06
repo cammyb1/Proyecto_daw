@@ -1,3 +1,10 @@
+html,body{
+  height: 100%;
+}
+body{
+  display: flex;
+  flex-direction: column;
+}
 .menu{
   background-color: #333;
   position: fixed;
@@ -22,7 +29,18 @@
 nav{
   margin-top:100px;
 }
-
+.content-footer{
+  flex: 1 0 auto;
+}
+footer{
+  flex-shrink: 0;
+}
+footer a{
+  color: white;
+}
+.inner-button{
+  background-color: black;
+}
 .header{
   display: block;
   height:50px;
@@ -31,6 +49,52 @@ nav{
   line-height: 50px;
   float:left;
   background-color: tomato;
+}
+.left-navbar{
+  background-color: teal;
+  width: 200px;
+  left:0;
+  top:0;
+  transition: width .5s;
+}
+.main{
+  padding-left: 200px;
+  transition: padding .5s;
+}
+.push{
+  padding-left: 50px;
+}
+.hide-nav{
+  width: 50px;
+}
+#left-navbar ul{
+  overflow: hidden;
+}
+#left-navbar ul>li>a{
+  display: block;
+  min-width: 200px;
+  padding: 10px;
+  text-decoration: none;
+  color:black;
+}
+#left-navbar a span{
+  color:white;
+  text-align: center;
+  font-size: 20px;
+  padding: 5px;
+}
+.fixed{
+  position:fixed !important;
+  z-index: 10;
+}
+.inner-button{
+  height: 38px;
+  background-color: #343A40;
+}
+.inner-button a{
+   display: block;
+   margin-left: 15px;
+   font-size: 20px;
 }
 
 header a{

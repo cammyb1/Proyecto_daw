@@ -15,6 +15,10 @@
     "Theodore Roosevelt had a pet hyena",
     "The U.S. government saved every public tweet from 2006 through 2017"
   );
+  $GET["dsb_t"]="Dashboard";
+  $GET["dsb_d"]="Here you can see your metrics and common info of the website.";
+
+  include "../MainComponents/vista/common-dashboar.view.php";
 ?>
 <div class="row clearfix">
   <div class="col-md-12">
@@ -35,7 +39,7 @@
             </div>
             <div class="col-xs-9">
               <ul>
-                <li><p>Welcome <strong><?php echo $user->getUsername();?></strong>!</p></li>
+                <li><p>Welcome <strong><?php echo $user->getName();?></strong>!</p></li>
                 <li><p>There are a total of <strong id="visitors">0</strong> visitors right now!</p></li>
                 <li><p>Your ip is <strong><?php echo $_SERVER["REMOTE_ADDR"]  ?></strong></p></li>
               </ul>
@@ -58,7 +62,7 @@
                   }
                 }
               }else{
-                echo "<li class='list-group-item'>There is no posts yet <i class='far fa-frown'></i></li>";
+                echo "<div class='alert alert-warning'>There is no posts yet <i class='far fa-frown'></i></div>";
               }
           ?>
           </ul>
@@ -89,7 +93,7 @@
                     }
                   }
                 }else{
-                  echo "<li class='list-group-item'>There is no comments yet <i class='far fa-frown'></i></li>";
+                  echo "<div class='alert alert-warning'>There is no comments yet <i class='far fa-frown'></i></div>";
                 }
             ?>
           </ul>
