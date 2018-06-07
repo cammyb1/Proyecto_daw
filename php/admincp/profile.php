@@ -24,37 +24,33 @@
       <div class="inner-button d-flex align-items-center">
         <a id="bar-toggle"><i class="fa fa-bars text-white"></i></a>
       </div>
-      <ul>
+      <ul id="dropdown">
         <li>
           <a href="profile.php">
-            <span><i class="fa fa-tachometer-alt"></i></span><span>DashBoard</span>
+            <span class="lb-icon"><i class="fa fa-tachometer-alt"></i></span><span>DashBoard</span>
           </a>
         </li>
         <li>
-          <a href="">
-            <span><i class="fa fa-file-alt"></i></span><span>Articles</span><span><i class="fa fa-chevron-down"></i></span>
-          </a>
-          <ul class="collapse">
-            <li><a href="profile.php?articles">Add new Article</a></li>
-            <li><a href="profile.php?articles">Remove Article</a></li>
+          <a href="#collapse1" data-toggle="collapse" data-parent="#dropdown"><span class="lb-icon"><i class="fa fa-file-alt"></i></span><span>Articles</span><span class="lb-dropdown"><i class="fa fa-chevron-down"></i></span></a>
+          <ul class="collapse" id="collapse1">
+            <li><a href="profile.php?articles"><span>Users</span></a></li>
+            <li><a href="profile.php?articles"><span>Users</span></a></li>
           </ul>
         </li>
         <li>
-          <a href="profile.php?tables">
-            <span><i class="fa fa-columns"></i></span><span>Tables</span><span><i class="fa fa-chevron-down"></i></span>
-          </a>
-          <ul class="collapse">
-            <li><a href="profile.php?tables&u">Users</a></li>
-            <li><a href="profile.php?tables&a">Articles</a></li>
-            <li><a href="profile.php?tables&c">Comments</a></li>
-            <li><a href="profile.php?tables&t">Topics</a></li>
-            <li><a href="profile.php?tables&l">Likes</a></li>
-            <li><a href="profile.php?tables&ta">Tags</a></li>
+          <a href="#collapse2" data-toggle="collapse" data-parent="#dropdown"><span class="lb-icon"><i class="fa fa-columns"></i></span><span>Tables</span><span class="lb-dropdown"><i class="fa fa-chevron-down"></i></span></a>
+          <ul class="collapse" id="collapse2">
+            <li><a href="profile.php?tables&u"><span class="lb-icon"><i class="far fa-user"></i></span><span>Users</span></a></li>
+            <li><a href="profile.php?tables&a"><span class="lb-icon"><i class="far fa-file-alt"></i></span><span>Articles</span></a></li>
+            <li><a href="profile.php?tables&c"><span class="lb-icon"><i class="far fa-comments"></i></span><span>Comments</span></a></li>
+            <li><a href="profile.php?tables&t"><span class="lb-icon"><i class="far fa-list-alt"></i></span><span>Topics</span></a></li>
+            <li><a href="profile.php?tables&l"><span class="lb-icon"><i class="fa fa-hand-holding-heart "></i></span><span>Likes</span></a></li>
+            <li><a href="profile.php?tables&ta"><span class="lb-icon"><i class="fa fa-tags"></i></span><span>Tags</span></a></li>
           </ul>
         </li>
         <li>
           <a href="profile.php?config">
-            <span><i class="fa fa-wrench"></i></span><span>Config</span><span><i class="fa fa-chevron-down"></i></span>
+            <span class="lb-icon"><i class="fa fa-wrench"></i></span><span>Config</span><span class="lb-dropdown"><i class="fa fa-chevron-down"></i></span>
           </a>
           <ul class="collapse">
             <li><a href="profile.php?config">Manage Main Page</a></li>

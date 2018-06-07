@@ -29,7 +29,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="card card-primary">
         <div class="card-header"><i class="fa fa-address-book"></i> User info</div>
         <div class="card-body">
@@ -58,7 +58,7 @@
                 for($i=0;$i<5;$i++){
                   $article = isset($articles[($total_articles-1)-$i])?$articles[($total_articles-1)-$i]:null;
                   if(isset($article)){
-                    echo "<li class='list-group-item'><span class='badge badge-primary'>".($i+1)."</span> ".$article["title"]." <span class='float-right'>".date("H:i a",strtotime($article["date"]))."</span></li>";
+                    echo "<li class='list-group-item ".($i==0?"active":"")." '><span class='badge badge-dark'>".($i+1)."</span> ".$article["title"]." <span class='float-right'>".date("H:i a",strtotime($article["date"]))."</span></li>";
                   }
                 }
               }else{
@@ -69,7 +69,7 @@
         </div>
     </div>
   </div>
-  <div class="col-md-5">
+  <div class="col-md-4">
     <div class="card card-primary">
         <div class="card-header"><i class="fa fa-comment"></i> Last <b>3</b> comments</div>
         <div class="card-body">
@@ -80,7 +80,7 @@
                     $comment = isset($comments[($total_comments-1)-$i])?$comments[($total_comments-1)-$i]:null;
                     if(isset($comment)){
                       echo '
-                      <li class="list-group-item">
+                      <li class="list-group-item '.($i==0?"active":"").' ">
                         <div class="media">
                           <img class="mr-3" src="../../resources/avatars/'.$comment["avatar"].'" alt="Avatar" />
                           <div class="media-body">
@@ -103,7 +103,7 @@
 </div>
 <hr>
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="card card-primary">
         <div class="card-header"><i class="fa fa-server"></i> Server info</div>
         <div class="card-body">
@@ -126,7 +126,7 @@
         </div>
     </div>
   </div>
-  <div class="col-md-5">
+  <div class="col-md-4">
     <div class="card card-primary">
         <div class="card-header"><li class="fa fa-chart-bar"></li> Tables metrics <a class="float-right text-primary" id="tm_refresh"><i class="fa fa-sync"></i></a></div>
         <div class="card-body">

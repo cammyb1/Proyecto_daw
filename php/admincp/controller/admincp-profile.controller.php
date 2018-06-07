@@ -1,5 +1,6 @@
 <?php
   include "model/admincp-profile.model.php";
+  include "view/admincp-profile.view.php";
 
   $t_names = array("users","articles","comments","topics","tags");
   $consultor = new Consultor();
@@ -49,6 +50,4 @@
       }
     }
   }
-
-  include "view/admincp-profile.view.php";
 ?>
