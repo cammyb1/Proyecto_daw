@@ -19,7 +19,7 @@
   <title>Admin control panel</title>
 </head>
 <body>
-  <div class="container-fluid">
+  <div class="container-fluid fullvh">
     <div class="fullvh fixed left-navbar" id="left-navbar">
       <div class="inner-button d-flex align-items-center">
         <a id="bar-toggle"><i class="fa fa-bars text-white"></i></a>
@@ -33,8 +33,7 @@
         <li>
           <a href="#collapse1" data-toggle="collapse" data-parent="#dropdown"><span class="lb-icon"><i class="fa fa-file-alt"></i></span><span>Articles</span><span class="lb-dropdown"><i class="fa fa-chevron-down"></i></span></a>
           <ul class="collapse" id="collapse1">
-            <li><a href="profile.php?articles"><span>Users</span></a></li>
-            <li><a href="profile.php?articles"><span>Users</span></a></li>
+            <li><a href="profile.php?articles"><span class="lb-icon"><i class="fa fa-plus"></i></span><span>Add</span></a></li>
           </ul>
         </li>
         <li>
@@ -50,18 +49,15 @@
         </li>
         <li>
           <a href="profile.php?config">
-            <span class="lb-icon"><i class="fa fa-wrench"></i></span><span>Config</span><span class="lb-dropdown"><i class="fa fa-chevron-down"></i></span>
+            <span class="lb-icon"><i class="fa fa-wrench"></i></span><span>Config</span>
           </a>
-          <ul class="collapse">
-            <li><a href="profile.php?config">Manage Main Page</a></li>
-          </ul>
         </li>
       </ul>
     </div>
     <div class="row main" id="content">
-      <section class="col color1">
+      <div class="col color1">
         <div class="row content-footer">
-          <div class="col-md-12">
+          <div class="col-md-12 content">
             <div class="row">
               <div class="bg-dark d-flex justify-content-end container-fluid">
                 <a class="btn text-white" href="logout.php">Log out</a>
@@ -77,7 +73,7 @@
           </div>
         </div>
         <div class="row">
-          <footer class="page-footer font-small bg-dark pt-4 mt-4 col-md-12">
+          <footer class="page-footer font-small bg-dark pt-4 col-md-12">
             <div class="container-fluid text-center text-md-left">
               <div class="row">
                 <div class="col-md-6 mt-md-0 mt-3 text-white">
@@ -107,7 +103,7 @@
             <div class="footer-copyright text-center py-3">2018 © Copyright</div>
           </footer>
         </div>
-      </section>
+      </div>
     </div>
   </div>
 

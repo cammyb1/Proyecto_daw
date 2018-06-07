@@ -1,17 +1,15 @@
 <?php
   include "model/admincp-profile.model.php";
-  include "view/admincp-profile.view.php";
 
   $t_names = array("users","articles","comments","topics","tags");
   $consultor = new Consultor();
   $logger = new Logger();
 
   if(!isset($_SESSION["usuario"])){
-    header("Location:index.php");
-  }else{
-    $_SESSION["tables"] = $consultor->getThisTables($t_names);
+    header("Location:./index.php");
   }
 
+  $_SESSION["tables"] = $consultor->getThisTables($t_names);
   if(isset($_POST["Enviar"])){
     $a_title = $_POST["a_title"];
     $a_topic = $_POST["a_topic"];
@@ -50,4 +48,6 @@
       }
     }
   }
+
+  include "view/admincp-profile.view.php";
 ?>

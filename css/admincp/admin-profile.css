@@ -1,10 +1,6 @@
 html,body{
   height: 100%;
 }
-body{
-  display: flex;
-  flex-direction: column;
-}
 .menu{
   background-color: #333;
   position: fixed;
@@ -26,11 +22,11 @@ body{
   padding: 20px;
   font-size: 16px;
 }
-nav{
-  margin-top:100px;
-}
 .content-footer{
-  flex: 1 0 auto;
+  min-height: 100%;
+}
+.content{
+  overflow: auto;
 }
 footer{
   flex-shrink: 0;
@@ -60,6 +56,7 @@ footer a{
 .main{
   padding-left: 200px;
   transition: padding .5s;
+  min-height: 100%;
 }
 .push{
   padding-left: 50px;
