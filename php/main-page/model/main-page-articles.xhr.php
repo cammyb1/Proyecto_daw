@@ -24,17 +24,11 @@
 
 
     $users = $consultor -> getFullTable("users");
-    $likes = $consultor -> getFullTable("article_likes");
 
     $users_names = array();
-    $article_likes = array();
 
     foreach($users as $user){
       $users_names[$user["id"]] = $user["username"];
-    }
-
-    foreach($likes as $like){
-      $article_likes[$like["article_id"]]=$like["likes"];
     }
 
     $articles = $consultor -> getLimitedTable("articles",$this_page_first_result,$results_per_page,"title");
@@ -55,7 +49,7 @@
                   <span>'.date("h:i A",strtotime($article_date)).'</span>
                   /<span>'.$users_names[$article["user_id"]].'</span>
                   /<span>'.$article["topic"].'</span>
-                  /<span>'.$article_likes[$article["article_id"]].'</span>
+                  /<span>'.$article["likes"].'</span>
                 </div>
               </div>
               <div class="lower">

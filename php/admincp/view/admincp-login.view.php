@@ -1,20 +1,27 @@
-<div class="row">
-  <div class="col-md-6" style="margin:0 auto; float:none; padding: 2em;">
-    <form method="POST" action="">
-        <h1 align="center">Admin CP</h1>
-        <div class="form-group">
-          <div class="input-group">
-            <label for="" class="input-group-addon col-md-3">Username</label>
-            <input type="text" class="form-control" name="login_user">
+<div class="login">
+  <div class="row">
+    <div class="col">
+      <div class="container-fluid l-title">
+          <h3>SIGN IN</h3>
+      </div>
+      <form method="POST" action="">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon l-icon"><i class="fa fa-user-alt"></i></span>
+              <input type="text" class="form-control" name="login_user">
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <div class="input-group">
-            <label for="" class="input-group-addon col-md-3">Password</label>
-            <input type="password" class="form-control" name="login_password" value="">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon l-icon"><i class="fa fa-lock"></i></span>
+              <input type="password" class="form-control" name="login_password" value="">
+            </div>
           </div>
-        </div>
-        <button type="submit" class="btn btn-danger btn-block" name="login_submit">Log in</button>
-    </form>
+          <div class="form-group l-lp">
+            <button type="submit" class="btn" name="login_submit">Login</button>
+            <a href="lostpassword.php">Lost your password?</a>
+          </div>
+      </form>
+    </div>
   </div>
 </div>

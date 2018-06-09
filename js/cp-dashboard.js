@@ -21,19 +21,21 @@ function callTables(){
   get("model/admincp-tables.xhr.php",(data)=>{
     let result = JSON.parse(data);
     if(result.length>0){
-      var chart = new CanvasJS.Chart("table-metrics", {
-        animationEnabled: true,
-        theme: "light2",
-        data: [{
-          type: "column",
-          indexLabelFontColor: "#5A5757",
-          indexLabelPlacement: "outside",
-          dataPoints:result
-        }]
-      });
-      chart.render();
+      if($("#table-metrics").length>0){
+        var chart = new CanvasJS.Chart("table-metrics", {
+          animationEnabled: true,
+          theme: "light2",
+          data: [{
+            type: "column",
+            indexLabelFontColor: "#5A5757",
+            indexLabelPlacement: "outside",
+            dataPoints:result
+          }]
+        });
+        chart.render();
+      }
     }else{
-      $("#table-metrics").html("<div class='alert alert-warning'>There is no tables records.</div>");
+      $("#table-metrics").length>0?$("#table-metrics").html("<div class='alert alert-warning'>There is no tables records.</div>"):"";
     }
   });
 
@@ -58,19 +60,21 @@ function callCountries(){
   get("model/admincp-country.xhr.php",(data)=>{
     let result = JSON.parse(data);
     if(result.length>0){
-      var chart = new CanvasJS.Chart("most_visited_c", {
-        animationEnabled: true,
-        theme: "light2",
-        data: [{
-          type: "pie",
-          yValueFormatString: "#,##0.00\"%\"",
-          indexLabel: "{label} ({y})",
-          dataPoints: result
-        }]
-      });
-      chart.render();
+      if($("#most_visited_c").length>0){
+        var chart = new CanvasJS.Chart("most_visited_c", {
+          animationEnabled: true,
+          theme: "light2",
+          data: [{
+            type: "pie",
+            yValueFormatString: "#,##0.00\"%\"",
+            indexLabel: "{label} ({y})",
+            dataPoints: result
+          }]
+        });
+        chart.render();
+      }
     }else{
-      $("#most_visited_c").html("<div class='alert alert-warning'>There is no country records.</div>");
+      $("#most_visited_c").length>0?$("#most_visited_c").html("<div class='alert alert-warning'>There is no country records.</div>"):"";
     }
   });
 }

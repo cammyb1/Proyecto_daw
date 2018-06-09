@@ -9,9 +9,14 @@
     <link rel="shortcut icon" href="../../resources/logo.png">
     <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fa/fontawesome-all.css">
+    <link rel="stylesheet" href="../../css/admincp/admin-login.css">
     <title>Imperio inca</title>
   </head>
   <body>
+    <!-- <video class="bg-video" autoplay loop>
+      <source src="../../resources/videos/bg-video.mp4" type="video/mp4">
+    </video>
+    <div class="black-coat"></div> -->
     <div class="container">
       <?php
         include "controller/admincp-login.controller.php";

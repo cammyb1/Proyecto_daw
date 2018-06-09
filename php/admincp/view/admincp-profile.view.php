@@ -18,7 +18,6 @@
 
   // -- TABLAS!!! --
   if(isset($_GET["tables"])){
-    echo "<h1>Tables!!</h1>";
 
     $all_tables = $_SESSION["tables"];
     $user_table = $all_tables["users"];
@@ -61,6 +60,7 @@
       if(isset($_GET["tables"])){
         $used_table = array();
         $name = "";
+        $description = "";
 
         if(isset($_GET["u"])){
           $used_table = $user_table;
@@ -83,21 +83,45 @@
           $name = "Tags";
         }
 
-        echo "<div><h2>$name</h2>";
-        echo "<table class='table table-dark table-bordered'>";
+        $headers_as_options = ["options"=>"","theads"=>""];
+        $option_excluded = ["body","avatar","password"];
+        $theads_excluded = ["password"];
+        $GET["dsb_t"]=$name;
+        $GET["dsb_d"]="Here you can see all the $name in the database";
+
+
+        include "../MainComponents/vista/common-dashboar.view.php";
 
         if(isset($used_table[0])){
           $headers = array_keys($used_table[0]);
 
-          echo "<tr>";
           foreach ($headers as $value) {
-            if($value!="password"){
-              echo "<th>$value</th>";
-            }
+            !in_array($value,$option_excluded)?$headers_as_options["options"].="<option value='$value'>".ucfirst($value)."</option>":"";
+            !in_array($value,$theads_excluded)?$headers_as_options["theads"].="<th>$value</th>":"";
           }
-          echo "</tr>";
         }
 
+        echo "<div id='downlad_tables'>
+        <table class='table table-dark table-bordered'>
+        <thead>
+        <tr>
+          <th colspan='".sizeof($used_table[0])."' class='bg-primary'>
+            <div>
+              <span>Filter by:</span>
+              <select id='filter_select'>
+                ".$headers_as_options["options"]."
+              </select>
+              <div class='inner-addon left-addon'>
+                <i class='fa fa-search'></i>
+                <input type='text' id='searchBar'/>
+              </div>
+            </div>
+          </th>
+        </tr>";
+        if(sizeof($headers_as_options["theads"])>0){
+          echo "<tr>".$headers_as_options["theads"]."</tr>";
+        }
+        echo "</thead><tbody id='tabla'>";
         foreach($used_table as $table_name=>$table){
           echo "<tr>";
           foreach ($table as $key=>$value) {
@@ -107,9 +131,8 @@
           }
           echo "</tr>";
         }
-        echo "</table>";
+        echo "</tbody></table>";
         echo "</div>";
-
       }
     }
   }

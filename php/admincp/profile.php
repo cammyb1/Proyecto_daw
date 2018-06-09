@@ -43,7 +43,6 @@
             <li><a href="profile.php?tables&a"><span class="lb-icon"><i class="far fa-file-alt"></i></span><span>Articles</span></a></li>
             <li><a href="profile.php?tables&c"><span class="lb-icon"><i class="far fa-comments"></i></span><span>Comments</span></a></li>
             <li><a href="profile.php?tables&t"><span class="lb-icon"><i class="far fa-list-alt"></i></span><span>Topics</span></a></li>
-            <li><a href="profile.php?tables&l"><span class="lb-icon"><i class="fa fa-hand-holding-heart "></i></span><span>Likes</span></a></li>
             <li><a href="profile.php?tables&ta"><span class="lb-icon"><i class="fa fa-tags"></i></span><span>Tags</span></a></li>
           </ul>
         </li>

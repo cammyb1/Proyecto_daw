@@ -137,6 +137,7 @@ nav a{
 
 .fullvh{
   height: 100vh;
+  overflow: auto;
 }
 
 .color2{
