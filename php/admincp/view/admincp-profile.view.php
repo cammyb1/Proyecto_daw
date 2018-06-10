@@ -60,7 +60,6 @@
       if(isset($_GET["tables"])){
         $used_table = array();
         $name = "";
-        $description = "";
 
         if(isset($_GET["u"])){
           $used_table = $user_table;
@@ -83,53 +82,68 @@
           $name = "Tags";
         }
 
-        $headers_as_options = ["options"=>"","theads"=>""];
-        $option_excluded = ["body","avatar","password"];
-        $theads_excluded = ["password"];
         $GET["dsb_t"]=$name;
-        $GET["dsb_d"]="Here you can see all the $name in the database";
+        $GET["dsb_d"]=sizeof($used_table)>0?"Here you can see all the $name in the database":"Your database does not have enought data to show.";
 
 
         include "../MainComponents/vista/common-dashboar.view.php";
-
-        if(isset($used_table[0])){
-          $headers = array_keys($used_table[0]);
-
-          foreach ($headers as $value) {
-            !in_array($value,$option_excluded)?$headers_as_options["options"].="<option value='$value'>".ucfirst($value)."</option>":"";
-            !in_array($value,$theads_excluded)?$headers_as_options["theads"].="<th>$value</th>":"";
-          }
+        if(sizeof($used_table)<=0){
+          echo "<div class='alert alert-warning'>There are no $name yet <i class='far fa-frown'></i></div>";
         }
-
         echo "<div id='downlad_tables'>
         <table class='table table-dark table-bordered'>
         <thead>
         <tr>
-          <th colspan='".sizeof($used_table[0])."' class='bg-primary'>
+          <th colspan='".(sizeof($used_table)>0?sizeof($used_table[0])+1:1)."' class='bg-secondary'>
             <div>
-              <span>Filter by:</span>
-              <select id='filter_select'>
-                ".$headers_as_options["options"]."
-              </select>
               <div class='inner-addon left-addon'>
                 <i class='fa fa-search'></i>
                 <input type='text' id='searchBar'/>
+                <div class='float-right'>
+                  <a class='btn text-white' href=''><i class='fa fa-sync'></i></a>
+                  <a class='btn btn-success' id='table_add' href='".($name=="Articles"?"profile.php?articles":"")."'><i class='fa fa-plus'></i></a>
+                </div>
               </div>
             </div>
           </th>
         </tr>";
-        if(sizeof($headers_as_options["theads"])>0){
-          echo "<tr>".$headers_as_options["theads"]."</tr>";
-        }
-        echo "</thead><tbody id='tabla'>";
-        foreach($used_table as $table_name=>$table){
-          echo "<tr>";
-          foreach ($table as $key=>$value) {
-            if($key!="password"){
-              echo "<td>$value</td>";
+
+        if(sizeof($used_table)>0){
+          $headers_as_options = ["options"=>"","theads"=>""];
+          $excluded_values = [
+            "options"=>["body","avatar","password"],
+            "theads"=>["password"],
+            "td_editables"=>["id","date","article_id","user_id"]
+          ];
+
+          if(isset($used_table[0])){
+            $headers = array_keys($used_table[0]);
+
+            foreach ($headers as $value) {
+              !in_array($value,$excluded_values["theads"])?$headers_as_options["theads"].="<th>$value</th>":"";
             }
           }
-          echo "</tr>";
+
+          if(sizeof($headers_as_options["theads"])>0){
+            echo "<tr>".$headers_as_options["theads"]."<th>Options</th></tr>";
+          }
+          echo "</thead><tbody id='tabla'>";
+          foreach($used_table as $table){
+            echo "<tr id='".strtolower($name)."_".$table['id']."'>";
+            foreach ($table as $key=>$value) {
+              if($key!="password"){
+                echo in_array($key,$excluded_values["td_editables"])?"<td><div>$value</div></td>":"<td><div class='table_data' edit_type='click' col_name='$key'>$value</div></td>";
+              }
+            }
+            echo "
+              <td>
+                  <button class='btn btn-primary edit_table'><i class='fa fa-pencil-alt'></i></button>
+                  <button class='btn btn-danger save_table'><i class='fa fa-save'></i></button>
+                  <button class='btn btn-secondary cancel_table'><i class='fa fa-times'></i></button>
+                  ".((strtolower($name)=="users"&&$_SESSION["usuario"]->getId()==$table['id'])?"":"<a class='btn btn-danger delete_table' href=''><i class='fa fa-trash'></i></a>")."
+              </td>
+            </tr>";
+          }
         }
         echo "</tbody></table>";
         echo "</div>";

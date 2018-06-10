@@ -62,7 +62,7 @@
                   }
                 }
               }else{
-                echo "<div class='alert alert-warning'>There is no posts yet <i class='far fa-frown'></i></div>";
+                echo "<div class='alert alert-warning'>There are no posts yet <i class='far fa-frown'></i></div>";
               }
           ?>
           </ul>
@@ -93,7 +93,7 @@
                     }
                   }
                 }else{
-                  echo "<div class='alert alert-warning'>There is no comments yet <i class='far fa-frown'></i></div>";
+                  echo "<div class='alert alert-warning'>There are no comments yet <i class='far fa-frown'></i></div>";
                 }
             ?>
           </ul>

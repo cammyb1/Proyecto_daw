@@ -121,6 +121,14 @@ header a{
 nav a{
   border-top:1px solid #222;
 }
+#tabla td{
+  padding: 0;
+  height: 50px;
+}
+#tabla td div {
+  height: 100%;
+  padding: 12px;
+}
 
 .container header{
   position:fixed;

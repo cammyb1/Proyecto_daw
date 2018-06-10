@@ -1,7 +1,7 @@
 <?php
   include "model/admincp-profile.model.php";
 
-  $t_names = array("users","articles","comments","topics","tags");
+  $t_names = array("users","articles","comments","topics","tags","country_savepoint","guest_users");
   $consultor = new Consultor();
   $logger = new Logger();
 
@@ -10,6 +10,7 @@
   }
 
   $_SESSION["tables"] = $consultor->getThisTables($t_names);
+
   if(isset($_POST["Enviar"])){
     $a_title = $_POST["a_title"];
     $a_topic = $_POST["a_topic"];

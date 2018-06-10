@@ -4,6 +4,14 @@
   require_once("../../MainComponents/modelo/Components/User.php");
   require_once("../../MainComponents/modelo/Consultor.php");
 
-  $consultor = new Consultor();
-  echo $consultor->getTableSize("guest_users");
+  $worked = false;
+
+  if(isset($_POST)){
+    $consultor = new Consultor();
+    $table_info = explode("_",$_POST["row_id"]);
+    $table_name = $table_info[0];
+    $row_id = $table_info[1];
+
+    $consultor->removeElement($table_name,["id=$row_id"]);
+  }
 ?>
