@@ -4,7 +4,11 @@ $(document).ready(function(){
     setTime();
     get("controller/admincp-tables_size.xhr.php",data => {
       let info = JSON.parse(data);
-      $("#visitors").html(info["guest_users"].size)
+      $("#visitors").html(info["guest_users"].size);
+    });
+
+    get("controller/admincp-mailbox.xhr.php",data=>{
+      $("#mb_size").html(data);
     });
   },1000);
 

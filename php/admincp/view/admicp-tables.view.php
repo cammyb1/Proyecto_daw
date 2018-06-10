@@ -11,7 +11,15 @@ $headers_as_options = ["options"=>"","theads"=>""];
 $excluded_values = [
   "options"=>["body","avatar","password"],
   "theads"=>["password"],
-  "td_editables"=>["id","date","article_id","user_id"]
+  "td_editables"=>["id","date"]
+];
+$value_types = [
+  "numeric"=>["article_id","active"],
+  "select"=>["type"],
+  "text_area"=>["body"]
+];
+$numeric_values = [
+  "active"=>["min"=>0,"max"=>1]
 ];
 
 foreach ($all_headers[strtolower($name)] as $value) {
@@ -30,24 +38,38 @@ foreach ($all_headers[strtolower($name)] as $value) {
         </button>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label  class="col-sm-2 control-label">Email</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control"/>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control"/>
-            </div>
-          </div>
+        <div class="" role="alert" id="add_alert" style="display:none;"></div>
+        <form class="form-horizontal" name="add_form" id="form_add" role="form">
+          <?php
+            foreach($all_headers[strtolower($name)] as $value){
+              if(!in_array($value,$excluded_values["td_editables"])){
+                echo "<div class='form-group'>
+                  <label  class='col-sm-2 control-label'>".ucfirst($value)."*</label>
+                  <div class='col-sm-12'>";
+                  if(in_array($value,$value_types["numeric"])){
+                    $min = isset($numeric_values[$value]["min"])?$numeric_values[$value]["min"]:1;
+                    $max = isset($numeric_values[$value]["max"])?$numeric_values[$value]["max"]:-1;
+                    echo "<input type='number' name='".ucfirst($value)."' class='form-control' value='$min' ".($min>=0?"min=$min":"")." ".($max>=0?"max=$max":"")." />";
+                  }else if(in_array($value,$value_types["select"])){
+                    //THIS SHOULD BE MORE INTELIGENT!
+                    echo "<select name='".ucfirst($value)."' class='form-control'>
+                      ".($_SESSION["usuario"]->getType()==1?"<option value=1>Web Master</option>":"")."
+                      <option value=2>Moderator</option>
+                    </select>";
+                  }else if(in_array($value,$value_types["text_area"])){
+                    echo "<textarea name='".ucfirst($value)."' maxlength=255 class='form-control area-modal' resizable='false'></textarea>";
+                  }else{
+                    echo "<input type='text' name='".ucfirst($value)."' class='form-control'/>";
+                  }
+                  echo "</div></div>";
+              }
+            }
+          ?>
         </form>
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success">Add</button>
+          <button type="button" class="btn btn-success" id="add_element">Add</button>
       </div>
     </div>
   </div>
@@ -67,7 +89,13 @@ foreach ($all_headers[strtolower($name)] as $value) {
           <a id="dlink"  style="display:none;"></a>
           <a class='btn text-white' onclick="tableToExcel('downlad_tables', '<?php echo $name?> Table', '<?php echo $name?>.xls')"><i class='fa fa-download'></i></a>
           <a class='btn text-white' href=''><i class='fa fa-sync'></i></a>
-          <a class='btn text-white' id='table_add' href='<?php echo ($name=="Articles"?"profile.php?articles":"") ?>' data-toggle="modal" data-target="#addModal"><i class='fa fa-plus'></i></a>
+          <?php
+            if($name=="Articles"){
+             echo "<a class='btn text-white' id='table_add' href='profile.php?articles'><i class='fa fa-plus'></i></a>";
+           }else{
+             echo "<a class='btn text-white' id='table_add' href='' data-toggle='modal' data-target='#addModal'><i class='fa fa-plus'></i></a>";
+           }
+          ?>
         </div>
       </div>
     </div>

@@ -274,7 +274,6 @@ class Consultor{
   }
 
   function getOS($userAgent) {
-      // Create list of operating systems with operating system name as array key
       $oses = array (
           'iPhone'            => '(iPhone)',
           'Windows 3.11'      => 'Win16',
@@ -298,16 +297,11 @@ class Consultor{
           'Search Bot'        => '(nuhk)|(Googlebot)|(Yammybot)|(Openbot)|(Slurp/cat)|(msnbot)|(ia_archiver)'
       );
 
-      // Loop through $oses array
       foreach($oses as $os => $preg_pattern) {
-          // Use regular expressions to check operating system type
           if ( preg_match('@' . $preg_pattern . '@', $userAgent) ) {
-              // Operating system was matched so return $oses key
               return $os;
           }
       }
-
-      // Cannot find operating system so return Unknown
 
       return 'n/a';
   }

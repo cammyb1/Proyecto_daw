@@ -3,7 +3,7 @@
 
   if(isset($_SESSION["tables"])){
     $tables = $_SESSION["tables"];
-    $exclude_tables = array("country_savepoint","guest_users");
+    $exclude_tables = array("country_savepoint","guest_users","mail_box");
     $result = array();
     $count = 0;
     foreach ($tables as $table_name => $table) {

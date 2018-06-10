@@ -10,8 +10,26 @@ function post(url,data,success){
    url,
    type:"post",
    data,
+   dataType:'json',
+   encode:true,
    success
   });
+}
+
+function postForm(formElement,url,success){
+  let elements = formElement.elements;
+  let data = {};
+  let excluded_tags = ["INPUT","TEXTAREA","SELECT"]
+
+  for(var id in elements){
+    let currentElement = elements[id];
+
+    if(excluded_tags.includes(currentElement.tagName)){
+      data[currentElement.name]=currentElement.value;
+    }
+  }
+
+  post(url,data,success);
 }
 
 function getParameterByName(name, url) {

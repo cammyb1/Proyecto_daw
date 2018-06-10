@@ -1,7 +1,7 @@
 <?php
   include "model/admincp-profile.model.php";
 
-  $t_names = array("users","articles","comments","topics","tags","country_savepoint","guest_users");
+  $t_names = array("users","articles","comments","topics","tags","country_savepoint","guest_users","mail_box");
   $consultor = new Consultor();
   $logger = new Logger();
 

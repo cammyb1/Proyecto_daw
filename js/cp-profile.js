@@ -22,9 +22,21 @@ $(document).ready(function(){
     if($(this).attr("href")==""){
       e.preventDefault();
 
-      //ADD MODALS
-
+      $("#add_alert").removeClass();
+      $("#add_alert").html("");
+      $("#add_alert").fadeOut();
     }
+  });
+
+  $("#add_element").click(function(){
+    $("#add_alert").removeClass();
+    $("#add_alert").html("");
+
+    postForm(add_form,"controller/admincp-postForm.xhr.php",info=>{
+      $("#add_alert").addClass(info.class);
+      $("#add_alert").html(info.message);
+      $("#add_alert").fadeIn(200);
+    });
   });
 
   $("#tabla .table_data").click(function(){

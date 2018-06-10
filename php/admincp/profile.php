@@ -59,6 +59,10 @@
           <div class="col-md-12 content">
             <div class="row">
               <div class="bg-light d-flex justify-content-end container-fluid top-bar">
+                <div class="mail-box" id="mail_box">
+                  <i class="far fa-envelope"></i>
+                  <span class="badge badge-danger" id="mb_size">0</span>
+                </div>
                 <a class="btn text-dark" href="logout.php">Log out</a>
               </div>
             </div>
@@ -76,24 +80,18 @@
             <div class="container-fluid text-center text-md-left">
               <div class="row">
                 <div class="col-md-6 mt-md-0 mt-3">
-                  <h5 class="text-uppercase">Footer Content</h5>
-                  <p>Here you can use rows and columns here to organize your footer content.</p>
+                  <h5 class="text-uppercase">Control panel</h5>
+                  <p>The awesome control panel for my project!</p>
                 </div>
                 <hr class="clearfix w-100 d-md-none pb-3">
                 <div class="col-md-6 mb-md-0 mb-3">
-                  <h5 class="text-uppercase">Links</h5>
+                  <h5 class="text-uppercase">Useful links</h5>
                   <ul class="list-unstyled">
                     <li>
-                      <a class="text-dark" href="#!">Link 1</a>
+                      <a class="text-dark" href="profile.php">Dashboard</a>
                     </li>
                     <li>
-                      <a class="text-dark" href="#!">Link 2</a>
-                    </li>
-                    <li>
-                      <a class="text-dark" href="#!">Link 3</a>
-                    </li>
-                    <li>
-                      <a class="text-dark" href="#!">Link 4</a>
+                      <a class="text-dark" href="profile.php?config">Config</a>
                     </li>
                   </ul>
                 </div>
