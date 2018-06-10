@@ -5,29 +5,12 @@
   $total_articles = sizeof($articles);
   $total_comments = sizeof($comments);
   $total_memory = number_format(memory_get_usage()/1024,2);
-  $random_facts = array(
-    "The Eiffel Tower can grow more than six inches during the summer",
-    "The inventor of the microwave appliance only received $2 for his discovery",
-    "Humans aren’t the only animals that dream",
-    "Europeans were scared of eating tomatoes when they were introduced",
-    "There’s only one U.S. state capital without a McDonald’s",
-    "Giraffe tongues can be 20 inches long",
-    "Theodore Roosevelt had a pet hyena",
-    "The U.S. government saved every public tweet from 2006 through 2017"
-  );
-  $GET["dsb_t"]="Dashboard";
-  $GET["dsb_d"]="Here you can see your metrics and common info of the website.";
+
+  $_GET["dsb_t"]="Dashboard";
+  $_GET["dsb_d"]="Here you can see your metrics and common info of the website.";
 
   include "../MainComponents/vista/common-dashboar.view.php";
 ?>
-<div class="row clearfix">
-  <div class="col-md-12">
-    <div class="alert alert-info alert-dismissible">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong>Interesting facts!</strong> <?php echo $random_facts[rand(0,sizeof($random_facts)-1)]?>.
-    </div>
-  </div>
-</div>
 <div class="row">
   <div class="col-md-4">
     <div class="card card-primary">
@@ -40,6 +23,7 @@
             <div class="col-xs-9">
               <ul>
                 <li><p>Welcome <strong><?php echo $user->getName();?></strong>!</p></li>
+                <li><p>Your role here is <b><?php echo $user->getType()==1?"Web master":"Moderator";?></b></p></li>
                 <li><p>There are a total of <strong id="visitors">0</strong> visitors right now!</p></li>
                 <li><p>Your ip is <strong><?php echo $_SERVER["REMOTE_ADDR"]  ?></strong></p></li>
               </ul>
@@ -119,7 +103,7 @@
   </div>
   <div class="col-md-4">
     <div class="card card-primary">
-        <div class="card-header"><i class="fa fa-globe"></i> Most visited countries <a class="float-right text-primary" id="mvc_refresh"><i class="fa fa-sync"></i></a></div>
+        <div class="card-header"><i class="fa fa-globe"></i> Most visited countries <a class="float-right text-white" id="mvc_refresh"><i class="fa fa-sync"></i></a></div>
         <div class="card-body">
           <div id="most_visited_c" style="height: 440px;">
           </div>
@@ -128,7 +112,7 @@
   </div>
   <div class="col-md-4">
     <div class="card card-primary">
-        <div class="card-header"><li class="fa fa-chart-bar"></li> Tables metrics <a class="float-right text-primary" id="tm_refresh"><i class="fa fa-sync"></i></a></div>
+        <div class="card-header"><li class="fa fa-chart-bar"></li> Tables metrics <a class="float-right text-white" id="tm_refresh"><i class="fa fa-sync"></i></a></div>
         <div class="card-body">
           <div id="table-metrics" style="height: 440px;">
           </div>

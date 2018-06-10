@@ -1,27 +1,6 @@
 html,body{
   height: 100%;
 }
-.menu{
-  background-color: #333;
-  position: fixed;
-  left:0;
-  top:0;
-  height: 100%;
-  width: 240px;
-  color:white;
-  overflow: hidden;
-}
-.menu footer a{
-  position: absolute;
-  bottom:0;
-  width:100%;
-}
-.menu a{
-  color:white;
-  display: block;
-  padding: 20px;
-  font-size: 16px;
-}
 .content-footer{
   min-height: 100%;
 }
@@ -47,7 +26,7 @@ footer a{
   background-color: tomato;
 }
 .left-navbar{
-  background-color: teal;
+  background-color: #212D39;
   width: 200px;
   left:0;
   top:0;
@@ -72,7 +51,7 @@ footer a{
   width: 200px;
   text-decoration: none;
   color:black;
-  border-bottom: 1px solid #007272;
+  border-bottom: 1px solid #212D39;
 }
 .lb-icon,.lb-dropdown{
   width: 50px;
@@ -80,6 +59,16 @@ footer a{
 }
 .lb-dropdown{
   float: right;
+}
+.lb-icon i{
+  color:#5A6875;
+}
+.lb-dropdown i{
+  font-size: 15px;
+  color:#5A6875;
+}
+.search-table{
+  background-color: #0CA682;
 }
 #left-navbar a span{
   color:white;
@@ -94,9 +83,22 @@ footer a{
   height: 50px;
   text-align: left;
 }
+.nav-item{
+  background-color: #2E3C47;
+}
+.options{
+  display: flex;
+  align-items: center;
+}
+.nav-active i{
+  color:#0CA682;
+}
 #left-navbar ul ul a{
-  background-color: #007272;
-  border-bottom: 1px solid teal;
+  background-color: #212D39;
+  border-bottom: 1px solid #343A40;
+}
+#left-navbar ul ul a span{
+  font-size: 15px;
 }
 .fixed{
   position:fixed !important;
@@ -104,12 +106,31 @@ footer a{
 }
 .inner-button{
   height: 38px;
-  background-color: #343A40;
 }
 .inner-button a{
    display: block;
    margin-left: 15px;
    font-size: 20px;
+}
+
+.card-header{
+  background-color: #0CA682 !important;
+  color:white;
+}
+
+.top-bar{
+  border-bottom: 1px solid lightgrey;
+}
+
+.top-bar a{
+  border-radius: none;
+  border-left: 1px solid lightgrey;
+}
+
+.info-dash{
+  background-color: white;
+  margin-bottom: 20px;
+  border-bottom: 1px solid lightgrey;
 }
 
 header a{
@@ -139,7 +160,7 @@ nav a{
 }
 
 .color1{
-  background-color: #eee;
+  background-color: #EAEBF0;
   color:#333;
 }
 

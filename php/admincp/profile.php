@@ -21,24 +21,24 @@
 <body>
   <div class="container-fluid fullvh">
     <div class="fullvh fixed left-navbar" id="left-navbar">
-      <div class="inner-button d-flex align-items-center">
-        <a id="bar-toggle"><i class="fa fa-bars text-white"></i></a>
+      <div class="inner-button d-flex align-items-center bg-light">
+        <a id="bar-toggle"><i class="fa fa-bars"></i></a>
       </div>
       <ul id="dropdown">
         <li>
-          <a href="profile.php">
+          <a href="profile.php" class='nav-item'>
             <span class="lb-icon"><i class="fa fa-tachometer-alt"></i></span><span>DashBoard</span>
           </a>
         </li>
         <li>
-          <a href="#collapse1" data-toggle="collapse" data-parent="#dropdown"><span class="lb-icon"><i class="fa fa-file-alt"></i></span><span>Articles</span><span class="lb-dropdown"><i class="fa fa-chevron-down"></i></span></a>
-          <ul class="collapse" id="collapse1">
+          <a href="#collapse1" data-toggle="collapse" data-parent="#dropdown" class='nav-item'><span class="lb-icon"><i class="fa fa-file-alt"></i></span><span>Articles</span><span class="lb-dropdown"><i class="fa fa-chevron-down"></i></span></a>
+          <ul class="collapse customCollapse" id="collapse1">
             <li><a href="profile.php?articles"><span class="lb-icon"><i class="fa fa-plus"></i></span><span>Add</span></a></li>
           </ul>
         </li>
         <li>
-          <a href="#collapse2" data-toggle="collapse" data-parent="#dropdown"><span class="lb-icon"><i class="fa fa-columns"></i></span><span>Tables</span><span class="lb-dropdown"><i class="fa fa-chevron-down"></i></span></a>
-          <ul class="collapse" id="collapse2">
+          <a href="#collapse2" data-toggle="collapse" data-parent="#dropdown" class='nav-item'><span class="lb-icon"><i class="fa fa-columns"></i></span><span>Tables</span><span class="lb-dropdown"><i class="fa fa-chevron-down"></i></span></a>
+          <ul class="collapse customCollapse" id="collapse2">
             <li><a href="profile.php?tables&u"><span class="lb-icon"><i class="far fa-user"></i></span><span>Users</span></a></li>
             <li><a href="profile.php?tables&a"><span class="lb-icon"><i class="far fa-file-alt"></i></span><span>Articles</span></a></li>
             <li><a href="profile.php?tables&c"><span class="lb-icon"><i class="far fa-comments"></i></span><span>Comments</span></a></li>
@@ -47,7 +47,7 @@
           </ul>
         </li>
         <li>
-          <a href="profile.php?config">
+          <a href="profile.php?config" class='nav-item'>
             <span class="lb-icon"><i class="fa fa-wrench"></i></span><span>Config</span>
           </a>
         </li>
@@ -58,8 +58,8 @@
         <div class="row content-footer">
           <div class="col-md-12 content">
             <div class="row">
-              <div class="bg-dark d-flex justify-content-end container-fluid">
-                <a class="btn text-white" href="logout.php">Log out</a>
+              <div class="bg-light d-flex justify-content-end container-fluid top-bar">
+                <a class="btn text-dark" href="logout.php">Log out</a>
               </div>
             </div>
             <div class="row">
@@ -72,28 +72,28 @@
           </div>
         </div>
         <div class="row">
-          <footer class="page-footer font-small bg-dark pt-4 col-md-12">
+          <footer class="page-footer font-small bg-light pt-4 col-md-12">
             <div class="container-fluid text-center text-md-left">
               <div class="row">
-                <div class="col-md-6 mt-md-0 mt-3 text-white">
+                <div class="col-md-6 mt-md-0 mt-3">
                   <h5 class="text-uppercase">Footer Content</h5>
                   <p>Here you can use rows and columns here to organize your footer content.</p>
                 </div>
                 <hr class="clearfix w-100 d-md-none pb-3">
-                <div class="col-md-6 mb-md-0 mb-3 text-white">
+                <div class="col-md-6 mb-md-0 mb-3">
                   <h5 class="text-uppercase">Links</h5>
                   <ul class="list-unstyled">
                     <li>
-                      <a href="#!">Link 1</a>
+                      <a class="text-dark" href="#!">Link 1</a>
                     </li>
                     <li>
-                      <a href="#!">Link 2</a>
+                      <a class="text-dark" href="#!">Link 2</a>
                     </li>
                     <li>
-                      <a href="#!">Link 3</a>
+                      <a class="text-dark" href="#!">Link 3</a>
                     </li>
                     <li>
-                      <a href="#!">Link 4</a>
+                      <a class="text-dark" href="#!">Link 4</a>
                     </li>
                   </ul>
                 </div>

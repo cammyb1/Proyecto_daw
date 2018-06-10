@@ -2,7 +2,10 @@ $(document).ready(function(){
 
   setInterval(function(){
     setTime();
-    get("controller/admincp-visitors.xhr.php",data => $("#visitors").html(data));
+    get("controller/admincp-tables_size.xhr.php",data => {
+      let info = JSON.parse(data);
+      $("#visitors").html(info["guest_users"].size)
+    });
   },1000);
 
   $("#mvc_refresh").click(function(){

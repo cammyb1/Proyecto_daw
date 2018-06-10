@@ -23,7 +23,7 @@ class Consultor{
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
     $object_output = null;
-    $consulta = "SELECT id,name,lastname,username,email,date,type FROM users WHERE username='$username' AND password=PASSWORD($password) AND type='1'";
+    $consulta = "SELECT id,name,lastname,username,email,date,type FROM users WHERE username='$username' AND password=PASSWORD($password) AND type='1' AND active='1'";
 
     if($this->elemetExist("users","username",$username)){
       $this->logger->console($consulta);
@@ -89,6 +89,29 @@ class Consultor{
         }
         $result[]= $row;
       }
+    }else{
+      $this->logger->console("[BD-ERR] $table_name no existe en la base de datos.");
+    }
+
+    return $result;
+  }
+
+  public function getTableColsNames($table_name){
+    $result = array();
+    $table_name = $this->db->escape_string($table_name);
+    $consulta = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'$table_name'";
+    $excluded_cols = ["USER","CURRENT_CONNECTIONS","TOTAL_CONNECTIONS","password"];
+
+    if($resultado=$this->db->query($consulta)){
+      $col = array();
+      while($fila = $resultado->fetch_assoc()){
+        foreach($fila as $v){
+          if(!in_array($v,$excluded_cols)){
+            $col[]=$v;
+          }
+        }
+      }
+      $result = $col;
     }else{
       $this->logger->console("[BD-ERR] $table_name no existe en la base de datos.");
     }

@@ -1,6 +1,5 @@
 <?php
   require_once("../../MainComponents/modelo/Components/Logger.php");
-  require_once("../../MainComponents/modelo/Components/Article.php");
   require_once("../../MainComponents/modelo/Components/User.php");
   require_once("../../MainComponents/modelo/Consultor.php");
   session_start();
@@ -47,7 +46,7 @@
                 <h1>'.$article["title"].'</h1>
                 <div>
                   <span>'.date("h:i A",strtotime($article_date)).'</span>
-                  /<span>'.$users_names[$article["user_id"]].'</span>
+                  /<span>'.$users_names[$article["id"]].'</span>
                   /<span>'.$article["topic"].'</span>
                   /<span>'.$article["likes"].'</span>
                 </div>
@@ -60,7 +59,7 @@
                 </div>
               </div>
               <div class="more">
-                <a href="index.php?article='.$article["article_id"].'">+</a>
+                <a href="index.php?article='.$article["id"].'">+</a>
               </div>
             </article>
           ';

@@ -1,8 +1,8 @@
 <div>
   <?php
-    $GET["dsb_t"]="Add new post";
-    $GET["dsb_st"]="Posts";
-    $GET["dsb_d"]="Here you can add new article using a rich text editor";
+    $_GET["dsb_t"]="Add new post";
+    $_GET["dsb_st"]="Posts";
+    $_GET["dsb_d"]="Here you can add new article using a rich text editor";
 
     include "../MainComponents/vista/common-dashboar.view.php";
   ?>

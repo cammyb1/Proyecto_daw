@@ -10,6 +10,13 @@
   }
 
   $_SESSION["tables"] = $consultor->getThisTables($t_names);
+  $table_headers = array();
+
+  foreach ($_SESSION["tables"] as $table_name => $table) {
+    $table_headers[$table_name] = $consultor->getTableColsNames($table_name);
+  }
+
+  $_SESSION["table_headers"]=$table_headers;
 
   if(isset($_POST["Enviar"])){
     $a_title = $_POST["a_title"];
@@ -37,7 +44,7 @@
           $file_without_path = time().".".strtolower($file_actual_ext);
           $file_with_path = $file_path.$file_without_path;
           $current_article_id = $consultor->getTableSize("articles")+1;
-          $inserted_article = $consultor->insertElement("articles",["article_id","title","topic","body","tags","date","user_id","tumbnail"],[$current_article_id,$a_title,$a_topic,$a_body,$a_tags,"NOW()",$_SESSION["usuario"]->getId(),$file_without_path]);
+          $inserted_article = $consultor->insertElement("articles",["id","title","topic","body","tags","date","user_id","tumbnail"],[$current_article_id,$a_title,$a_topic,$a_body,$a_tags,"NOW()",$_SESSION["usuario"]->getId(),$file_without_path]);
           if($inserted_article){
             move_uploaded_file($file_temp,$file_with_path);
           }
