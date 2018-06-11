@@ -21,22 +21,11 @@ $(document).ready(function(){
   $("#table_add").click(function(e){
     if($(this).attr("href")==""){
       e.preventDefault();
-
-      $("#add_alert").removeClass();
-      $("#add_alert").html("");
-      $("#add_alert").fadeOut();
     }
   });
 
   $("#add_element").click(function(){
-    $("#add_alert").removeClass();
-    $("#add_alert").html("");
-
-    postForm(add_form,"controller/admincp-postForm.xhr.php",info=>{
-      $("#add_alert").addClass(info.class);
-      $("#add_alert").html(info.message);
-      $("#add_alert").fadeIn(200);
-    });
+    formValidation(add_form,"#add_alert");
   });
 
   $("#tabla .table_data").click(function(){
@@ -71,7 +60,7 @@ $(document).ready(function(){
 
   	$.extend(arr, {row_id:row_id});
 
-    post("model/admincp-updatetable.xhr.php",arr,function(data){});
+    postJSON("model/admincp-updatetable.xhr.php",arr,function(data){});
   });
 
   $(".edit_table").click(function(){
@@ -149,14 +138,24 @@ $(document).ready(function(){
 
   	$.extend(arr, {row_id:row_id});
 
-    post("model/admincp-updatetable.xhr.php",arr,function(data){});
+    postJSON("model/admincp-updatetable.xhr.php",arr,function(data){});
   });
 
-  $(".delete_table").click(function(){
+  $(".delete_table").click(function(e){
+    e.preventDefault();
     var tbl_row = $(this).closest('tr');
     var row_id = tbl_row.attr('id');
+    $("#alertbox_d").removeClass();
+    $("#alertbox_d").html("");
 
-    post("model/admincp-deletefromtable.xhr.php",{row_id:row_id},function(data){console.log(data)});
+    postJSON("model/admincp-deletefromtable.xhr.php",{row_id:row_id},function(data){
+
+      if(data.status=="success"){
+        $("#alertbox_d").html("<div class='modal-header'>Success <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'>Everything went ok</div>");
+      }else{
+        $("#alertbox_d").html("<div class='modal-header'>Error <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'>Something went wrong...</div>");
+      }
+    });
   });
 
 });

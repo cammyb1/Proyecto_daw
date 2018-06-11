@@ -27,7 +27,13 @@ foreach ($all_headers[strtolower($name)] as $value) {
 }
 
 ?>
-
+<div class="modal fade" role="dialog" id="alertModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="alertbox_d"></div>
+    </div>
+  </div>
+</div>
 <div class="modal fade" role="dialog" id="addModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -59,11 +65,16 @@ foreach ($all_headers[strtolower($name)] as $value) {
                   }else if(in_array($value,$value_types["text_area"])){
                     echo "<textarea name='".ucfirst($value)."' maxlength=255 class='form-control area-modal' resizable='false'></textarea>";
                   }else{
-                    echo "<input type='text' name='".ucfirst($value)."' class='form-control'/>";
+                    if($value=="email"){
+                      echo "<input type='email' name='".ucfirst($value)."' class='form-control'/>";
+                    }else{
+                      echo "<input type='text' name='".ucfirst($value)."' class='form-control'/>";
+                    }
                   }
-                  echo "</div></div>";
+                echo "</div></div>";
               }
             }
+            echo "<input type='hidden' name='table_name' value='".strtolower($name)."'/>";
           ?>
         </form>
       </div>
@@ -129,7 +140,7 @@ if(sizeof($used_table)>0){
           <button class='btn btn-primary edit_table'><i class='fa fa-pencil-alt'></i></button>
           <button class='btn btn-danger save_table'><i class='fa fa-save'></i></button>
           <button class='btn btn-secondary cancel_table'><i class='fa fa-times'></i></button>
-          ".(strtolower($name)=="users"&&(($_SESSION["usuario"]->getId()==$table['id'])||($_SESSION["usuario"]->getType()<$table['type']))?"":"<a class='btn btn-danger delete_table' href=''><i class='fa fa-trash'></i></a>")."
+          ".(strtolower($name)=="users"&&(($_SESSION["usuario"]->getId()==$table['id'])||($_SESSION["usuario"]->getType()<$table['type']))?"":"<a class='btn btn-danger delete_table' href='' data-toggle='modal' data-target='#alertModal'><i class='fa fa-trash'></i></a>")."
       </td>
     </tr>";
   }

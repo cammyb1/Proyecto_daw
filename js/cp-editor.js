@@ -7,7 +7,11 @@ $(document).ready(function () {
       $("#alert-box").hide("fade");
     });
 
-    $("#a_send").click(submitForm);
+    $("#a_send").click(function(e){
+      e.preventDefault();
+      article_form.body.innerHTML = richTextArea.document.getElementsByTagName("body")[0].innerHTML;
+      formValidation(article_form,"#alert-box");
+    });
 
     get("model/admincp-tags.xhr.php",function(data){
       $("#tags").tokenfield({
@@ -47,11 +51,4 @@ $(document).ready(function () {
      richTextArea.document.getElementsByTagName("body")[0].textContent = richTextArea.document.getElementsByTagName("body")[0].innerHTML;
      showingSource=true;
    }
- }
-
- function submitForm(){
-   article_form.body.innerHTML = richTextArea.document.getElementsByTagName("body")[0].innerHTML;
-    if(formValidation(article_form)){
-      article_form.submit();
-    }
  }

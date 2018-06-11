@@ -6,7 +6,7 @@ $(document).ready(function(){
 });
 
 function request_page(pn){
-    post("model/main-page-articles.xhr.php","page="+pn,(data)=>{
-      $("#articles").html(data);
-    });
+  postJSON("model/main-page-articles.xhr.php","page="+pn,(data)=>{
+    $("#articles").html(data);
+  });
 }

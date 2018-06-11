@@ -6,22 +6,16 @@
 
     include "../MainComponents/vista/common-dashboar.view.php";
   ?>
-  <div id="alert-box" class="alert alert-danger collapse">
-    <h4 class="alert-heading" id="alert-title"></h4>
-    <div id='alert-message'>
-      <ul id="alert-list"></ul>
-    </div>
-    <a href="#" class="close" id="alert-close">&times;</a>
-  </div>
+  <div id="alert-box"></div>
   <form action="" method="POST" enctype="multipart/form-data" name="article_form">
     <div>
       <div class="form-group">
-        <label for="" id="input-label">Title</label><input type="text" name="a_title" size="100">
+        <label for="" class="input-label">Title</label><input type="text" name="title" size="100">
         <div class="input-group">
-          <label for="">Topic : </label><select class="custom-select" name="a_topic" id="topic"></select>
+          <label for="">Topic : </label><select class="custom-select" name="topic" id="topic"></select>
         </div>
         <div class="input-group">
-          <label for="" id="input-label">Tags  </label><input type="text" name="a_tags" id="tags">
+          <label for="" class="input-label">Tags  </label><input type="text" name="tags" id="tags">
         </div>
       </div>
       <div class="btn-group">
@@ -61,11 +55,13 @@
         <iframe name="richTextArea" style="width:1000px; height:500px; background-color: #fff;"></iframe>
       </div>
       <div class="form-group">
-        <label for="" id="input-label">Archivo: </label><input type="file" name="article_tumb" class="file">
+        <label for="" class="input-label">Archivo: </label><input type="file" name="tumbnail" id="file">
       </div>
+      <input type="hidden" name='user_id' value='<?php echo $_SESSION["usuario"]->getId(); ?>'>
+      <input type="hidden" name='table_name' value='articles'>
     </div>
     <div>
-      <input type="submit" class="btn btn-info" name="Enviar" id="a_send" value="Subir articulo"/>
+      <button class="btn btn-info" id="a_send" >Subir articulo</button>
     </div>
   </form>
 

@@ -2,13 +2,15 @@ function get(url,success){
   $.ajax({
    url,
    type:"get",
+   method: 'GET',
    success
   });
 }
-function post(url,data,success){
+function postJSON(url,data,success){
   $.ajax({
    url,
    type:"post",
+   method: 'POST',
    data,
    dataType:'json',
    encode:true,
@@ -16,20 +18,39 @@ function post(url,data,success){
   });
 }
 
+function sendPostForm(url,data,success){
+  $.ajax({
+   url,
+   type:"post",
+   data,
+   success,
+   cache: false,
+   contentType: false,
+   processData: false,
+   method: 'POST'
+  });
+}
+
 function postForm(formElement,url,success){
   let elements = formElement.elements;
-  let data = {};
   let excluded_tags = ["INPUT","TEXTAREA","SELECT"]
+  let formData = new FormData();
 
   for(var id in elements){
     let currentElement = elements[id];
 
     if(excluded_tags.includes(currentElement.tagName)){
-      data[currentElement.name]=currentElement.value;
+      if(currentElement.type!="file"){
+        formData.append(currentElement.name,currentElement.value);
+      }else{
+        jQuery.each(jQuery("#file")[0].files, function(i, file) {
+            formData.append(currentElement.name, file);
+        });
+      }
     }
   }
 
-  post(url,data,success);
+  sendPostForm(url,formData,success);
 }
 
 function getParameterByName(name, url) {
@@ -42,31 +63,32 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function formValidation(formName){
-  var clase = "warning"
-  var alertMessages = [];
+function formValidation(formName,divId){
   var error = false;
-
-  $("#alert-box").show("fade");
-  $("#alert-list").html("");
+  $(divId).removeClass();
+  $(divId).html("");
+  var mailREGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   for(element of formName.elements){
     if(element.name!=""){
-
       switch(element.type){
         case "file":{
           let allowedExt = ["jpg","jpeg","png"]
           let ext = element.value.split(".")[element.value.split(".").length-1].toLowerCase();
 
           if(element.value.length == 0 || !allowedExt.includes(ext)){
-            alertMessages.push(`Element <strong>${element.name}</strong> is missing its value.`);
             error = true;
           }
           break;
         }
         case "text":{
           if(element.value.length == 0 ){
-            alertMessages.push(`Element <strong>${element.name}</strong> is missing its value.`);
+            error = true;
+          }
+          break;
+        }
+        case "email":{
+          if(!mailREGEX.test(element.value)){
             error = true;
           }
           break;
@@ -75,8 +97,7 @@ function formValidation(formName){
 
       switch(element.tagName){
         case "TEXTAREA":{
-          if(element.value=="<br>"){
-            alertMessages.push(`Element <strong>${element.name}</strong> is missing its value.`);
+          if(element.value=="<br>"||element.value==""){
             error = true;
           }
           break;
@@ -85,17 +106,24 @@ function formValidation(formName){
     }
   }
 
-  alertMessages.map(function(item,index){
-    $("#alert-list").append(`<li>${item}</li>`)
-  });
-
-  if(!error){
-    $("#alert-box").removeClass("alert-danger").addClass("alert-success");
-    $("#alert-title").html("<strong>Success</strong> article sended.");
+  if(error){
+    $(divId).addClass("alert alert-danger");
+    $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4><ul><li>Something went wrong..</li></ul>");
+    $("#alert_close").click(()=>closeAlert(divId));
+    $(divId).fadeIn(200);
   }else{
-    $("#alert-box").removeClass("alert-success").addClass("alert-danger");
-    $("#alert-title").html("<strong>Oops</strong> Something is missing... <hr />");
+    postForm(formName,"controller/admincp-postForm.xhr.php",info=>{
+      let data = JSON.parse(info);
+      $(divId).addClass(data.class);
+      $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>"+data.status+"</h4><ul>"+data.message+"</ul>");
+      $("#alert_close").click(()=>closeAlert(divId));
+      $(divId).fadeIn(200);
+    });
   }
 
   return !error;
+}
+
+function closeAlert(divId){
+  $(divId).fadeOut(200);
 }

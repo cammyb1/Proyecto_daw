@@ -214,15 +214,9 @@ class Consultor{
 
       $consulta = "INSERT INTO $table_name($columns) VALUES ($sets);";
 
-      $this->logger->console($consulta);
       if($resultado = $this->db->query($consulta)){
-        $this->logger->console("[DB-LOG] Elemento ingresado correctamente");
         return true;
-      }else{
-        $this->logger->console("[DB-LOG] No se pudo ingresar el elemento");
       }
-    }else{
-      $this->logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
     }
 
     return false;
@@ -235,14 +229,12 @@ class Consultor{
 
       if($resulto = $this->db->query($consulta)){
         if($this->db->affected_rows > 0){
-          $this->logger->console("[DB-LOG] Hubo un total de ".$this->db->affected_rows." filas afectadas.");
-        }else{
-          $this->logger->console("[DB-LOG] No hubo filas afectadas");
+          return true;
         }
       }
-    }else{
-      $this->logger->console("[COND-ERR] Comprueba los parametros de 'removeElement'");
     }
+
+    return false;
   }
 
   public function updateElement($table_name,$sets,$conditions,$operator=" AND "){
