@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Skranji');
+
+.col{
+  padding: 0;
+}
+.fullvh{
+  height: 100vh;
+  position: fixed;
+}
+.lp-background{
+  width: 100%;
+}
+#landing .blackcoat{
+  width: 100%;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 1;
+}
+
+.landing-box{
+  position: absolute;
+  top:20%;
+  left:20%;
+  padding: 50px;
+  z-index: 100;
+  width: 60%;
+  min-height: 30%;
+  background-color: rgba(33, 45, 57,0.2);
+  font-size: 25px;
+}
+.landing-description{
+  color:grey;
+  font-family: "Calibri";
+}
+.landing-title h1{
+  font-size: 40px;
+  color:lightgrey;
+  font-family: "Skranji","Calibri";
+}
+.landing-button a{
+  padding: 15px 40px;
+  font-size:25px;
+  border-radius: 0;
+  background-color: teal;
+  color:white;
+}
+.landing-box>div{
+  margin-top:20px;
+}
