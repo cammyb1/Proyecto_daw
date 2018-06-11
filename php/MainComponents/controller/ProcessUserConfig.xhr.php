@@ -1,8 +1,4 @@
 <?php
-  include "../modelo/Consultor.php";
-  include "../modelo/Components/User.php";
-  include "../modelo/Components/Logger.php";
-
   if(!isset($_SESSION)){
     session_start();
   }
@@ -22,7 +18,7 @@
       $data["status"]="failed";
     }
 
-    if($data["message"]==""){
+    if($data["status"]==""){
 
       unset($data["user_id"]);
       unset($data["id"]);

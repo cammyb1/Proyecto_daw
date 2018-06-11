@@ -1,7 +1,3 @@
-<?php
-
-
-?>
 <div id="root">
   <header>
     <div class="container">
@@ -14,10 +10,7 @@
     </div>
   </header>
   <div class="container">
-  <section id="articles">
-    <div id="pagination" class="pagination">
-    </div>
-  </section>
+  <section id="articles"></section>
   <aside>
       <div class="aside popular">
         <div class="title">

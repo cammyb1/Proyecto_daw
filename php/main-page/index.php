@@ -18,10 +18,10 @@
     <script src="../../js/jquery/jquery-3.3.1.min.js"></script>
     <script src="../../js/jquery/jquery-ui.min.js"></script>
     <script src="../../js/jquery/jquery.canvasjs.min.js"></script>
+    <script type="text/javascript" src="../../js/js-utils.js"></script>
+    <script type="text/javascript" src="../../js/mp-main.js"></script>
     <script src="../../js/bootstrap/bootstrap.min.js"></script>
     <script src="../../js/bootstrap/bootstrap-tokenfield.js"></script>
     <script src="../../js/bootstrap/bootstrap-tokenfield.min.js"></script>
-    <script type="text/javascript" src="../../js/js-utils.js"></script>
-    <script type="text/javascript" src="../../js/mp-main.js"></script>
   </body>
 </html>

@@ -4,7 +4,7 @@
 
   $_GET["table_name"]="landing_config";
 
-  $data_recived = include_once("../MainComponents/controller/ProcessUserConfig.controller.php");
+  $data_recived = include_once("../MainComponents/controller/ProcessUserConfig.xhr.php");
 
   if(sizeof($data_recived)>0){
     $_SESSION["landing_config"]=$data_recived;

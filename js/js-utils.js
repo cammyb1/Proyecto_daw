@@ -6,6 +6,15 @@ function get(url,success){
    success
   });
 }
+function post(url,data,success){
+  $.ajax({
+   url,
+   type:"post",
+   method: 'POST',
+   data,
+   success
+  });
+}
 function getWithType(url,success,dataType){
   $.ajax({
    url,

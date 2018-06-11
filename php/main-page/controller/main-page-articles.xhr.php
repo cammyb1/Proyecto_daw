@@ -9,7 +9,7 @@
 
     $pn = $_POST["page"];
 
-    $results_per_page = 2;
+    $results_per_page = 10;
     $number_of_results = $consultor -> getTableSize("articles");
     $number_of_pages = ceil($number_of_results/$results_per_page);
 
@@ -30,7 +30,7 @@
       $users_names[$user["id"]] = $user["username"];
     }
 
-    $articles = $consultor -> getLimitedTable("articles",$this_page_first_result,$results_per_page,"title");
+    $articles = $consultor -> getLimitedTable("articles",$this_page_first_result,$results_per_page,"date");
 
     $found = false;
 
@@ -46,7 +46,7 @@
                 <h1>'.$article["title"].'</h1>
                 <div>
                   <span>'.date("h:i A",strtotime($article_date)).'</span>
-                  /<span>'.$users_names[$article["id"]].'</span>
+                  /<span>'.$users_names[$article["user_id"]].'</span>
                   /<span>'.$article["topic"].'</span>
                   /<span>'.$article["likes"].'</span>
                 </div>
