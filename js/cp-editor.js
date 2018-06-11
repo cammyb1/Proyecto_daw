@@ -13,7 +13,7 @@ $(document).ready(function () {
       formValidation(article_form,"#alert-box");
     });
 
-    get("model/admincp-tags.xhr.php",function(data){
+    get("controller/admincp-tags.xhr.php",function(data){
       $("#tags").tokenfield({
         autocomplete:{
           source:JSON.parse(data),
@@ -23,7 +23,7 @@ $(document).ready(function () {
       });
     });
 
-    get("model/admincp-topics.xhr.php",function(data){
+    get("controller/admincp-topics.xhr.php",function(data){
       let info = JSON.parse(data);
       for(var i=0;i<info.length;i++){
         $("#topic").append("<option value="+info[i]+">"+info[i]+"</option>");
