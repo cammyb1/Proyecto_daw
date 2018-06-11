@@ -1,0 +1,64 @@
+/*Article*/
+article .upper div {
+    padding: 5px;
+    border-top: 1px dotted tomato;
+    border-bottom: 1px dotted tomato;
+}
+
+article {
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
+}
+
+article .lower {
+    overflow: hidden;
+}
+
+article .lower img {
+    width: 150px;
+    height: 150px;
+    display: block;
+    float: left;
+}
+
+article .lower .share {
+    clear: both;
+    width: 100%;
+}
+
+article .more a {
+    background-color: rgba(246, 125, 125, 1);
+    border-color: tomato;
+    padding: 5px 10px;
+    border-radius: 50%;
+
+}
+
+/* Aside*/
+.aside {
+    margin: 20px;
+    width: 100%;
+    background-color: tomato;
+}
+
+.aside .title {
+    background-color: #333;
+    padding: 10px;
+    color: White;
+}
+
+.aside .article-container, .aside .category-container {
+    padding: 5px 10px;
+}
+
+.aside .article {
+    margin: 10px auto;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.aside .category-container li {
+    border-bottom: 1px dotted white;
+}

@@ -58,7 +58,7 @@
                   <span>Share this at</span>
                 </div>
               </div>
-              <div class="more">
+              <div class="more d-flex justify-content-md-end">
                 <a href="index.php?article='.$article["id"].'">+</a>
               </div>
             </article>
