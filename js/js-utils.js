@@ -6,13 +6,22 @@ function get(url,success){
    success
   });
 }
-function postJSON(url,data,success){
+function getWithType(url,success,dataType){
+  $.ajax({
+   url,
+   type:"get",
+   method: 'GET',
+   dataType,
+   success
+  });
+}
+function postWithType(url,data,success,dataType){
   $.ajax({
    url,
    type:"post",
    method: 'POST',
    data,
-   dataType:'json',
+   dataType,
    encode:true,
    success
   });

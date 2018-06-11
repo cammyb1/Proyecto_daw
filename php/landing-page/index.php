@@ -9,9 +9,14 @@
     <link rel="shortcut icon" href="resources/logo.png">
     <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/fa/fontawesome-all.css">
+    <link rel="stylesheet" href="../../css/main-style.css">
     <title>Imperio inca</title>
   </head>
   <body>
+
+    <?php
+      include "controller/landing.controller.php";
+    ?>
 
     <!--Bootstrap and jquery js-->
     <script src="../../js/jquery/jquery-3.3.1.min.js"></script>

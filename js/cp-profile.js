@@ -60,7 +60,7 @@ $(document).ready(function(){
 
   	$.extend(arr, {row_id:row_id});
 
-    postJSON("model/admincp-updatetable.xhr.php",arr,function(data){});
+    postWithType("model/admincp-updatetable.xhr.php",arr,function(data){},"json");
   });
 
   $(".edit_table").click(function(){
@@ -138,7 +138,7 @@ $(document).ready(function(){
 
   	$.extend(arr, {row_id:row_id});
 
-    postJSON("model/admincp-updatetable.xhr.php",arr,function(data){});
+    postWithType("model/admincp-updatetable.xhr.php",arr,function(data){},"json");
   });
 
   $(".delete_table").click(function(e){
@@ -148,14 +148,14 @@ $(document).ready(function(){
     $("#alertbox_d").removeClass();
     $("#alertbox_d").html("");
 
-    postJSON("model/admincp-deletefromtable.xhr.php",{row_id:row_id},function(data){
+    postWithType("model/admincp-deletefromtable.xhr.php",{row_id:row_id},function(data){
 
       if(data.status=="success"){
         $("#alertbox_d").html("<div class='modal-header'>Success <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'>Everything went ok</div>");
       }else{
         $("#alertbox_d").html("<div class='modal-header'>Error <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'>Something went wrong...</div>");
       }
-    });
+    },"json");
   });
 
 });

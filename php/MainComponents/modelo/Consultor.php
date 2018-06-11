@@ -45,13 +45,11 @@ class Consultor{
     $result = array();
     $consulta = "SELECT * FROM $table WHERE $column=$value";
 
-    $this->logger->console($consulta);
     if($resultado = $this->db->query($consulta) ){
       while($fila = $resultado->fetch_assoc()){
         $result[] = $fila;
       }
     }else{
-      $this->logger->console("[COND-ERR] Comprueba los parametros de 'getItemsBy'");
       $result = array();
     }
 
@@ -246,13 +244,11 @@ class Consultor{
       $consulta = "UPDATE $table_name SET $sets WHERE $conditions;";
 
       if($resultado = $this->db->query($consulta)){
-        $this->logger->console("[DB-LOG] Elemento actualizado correctamente");
-      }else{
-        $this->logger->console("[DB-LOG] No se pudo ingresar el elemento");
+        return true;
       }
-    }else{
-      $this->logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
     }
+
+    return false;
   }
 
   public function getThisTables($tables){
