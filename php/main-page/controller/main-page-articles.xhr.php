@@ -1,6 +1,5 @@
 <?php
   require_once("../../MainComponents/modelo/Components/Logger.php");
-  require_once("../../MainComponents/modelo/Components/Article.php");
   require_once("../../MainComponents/modelo/Components/User.php");
   require_once("../../MainComponents/modelo/Consultor.php");
   session_start();
@@ -10,7 +9,7 @@
 
     $pn = $_POST["page"];
 
-    $results_per_page = 2;
+    $results_per_page = 10;
     $number_of_results = $consultor -> getTableSize("articles");
     $number_of_pages = ceil($number_of_results/$results_per_page);
 
@@ -31,7 +30,7 @@
       $users_names[$user["id"]] = $user["username"];
     }
 
-    $articles = $consultor -> getLimitedTable("articles",$this_page_first_result,$results_per_page,"title");
+    $articles = $consultor -> getLimitedTable("articles",$this_page_first_result,$results_per_page,"date");
 
     $found = false;
 
@@ -60,7 +59,7 @@
                 </div>
               </div>
               <div class="more">
-                <a href="index.php?article='.$article["article_id"].'">+</a>
+                <a href="index.php?article='.$article["id"].'">+</a>
               </div>
             </article>
           ';

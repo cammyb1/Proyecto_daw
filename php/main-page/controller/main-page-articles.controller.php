@@ -1,8 +1,8 @@
 <?php
-  include "model/main-page-articles.model.php";
+  include "model/main-page.model.php";
 
   $consultor = new Consultor();
-    
+
   //GUEST USER!
   $time = time();
   $guest_timeout = $time - (2*60);

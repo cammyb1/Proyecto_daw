@@ -23,13 +23,13 @@ class Consultor{
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
     $object_output = null;
-    $consulta = "SELECT id,name,lastname,username,email,fecha,type FROM users WHERE username='$username' AND password=PASSWORD($password) AND type='1'";
+    $consulta = "SELECT id,name,lastname,username,email,date,type FROM users WHERE username='$username' AND password=PASSWORD($password) AND type='1' AND active='1'";
 
     if($this->elemetExist("users","username",$username)){
       $this->logger->console($consulta);
       if($resultado = $this->db->query($consulta)){
         $fila = $resultado->fetch_assoc();
-        $object_output = new User($fila["id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["fecha"],$fila["type"]);
+        $object_output = new User($fila["id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["date"],$fila["type"]);
 
         header("location:profile.php");
       }
@@ -45,13 +45,11 @@ class Consultor{
     $result = array();
     $consulta = "SELECT * FROM $table WHERE $column=$value";
 
-    $this->logger->console($consulta);
     if($resultado = $this->db->query($consulta) ){
       while($fila = $resultado->fetch_assoc()){
         $result[] = $fila;
       }
     }else{
-      $this->logger->console("[COND-ERR] Comprueba los parametros de 'getItemsBy'");
       $result = array();
     }
 
@@ -89,6 +87,29 @@ class Consultor{
         }
         $result[]= $row;
       }
+    }else{
+      $this->logger->console("[BD-ERR] $table_name no existe en la base de datos.");
+    }
+
+    return $result;
+  }
+
+  public function getTableColsNames($table_name){
+    $result = array();
+    $table_name = $this->db->escape_string($table_name);
+    $consulta = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'$table_name'";
+    $excluded_cols = ["USER","CURRENT_CONNECTIONS","TOTAL_CONNECTIONS","password"];
+
+    if($resultado=$this->db->query($consulta)){
+      $col = array();
+      while($fila = $resultado->fetch_assoc()){
+        foreach($fila as $v){
+          if(!in_array($v,$excluded_cols)){
+            $col[]=$v;
+          }
+        }
+      }
+      $result = $col;
     }else{
       $this->logger->console("[BD-ERR] $table_name no existe en la base de datos.");
     }
@@ -191,15 +212,9 @@ class Consultor{
 
       $consulta = "INSERT INTO $table_name($columns) VALUES ($sets);";
 
-      $this->logger->console($consulta);
       if($resultado = $this->db->query($consulta)){
-        $this->logger->console("[DB-LOG] Elemento ingresado correctamente");
         return true;
-      }else{
-        $this->logger->console("[DB-LOG] No se pudo ingresar el elemento");
       }
-    }else{
-      $this->logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
     }
 
     return false;
@@ -212,14 +227,12 @@ class Consultor{
 
       if($resulto = $this->db->query($consulta)){
         if($this->db->affected_rows > 0){
-          $this->logger->console("[DB-LOG] Hubo un total de ".$this->db->affected_rows." filas afectadas.");
-        }else{
-          $this->logger->console("[DB-LOG] No hubo filas afectadas");
+          return true;
         }
       }
-    }else{
-      $this->logger->console("[COND-ERR] Comprueba los parametros de 'removeElement'");
     }
+
+    return false;
   }
 
   public function updateElement($table_name,$sets,$conditions,$operator=" AND "){
@@ -231,13 +244,11 @@ class Consultor{
       $consulta = "UPDATE $table_name SET $sets WHERE $conditions;";
 
       if($resultado = $this->db->query($consulta)){
-        $this->logger->console("[DB-LOG] Elemento actualizado correctamente");
-      }else{
-        $this->logger->console("[DB-LOG] No se pudo ingresar el elemento");
+        return true;
       }
-    }else{
-      $this->logger->console("[COND-ERR] Comprueba los parametros de 'insertElement'");
     }
+
+    return false;
   }
 
   public function getThisTables($tables){
@@ -251,7 +262,6 @@ class Consultor{
   }
 
   function getOS($userAgent) {
-      // Create list of operating systems with operating system name as array key
       $oses = array (
           'iPhone'            => '(iPhone)',
           'Windows 3.11'      => 'Win16',
@@ -275,16 +285,11 @@ class Consultor{
           'Search Bot'        => '(nuhk)|(Googlebot)|(Yammybot)|(Openbot)|(Slurp/cat)|(msnbot)|(ia_archiver)'
       );
 
-      // Loop through $oses array
       foreach($oses as $os => $preg_pattern) {
-          // Use regular expressions to check operating system type
           if ( preg_match('@' . $preg_pattern . '@', $userAgent) ) {
-              // Operating system was matched so return $oses key
               return $os;
           }
       }
-
-      // Cannot find operating system so return Unknown
 
       return 'n/a';
   }

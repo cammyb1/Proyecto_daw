@@ -2,7 +2,14 @@ $(document).ready(function(){
 
   setInterval(function(){
     setTime();
-    get("model/admincp-visitors.xhr.php",data => $("#visitors").html(data));
+    get("controller/admincp-tables_size.xhr.php",data => {
+      let info = JSON.parse(data);
+      $("#visitors").html(info["guest_users"].size);
+    });
+
+    get("controller/admincp-mailbox.xhr.php",data=>{
+      $("#mb_size").html(data);
+    });
   },1000);
 
   $("#mvc_refresh").click(function(){
@@ -18,7 +25,7 @@ $(document).ready(function(){
 });
 
 function callTables(){
-  get("model/admincp-tables.xhr.php",(data)=>{
+  get("controller/admincp-tables.xhr.php",(data)=>{
     let result = JSON.parse(data);
     if(result.length>0){
       if($("#table-metrics").length>0){
@@ -57,7 +64,7 @@ function setTime(){
   $("#ct-db").html("<b>"+date.toLocaleString("es-ES",options)+"</b>")
 }
 function callCountries(){
-  get("model/admincp-country.xhr.php",(data)=>{
+  get("controller/admincp-country.xhr.php",(data)=>{
     let result = JSON.parse(data);
     if(result.length>0){
       if($("#most_visited_c").length>0){

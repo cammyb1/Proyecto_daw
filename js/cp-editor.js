@@ -7,9 +7,13 @@ $(document).ready(function () {
       $("#alert-box").hide("fade");
     });
 
-    $("#a_send").click(submitForm);
+    $("#a_send").click(function(e){
+      e.preventDefault();
+      article_form.body.innerHTML = richTextArea.document.getElementsByTagName("body")[0].innerHTML;
+      formValidation(article_form,"#alert-box");
+    });
 
-    get("model/admincp-tags.xhr.php",function(data){
+    get("controller/admincp-tags.xhr.php",function(data){
       $("#tags").tokenfield({
         autocomplete:{
           source:JSON.parse(data),
@@ -19,7 +23,7 @@ $(document).ready(function () {
       });
     });
 
-    get("model/admincp-topics.xhr.php",function(data){
+    get("controller/admincp-topics.xhr.php",function(data){
       let info = JSON.parse(data);
       for(var i=0;i<info.length;i++){
         $("#topic").append("<option value="+info[i]+">"+info[i]+"</option>");
@@ -47,11 +51,4 @@ $(document).ready(function () {
      richTextArea.document.getElementsByTagName("body")[0].textContent = richTextArea.document.getElementsByTagName("body")[0].innerHTML;
      showingSource=true;
    }
- }
-
- function submitForm(){
-   article_form.body.innerHTML = richTextArea.document.getElementsByTagName("body")[0].innerHTML;
-    if(formValidation(article_form)){
-      article_form.submit();
-    }
  }
