@@ -17,7 +17,7 @@
           </button>
           <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                  <a class="nav-item nav-link active" href="#">Inicio <span class="sr-only">(current)</span></a>
+                  <a class="nav-item nav-link active" href="#">Inicio </a>
                   <a class="nav-item nav-link" href="#">Cultura</a>
                   <a class="nav-item nav-link" href="#">Idioma</a>
                   <a class="nav-item nav-link" href="#">Guias</a>
@@ -28,7 +28,7 @@
     <div class="container">
         <div class="row">
             <section class="col-md-9" id="articles"></section>
-            <aside class="col-md-3">
+            <aside class="col-md-3 mt-4">
                 <div class="aside popular">
                     <div class="title">
                         <h1>Popular</h1>
@@ -83,14 +83,44 @@
             </aside>
         </div>
     </div>
-<footer>
-  <div class="row">
-    <span></span>
-    <ul>
-      <li><a href="">item1</a></li>
-      <li><a href="">item2</a></li>
-      <li><a href="">item3</a></li>
-    </ul>
-  </div>
-</footer>
+    <!--<footer>-->
+    <!--  <div class="row">-->
+    <!--    <span></span>-->
+    <!--    <ul>-->
+    <!--      <li><a href="">item1</a></li>-->
+    <!--      <li><a href="">item2</a></li>-->
+    <!--      <li><a href="">item3</a></li>-->
+    <!--    </ul>-->
+    <!--  </div>-->
+    <!--</footer>-->
+    <footer class="page-footer font-small pt-4 mt-4">
+        <div class="container-fluid text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <h5 class="text-uppercase">Imperio Inca</h5>
+                    <p>wawawawawawawawawa wa wawa wa wwawa awawawawaw aw aw aw awawawwawwa awaw awa aw aw awa</p>
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-6 mb-md-0 mb-3">
+                    <h5 class="text-uppercase">Links</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#">Link 4</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright text-center py-3">© 2018 Copyright: Imperio Inca
+        </div>
+    </footer>
 </div>
