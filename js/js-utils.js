@@ -50,7 +50,11 @@ function postForm(formElement,type,url,success){
 
     if(excluded_tags.includes(currentElement.tagName)){
       if(currentElement.type!="file"){
-        formData.append(currentElement.name,currentElement.value);
+        if(currentElement.type!="checkbox"){
+          formData.append(currentElement.name,currentElement.value);
+        }else{
+          formData.append(currentElement.name,currentElement.checked?1:0);
+        }
       }else{
         jQuery.each(jQuery("#file")[0].files, function(i, file) {
             formData.append(currentElement.name, file);
@@ -75,47 +79,15 @@ function getParameterByName(name, url) {
 }
 
 function formValidation(formName,type,divId){
-  var error = false;
+  var error = true;
   $(divId).removeClass();
   $(divId).html("");
-  var mailREGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  for(element of formName.elements){
-    if(element.name!=""){
-      switch(element.type){
-        case "file":{
-          let allowedExt = ["jpg","jpeg","png"]
-          let ext = element.value.split(".")[element.value.split(".").length-1].toLowerCase();
-
-          if(element.value.length == 0 || !allowedExt.includes(ext)){
-            error = true;
-          }
-          break;
-        }
-        case "text":{
-          if(element.value.length == 0 ){
-            error = true;
-          }
-          break;
-        }
-        case "email":{
-          if(!mailREGEX.test(element.value)){
-            error = true;
-          }
-          break;
-        }
-      }
-
-      switch(element.tagName){
-        case "TEXTAREA":{
-          if(element.value=="<br>"||element.value==""){
-            error = true;
-          }
-          break;
-        }
-      }
-    }
+  if(formName.checkValidity()){
+    error=false;
+    console.log(formName.checkValidity());
   }
+
 
   if(error){
     $(divId).addClass("alert alert-danger");

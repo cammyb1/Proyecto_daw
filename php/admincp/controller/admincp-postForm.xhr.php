@@ -1,15 +1,21 @@
 <?php
   include "../model/admincp-common.xhr.php";
 
+  $file_temp= "";
+  $file_path = "C:/xampp/htdocs/Proyecto_daw/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
+  $file_with_path="";
+  $consultor = new Consultor();
+  $had_file = false;
+  $existing_file_colnames = array("tumbnail","bg_landing");
+  $canDelete = false;
+  $using_file_col = "";
+
   $data=array(
     "data"=>array(),
     "status"=>"Failed",
     "message"=>"",
     "class"=>"alert alert-danger"
   );
-  $file_temp= "";
-  $file_with_path="";
-  $consultor = new Consultor();
 
   if(!empty($_POST)){
     foreach($_POST as $key=>$value){
@@ -24,6 +30,7 @@
       if($value==""){
         $data["message"].="<li><b>$key</b> is missing.</li>";
       }else{
+        $had_file=true;
         $file_name = $value["name"];
         $file_size = $value["size"];
         $file_error = $value["error"];
@@ -33,14 +40,19 @@
         $file_ext = explode(".",$file_name);
         $file_actual_ext = end($file_ext);
         $isAllowed = in_array($file_actual_ext,$ext_allowed);
-        $file_path = "C:/xampp/htdocs/Proyecto_daw/resources/tumbnails/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
 
         if($isAllowed){
           if($file_error==0){
             if($file_size<1000000){
+
+              if(in_array($key,$existing_file_colnames)){
+                $canDelete=true;
+                $using_file_col=$key;
+              }
+
               $file_without_path = time().".".strtolower($file_actual_ext);
               $file_with_path = $file_path.$file_without_path;
-              $data["data"][$key]=$file_with_path;
+              $data["data"][$key]=$file_without_path;
             }else{
               $data["message"].="<li><b>File</b> is too BIG.</li>";
             }
@@ -73,6 +85,17 @@
 
         foreach($data["data"] as $key=>$value){
           $realsets[] = $key."='".$value."'";
+        }
+
+        if($had_file){
+          if($canDelete){
+            $last_file = $consultor -> getTableComplex($table_name,[$using_file_col],["id=$id"]);
+            $delete_route = $file_path.$last_file[0][$using_file_col];
+
+            if(file_exists($delete_route)){
+              unlink($delete_route);
+            }
+          }
         }
 
         $query = $consultor->updateElement($table_name,$realsets,["id=$id"]);

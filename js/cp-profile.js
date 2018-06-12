@@ -28,7 +28,15 @@ $(document).ready(function(){
   });
 
   $("#add_element").click(function(){
-    formValidation(add_form,"#add_alert");
+    formValidation(add_form,"insert","#add_alert");
+  });
+
+  $("#send_mp").click(function(){
+    formValidation(mp_form,"update","#alert_mp")
+  });
+
+  $("#send_lp").click(function(){
+    formValidation(lp_form,"update","#alert_lp")
   });
 
   $("#tabla .table_data").click(function(){
@@ -93,15 +101,17 @@ $(document).ready(function(){
     });
   });
 
+
+
   $(".cancel_table").click(function(){
     var tbl_row = $(this).closest('tr');
   	var row_id = tbl_row.attr('id');
 
-  	tbl_row.find('.save_table').hide();
-  	tbl_row.find('.cancel_table').hide();
+  	tbl_row.find('.save_table').fadeOut(100);
+  	tbl_row.find('.cancel_table').fadeOut(100);
 
-  	tbl_row.find('.edit_table').show();
-  	tbl_row.find('.delete_table').show();
+  	tbl_row.find('.edit_table').fadeIn(100);
+  	tbl_row.find('.delete_table').fadeIn(100);
 
   	tbl_row.find('.table_data')
     .attr('edit_type', 'click')
@@ -121,11 +131,11 @@ $(document).ready(function(){
     var tbl_row = $(this).closest('tr');
     var row_id = tbl_row.attr('id');
 
-  	tbl_row.find('.save_table').hide();
-  	tbl_row.find('.cancel_table').hide();
+  	tbl_row.find('.save_table').fadeOut(100);
+  	tbl_row.find('.cancel_table').fadeOut(100);
 
-    tbl_row.find('.edit_table').show();
-    tbl_row.find('.delete_table').show();
+    tbl_row.find('.edit_table').fadeIn(100);
+    tbl_row.find('.delete_table').fadeIn(100);
 
 
   	tbl_row.find('.table_data')
@@ -203,7 +213,39 @@ $(document).ready(function(){
     getEmails();
   });
 
-  
+  postWithType("../MainComponents/controller/ProcessUserConfig.xhr.php",{table_name:"lp_config"},data=>{
+    let form = lp_form;
+    let currentData = data.data[0];
+    for(var formElement of form){
+      if(currentData[formElement.name]){
+         switch(formElement.tagName){
+           case "INPUT":{
+             switch(formElement.type){
+               case "checkbox":{
+                 $(formElement).attr("checked",currentData[formElement.name]==1?true:false);
+                 break;
+               }
+               case "file":{
+                 break;
+               }
+                default:{
+                  $(formElement).attr("value",currentData[formElement.name]);
+                  break;
+                }
+             }
+             break;
+           }
+           case "TEXTAREA":{
+             $(formElement).html(currentData[formElement.name]);
+           }
+         }
+      }
+    }
+  },"json");
+
+
+
+
 });
 
 function setWatched(e){
