@@ -141,6 +141,10 @@ $(document).ready(function(){
     postWithType("model/admincp-updatetable.xhr.php",arr,function(data){},"json");
   });
 
+  $("#mail_box").click(function(){
+    
+  });
+
   $(".delete_table").click(function(e){
     e.preventDefault();
     var tbl_row = $(this).closest('tr');
@@ -156,6 +160,21 @@ $(document).ready(function(){
         $("#alertbox_d").html("<div class='modal-header'>Error <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'>Something went wrong...</div>");
       }
     },"json");
+  });
+
+  get("controller/admincp-mails.xhr.php",(data)=>{
+    let currentData = JSON.parse(data);
+    console.log(currentData);
+    if(currentData.data.length>0){
+      let fullMails ="";
+      for(let email of currentData.data){
+        fullMails+="<div class='row'><div class='col'><div class='"+(email.watched==0?"bg-primary":"bg-light")+"'><div class='up'>"+email.name+"-"+email.email+"-"+email.subject+"</div><div class='m-body'>"+email.message+"</div></div></div></div>";
+      }
+
+      $("#mail-content").html(fullMails);
+    }else{
+
+    }
   });
 
 });

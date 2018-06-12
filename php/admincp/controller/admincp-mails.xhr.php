@@ -25,15 +25,13 @@
     }
 
     if($result["message"]==""){
-        $result["status"]="Success";
-        $result["message"]="Enhorabuena!";
-        $result["class"]="alert alert-success";
-      );
+      $result["status"]="Success";
+      $result["message"]="Enhorabuena!";
+      $result["class"]="alert alert-success";
     }
   }else{
     $result["message"]="Something went wrong";
   }
 
-
-  return json_encode($result);
+  echo json_encode($result);
 ?>

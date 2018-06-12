@@ -15,15 +15,6 @@ function post(url,data,success){
    success
   });
 }
-function getWithType(url,success,dataType){
-  $.ajax({
-   url,
-   type:"get",
-   method: 'GET',
-   dataType,
-   success
-  });
-}
 function postWithType(url,data,success,dataType){
   $.ajax({
    url,

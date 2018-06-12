@@ -23,19 +23,19 @@
   ?>
     <div class="container">
       <div class="row">
-        <div class="col-xs-4">
+        <div class="col-md-2">
           <ul class="list-group">
             <li class="list-group-item"><a class="active" href="#home" data-toggle="tab">Mail</a></li>
             <li class="list-group-item"><a href="#mp" data-toggle="tab">Main page</a></li>
             <li class="list-group-item"><a href="#lp" data-toggle="tab">Landing page</a></li>
           </ul>
         </div>
-        <div class="col-xs-8">
+        <div class="col-md-10">
           <div class="tab-content" id='content'>
             <div class="tab-content">
               <div class="tab-pane fade in show active" id='home'>
                 <h1>Mail</h1>
-                <div id='mail-box'></div>
+                <div id='mail-content'></div>
               </div>
               <div id='mp' class="tab-pane fade">
                 <h3><u>Main page configuration.</u></h3>

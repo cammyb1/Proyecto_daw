@@ -19,7 +19,7 @@
         <div class="col fullvh" id="landing">
           <div class='blackcoat fullvh' id="coat"></div>
           <img src="../../resources/machu-picchu.jpg" id="l-bg" class="lp-background fullvh"  alt="BG_LANDING">
-          <div class="main-content">
+          <div class="main-content" id="content_lp" style="display:none;">
             <div class='landing-box'>
               <div class="landing-title" id="l-title"></div>
               <div class="landing-description" id="l-desc"></div>

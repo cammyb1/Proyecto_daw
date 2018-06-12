@@ -59,10 +59,10 @@
           <div class="col-md-12 content">
             <div class="row">
               <div class="bg-light d-flex justify-content-end container-fluid top-bar">
-                <div class="mail-box" id="mail_box">
+                <a class="mail-box text-dark" id="mail_box" href="profile.php?config">
                   <i class="far fa-envelope"></i>
                   <span class="badge badge-danger" id="mb_size">0</span>
-                </div>
+                </a>
                 <a class="btn text-dark" href="logout.php">Log out</a>
               </div>
             </div>
