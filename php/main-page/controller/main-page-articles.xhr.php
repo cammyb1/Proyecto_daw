@@ -39,6 +39,7 @@
         $found = true;
         foreach($articles as $article){
           $article_date = date($article["date"]);
+          $article_tumbnail = explode("/",$article["tumbnail"]);
 
           echo '
             <article>
@@ -52,7 +53,7 @@
                 </div>
               </div>
               <div class="lower">
-                <img src="../../resources/tumbnails/'.$article["tumbnail"].'" alt="previewimg">
+                <img src="../../resources/tumbnails/'.end($article_tumbnail).'" alt="previewimg">
                 <p>'.strip_tags($article["body"]).'</p>
                 <div class="share">
                   <span>Share this at</span>

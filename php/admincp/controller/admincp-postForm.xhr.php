@@ -53,16 +53,35 @@
 
 
     $table_name = $data["data"]["table_name"];
+    $type = $data["data"]["type"];
 
     unset($data["data"]["table_name"]);
+    unset($data["data"]["type"]);
 
     $columns = array_keys($data["data"]);
     $sets = array_values($data["data"]);
+    $query = false;
 
     if(isset($table_name)&&isset($columns)&&isset($sets)){
-      $inserted_article = $consultor->insertElement($table_name,$columns,$sets);
-      if($inserted_article){
-        move_uploaded_file($file_temp,$file_with_path);
+      if($type=="insert"){
+        $query = $consultor->insertElement($table_name,$columns,$sets);
+      }else if($type=="update"){
+        $realsets = array();
+        $id = $data["data"]["elem_id"];
+
+        unset($data["data"]["elem_id"]);
+
+        foreach($data["data"] as $key=>$value){
+          $realsets[] = $key."='".$value."'";
+        }
+
+        $query = $consultor->updateElement($table_name,$realsets,["id=$id"]);
+      }
+
+      if($query){
+        if(!file_exists($file_with_path)){
+          move_uploaded_file($file_temp,$file_with_path);
+        }
       }else{
         $data["message"].="<li>Failed <b>$table_name</b> upload error.</li>";
       }

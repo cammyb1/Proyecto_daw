@@ -40,7 +40,7 @@ function sendPostForm(url,data,success){
   });
 }
 
-function postForm(formElement,url,success){
+function postForm(formElement,type,url,success){
   let elements = formElement.elements;
   let excluded_tags = ["INPUT","TEXTAREA","SELECT"]
   let formData = new FormData();
@@ -56,6 +56,8 @@ function postForm(formElement,url,success){
             formData.append(currentElement.name, file);
         });
       }
+
+      formData.append("type",type);
     }
   }
 
@@ -72,7 +74,7 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function formValidation(formName,divId){
+function formValidation(formName,type,divId){
   var error = false;
   $(divId).removeClass();
   $(divId).html("");
@@ -121,7 +123,8 @@ function formValidation(formName,divId){
     $("#alert_close").click(()=>closeAlert(divId));
     $(divId).fadeIn(200);
   }else{
-    postForm(formName,"controller/admincp-postForm.xhr.php",info=>{
+    postForm(formName,type,"controller/admincp-postForm.xhr.php",info=>{
+      console.log(info);
       let data = JSON.parse(info);
       $(divId).addClass(data.class);
       $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>"+data.status+"</h4><ul>"+data.message+"</ul>");
