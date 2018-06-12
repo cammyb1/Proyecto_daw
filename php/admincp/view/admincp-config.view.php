@@ -34,7 +34,10 @@
           <div class="tab-content" id='content'>
             <div class="tab-content">
               <div class="tab-pane fade in show active" id='home'>
-                <h1>Mail</h1>
+                <div class='clearfix'>
+                  <h1>Mail</h1>
+                  <a class="float-right text-white" id="refresh_mails"><i class="fa fa-sync"></i></a>
+                </div>
                 <div id='mail-content'></div>
               </div>
               <div id='mp' class="tab-pane fade">
@@ -50,9 +53,10 @@
                   </div>
                   <div class="form-group">
                     <label for="">Color</label><input name="navColor" type="color" value="<?php echo $mp_form_data["navColor"];?>">
+                    <input type="hidden" name='table_name' value='articles'>
                   </div>
                   <div class="form-group">
-                    <Button id='send_lp' class="btn btn-primary form-control">Send</Button>
+                    <Button id='send_mp' class="btn btn-primary form-control">Update Main Page</Button>
                   </div>
                 </form>
               </div>
@@ -74,7 +78,7 @@
                     <label for="">Background image <span class="text-danger">(1920x1080)</span></label><input name="bg_landing" type="file" value="<?php echo $lp_form_data["bg_landing"];?>">
                   </div>
                   <div class="form-group">
-                    <Button id='send_lp' class="btn btn-primary form-control">Send</Button>
+                    <Button id='send_lp' class="btn btn-primary form-control">Update Landing</Button>
                   </div>
                 </form>
               </div>

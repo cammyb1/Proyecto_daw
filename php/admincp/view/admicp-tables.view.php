@@ -122,14 +122,16 @@ if(sizeof($used_table)>0){
   $max_body_length = 25;
   echo "</thead><tbody id='tabla'>";
   foreach($used_table as $table){
-    echo "<tr id='".strtolower($name)."_".$table['id']."'>";
+    echo "<tr id='".strtolower($name)."-".$table['id']."'>";
     foreach ($table as $key=>$value) {
       if($key!="password"){
 
         $value = strip_tags($value);
 
-        if(strlen($value)>$max_body_length){
-          $value = substr($value,0,$max_body_length)."...";
+        if($key=="body"){
+          if(strlen($value)>$max_body_length){
+            $value = substr($value,0,$max_body_length)."...";
+          }
         }
         echo in_array($key,$excluded_values["td_editables"])?"<td><div>$value</div></td>":"<td><div class='table_data' edit_type='click' col_name='$key'>$value</div></td>";
       }

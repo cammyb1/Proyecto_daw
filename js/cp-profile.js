@@ -1,4 +1,7 @@
 $(document).ready(function(){
+
+  getEmails();
+
   $("#searchBar").keyup(function() {
     var value = $(this).val().toLowerCase();
     $("#tabla tr").filter(function() {
@@ -58,9 +61,12 @@ $(document).ready(function(){
   	var arr = {};
   	arr[col_name] = col_val;
 
-  	$.extend(arr, {row_id:row_id});
+  	arr = {
+      ...arr,
+      row_id
+    }
 
-    postWithType("model/admincp-updatetable.xhr.php",arr,function(data){},"json");
+    postWithType("controller/admincp-updatetable.xhr.php",arr,function(data){},"json");
   });
 
   $(".edit_table").click(function(){
@@ -136,13 +142,29 @@ $(document).ready(function(){
   		arr[col_name] = col_val;
   	});
 
-  	$.extend(arr, {row_id:row_id});
+  	arr = {
+      ...arr,
+      row_id
+    }
 
-    postWithType("model/admincp-updatetable.xhr.php",arr,function(data){},"json");
-  });
+    postWithType("controller/admincp-updatetable.xhr.php",arr,function(data){
+      let header = "Error";
+      let body = "Something went wrong.";
 
-  $("#mail_box").click(function(){
-    
+      if(data.status=="success"){
+        header = "Success";
+        body = "Everything went ok.";
+      }
+
+      $("#alertbox_d").html(`
+        <div class='modal-header'>
+          ${header} <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button>
+        </div>
+        <div class='modal-body'>
+          ${body}
+          Everything went ok
+        </div>`);
+    },"json");
   });
 
   $(".delete_table").click(function(e){
@@ -152,32 +174,90 @@ $(document).ready(function(){
     $("#alertbox_d").removeClass();
     $("#alertbox_d").html("");
 
-    postWithType("model/admincp-deletefromtable.xhr.php",{row_id:row_id},function(data){
+    if(confirm("Are you sure you want to do this?.")){
+      postWithType("model/admincp-deletefromtable.xhr.php",{row_id:row_id},function(data){
 
-      if(data.status=="success"){
-        $("#alertbox_d").html("<div class='modal-header'>Success <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'>Everything went ok</div>");
-      }else{
-        $("#alertbox_d").html("<div class='modal-header'>Error <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'>Something went wrong...</div>");
-      }
-    },"json");
-  });
+        let header = "Error";
+        let body = "Something went wrong.";
 
-  get("controller/admincp-mails.xhr.php",(data)=>{
-    let currentData = JSON.parse(data);
-    console.log(currentData);
-    if(currentData.data.length>0){
-      let fullMails ="";
-      for(let email of currentData.data){
-        fullMails+="<div class='row'><div class='col'><div class='"+(email.watched==0?"bg-primary":"bg-light")+"'><div class='up'>"+email.name+"-"+email.email+"-"+email.subject+"</div><div class='m-body'>"+email.message+"</div></div></div></div>";
-      }
+        if(data.status=="success"){
+          header = "Success";
+          body = "Everything went ok.";
+        }
 
-      $("#mail-content").html(fullMails);
+        $("#alertbox_d").html(`
+          <div class='modal-header'>
+            ${header} <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button>
+          </div>
+          <div class='modal-body'>
+            ${body}
+            Everything went ok
+          </div>`);
+      },"json");
     }else{
-
+      $("#alertbox_d").html("<div class='modal-header'>Success <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'>Everything went ok</div>");
     }
   });
 
+  $("#refresh_mails").click((data)=>{
+    getEmails();
+  });
+
+  
 });
+
+function setWatched(e){
+  let isWatched = $(e).attr("isWatched")=="true";
+  let row_id = $(e).attr("row_id");
+
+  if(!isWatched){
+  	arr = {
+      watched:1,
+      row_id
+    }
+    postWithType("controller/admincp-updatetable.xhr.php",arr,function(data){},"json");
+
+    getEmails();
+  }
+}
+
+function deleteMail(e){
+  let row_id = $(e).attr("row_id");
+
+  postWithType("model/admincp-deletefromtable.xhr.php",{row_id:row_id},function(data){},"json");
+  getEmails();
+}
+
+function getEmails(){
+  get("controller/admincp-mails.xhr.php",(data)=>{
+    let currentData = JSON.parse(data);
+    if(currentData.data.length>0){
+      let fullMails ="";
+      let cont = 0;
+      for(let email of currentData.data){
+        cont++;
+        fullMails+=`
+        <div class="card">
+          <div class="card-header d-flex align-items-center justify-content-between cleafix ${email.watched==0?"":"main-color"}">
+            <a class="text-white" data-toggle="collapse" href="#mail_collapse${cont}"><span><b>From</b> ${email.name}</span> / <span><b>Subject</b> ${email.subject}</span> / <span><i class='fa fa-at'></i> ${email.email}</span></a>
+            <div>
+              <a class='btn text-white m_watched' onclick="setWatched(this)" isWatched='${email.watched==0?false:true}' row_id='${"mail_box-"+email.id}'><i class='${email.watched==0?"far fa-eye-slash":"far fa-eye"}'></i></a>
+              <a class='btn text-white m_watched' onclick="deleteMail(this)" row_id='${"mail_box-"+email.id}'><i class='fa fa-trash'></i></a>
+            </div>
+          </div>
+          <div id="mail_collapse${cont}" class="panel-collapse collapse">
+            <div class="card-body">${email.message}</div>
+          </div>
+        </div>
+        `;
+      }
+
+      $("#mail-content").html(fullMails).hide().fadeIn(200);
+    }else{
+      $("#mail-content").html("<div><p>Nothing to show here!</p></div>");
+    }
+  });
+}
 
 var tableToExcel = (function () {
   var uri = 'data:application/vnd.ms-excel;base64,',

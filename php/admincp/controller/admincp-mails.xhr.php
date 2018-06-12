@@ -1,7 +1,5 @@
 <?php
-  require_once("../../MainComponents/modelo/Components/Logger.php");
-  require_once("../../MainComponents/modelo/Components/User.php");
-  require_once("../../MainComponents/modelo/Consultor.php");
+  include "../model/admincp-common.xhr.php";
   session_start();
 
   $consultor = new Consultor();
@@ -14,14 +12,12 @@
 
   if(isset($_SESSION["usuario"])){
 
-    $tabla = $consultor -> getFullTable("mail_box");
+    $tabla = $consultor -> getTableComplex("mail_box",["*"],null,"watched");
 
     if(sizeof($tabla)>0){
       foreach($tabla as $key=>$value){
         $result["data"][$key]=$value;
       }
-    }else{
-      $result["message"]="There is nothing to show here..";
     }
 
     if($result["message"]==""){

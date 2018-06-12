@@ -1,6 +1,7 @@
 <?php
   include "model/admincp-login.model.php";
   include "view/admincp-login.view.php";
+  session_start();
 
   $consultor = new Consultor("users");
 

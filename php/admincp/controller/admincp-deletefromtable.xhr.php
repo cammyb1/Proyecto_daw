@@ -1,7 +1,5 @@
 <?php
-  require_once("../../MainComponents/modelo/Components/Logger.php");
-  require_once("../../MainComponents/modelo/Components/User.php");
-  require_once("../../MainComponents/modelo/Consultor.php");
+  include "../model/admincp-common.xhr.php";
 
   $worked = false;
   $data = array(
@@ -10,7 +8,7 @@
 
   if(isset($_POST)){
     $consultor = new Consultor();
-    $table_info = explode("_",$_POST["row_id"]);
+    $table_info = explode("-",$_POST["row_id"]);
     $table_name = $table_info[0];
     $row_id = $table_info[1];
 

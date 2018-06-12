@@ -1,6 +1,9 @@
 html,body{
   height: 100%;
 }
+body{
+ background-color: #e2e2e2 !important;
+}
 .content-footer{
   min-height: 100%;
 }
@@ -31,21 +34,19 @@ footer a{
 }
 .left-navbar{
   background-color: #212D39;
-  width: 200px;
+  width: 50px;
   left:0;
   top:0;
   transition: width .5s;
 }
 .main{
-  padding-left: 200px;
+  padding-left: 50px;
   transition: padding .5s;
   min-height: 100%;
 }
-.push{
-  padding-left: 50px;
-}
+
 .hide-nav{
-  width: 50px;
+  width: 200px;
 }
 #left-navbar ul{
   overflow: hidden;
@@ -184,9 +185,14 @@ nav a{
   background-color: #333;
 }
 
-.color1{
-  background-color: #EAEBF0;
-  color:#333;
+.main-color{
+  background-color: #212D39 !important;
+  color:white;
+}
+
+.submain-color{
+  background-color: #2E3C47 !important;
+  color:white;
 }
 
 .fullvh{

@@ -59,10 +59,6 @@
     $columns = array_keys($data["data"]);
     $sets = array_values($data["data"]);
 
-    if(isset($table_name)&&isset($columns)&&isset($sets)){
-
-    }
-
 
     if($data["message"]==""){
       $data["class"]="alert alert-success";
