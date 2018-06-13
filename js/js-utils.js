@@ -40,6 +40,12 @@ function sendPostForm(url,data,success){
   });
 }
 
+function refreshTables(){
+  get("controller/refreshTable.php",data=>{
+    console.log(data);
+  });
+}
+
 function postForm(formElement,type,url,success){
   let elements = formElement.elements;
   let excluded_tags = ["INPUT","TEXTAREA","SELECT"]

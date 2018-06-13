@@ -25,6 +25,8 @@ $(document).ready(function(){
 });
 
 function callTables(){
+  refreshTables();
+
   get("controller/admincp-tables.xhr.php",(data)=>{
     let result = JSON.parse(data);
     if(result.length>0){
@@ -64,6 +66,8 @@ function setTime(){
   $("#ct-db").html("<b>"+date.toLocaleString("es-ES",options)+"</b>")
 }
 function callCountries(){
+  refreshTables();
+
   get("controller/admincp-country.xhr.php",(data)=>{
     let result = JSON.parse(data);
     if(result.length>0){
