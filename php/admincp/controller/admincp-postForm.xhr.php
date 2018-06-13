@@ -43,7 +43,7 @@
 
         if($isAllowed){
           if($file_error==0){
-            if($file_size<1000000){
+            if($file_size<2000000){
 
               if(in_array($key,$existing_file_colnames)){
                 $canDelete=true;

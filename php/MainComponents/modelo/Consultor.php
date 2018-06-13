@@ -38,12 +38,12 @@ class Consultor{
     return $object_output;
   }
 
-  public function getItemsBy($table,$column,$value){
+  public function getItemsBy($table,$column,$value,$operator="="){
     $column = $this->db->escape_string($column);
     $value = $this->db->escape_string($value);
     $table = $this->db->escape_string($table);
     $result = array();
-    $consulta = "SELECT * FROM $table WHERE $column=$value";
+    $consulta = "SELECT * FROM $table WHERE $column$operator$value";
 
     if($resultado = $this->db->query($consulta) ){
       while($fila = $resultado->fetch_assoc()){

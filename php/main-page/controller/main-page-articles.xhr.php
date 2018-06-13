@@ -2,9 +2,18 @@
   include "../model/main-page-articles.model.php";
   session_start();
 
+  $consultor = new Consultor();
+  $logger = new Logger();
+
+  $users = $consultor -> getTableComplex("users",["id","username"]);
+
+  $users_names = array();
+
+  foreach($users as $user){
+    $users_names[$user["id"]] = $user["username"];
+  }
+
   if(isset($_POST["page"])){
-    $consultor = new Consultor();
-    $logger = new Logger();
 
     $pn = $_POST["page"];
     $topic = array();
@@ -26,28 +35,16 @@
 
     $this_page_first_result = ($pn-1)*$results_per_page;
 
-
-    $users = $consultor -> getFullTable("users");
-
-    $users_names = array();
-
-    foreach($users as $user){
-      $users_names[$user["id"]] = $user["username"];
-    }
-
     $articles = $consultor -> getLimitedTable("articles",$this_page_first_result,$results_per_page,"date",$topic);
-
-    $found = false;
 
     if(isset($articles)){
       if(sizeof($articles)>0){
-        $found = true;
         foreach($articles as $article){
           $article_date = date($article["date"]);
           $article_tumbnail = explode("/",$article["tumbnail"]);
 
           echo '
-            <article>
+            <article class="preview">
               <div class="upper">
                 <h1>'.$article["title"].'</h1>
                 <div>
@@ -58,8 +55,14 @@
                 </div>
               </div>
               <div class="lower">
-                <img src="../../resources/images/'.end($article_tumbnail).'" alt="previewimg">
-                <p>'.strip_tags($article["body"]).'</p>
+                <div class="body">
+                  <div class="tumbail">
+                    <img src="../../resources/images/'.end($article_tumbnail).'" alt="previewimg">
+                  </div>
+                  <div class="content">
+                    <p>'.strip_tags($article["body"]).'</p>
+                  </div>
+                </div>
                 <div class="share">
                   <span>Share this at</span>
                 </div>
@@ -87,7 +90,38 @@
     }
   }else{
     if(isset($_POST["article"])){
+      $article_id = $_POST["article"];
 
+      $articles = $consultor -> getItemsBy("articles","id",$article_id);
+
+      if(sizeof($articles)>0){
+        foreach($articles as $article){
+          $article_date = date($article["date"]);
+          $article_tumbnail = explode("/",$article["tumbnail"]);
+
+          echo '
+            <article>
+              <div class="upper">
+                <h1>'.$article["title"].'</h1>
+                <div>
+                  <span>'.date("h:i A",strtotime($article_date)).'</span>
+                  /<span>'.$users_names[$article["user_id"]].'</span>
+                  /<span>'.$article["topic"].'</span>
+                  /<span>'.$article["likes"].'</span>
+                </div>
+              </div>
+              <div class="lower">
+                <p>'.$article["body"].'</p>
+                <div class="share">
+                  <span>Share this at</span>
+                </div>
+              </div>
+            </article>
+          ';
+        }
+      }else{
+        echo "<span>No se encontro este articulo.</span>";
+      }
     }
   }
 ?>

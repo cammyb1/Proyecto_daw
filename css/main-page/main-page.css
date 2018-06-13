@@ -44,6 +44,11 @@ article {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
 }
 
+.preview{
+    max-height: 300px !important;
+    overflow: hidden;
+}
+
 article .lower {
     overflow: hidden;
 }

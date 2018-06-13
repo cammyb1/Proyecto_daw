@@ -4,8 +4,9 @@
           <div class="row">
               <div class="col-md-12 logo text-center">
                   <div class="title" id="title_mp">
+                    Machu Picchu
                   </div>
-                  <span  id="desc_mp"></span>
+                  <span  id="desc_mp">The largest and most powerful civilization in America</span>
               </div>
           </div>
       </div>

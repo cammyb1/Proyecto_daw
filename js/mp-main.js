@@ -26,7 +26,7 @@ $(document).ready(function(){
     $("#desc_mp").css("color",currentData.fontColor);
     $(".mainColor_mp").css("background-color",currentData.mainColor);
   },"json");
-  
+
   get("../MainComponents/controller/get-topics.xhr.php",function(data){
 
     let resultHtml = "<a class='nav-item nav-link' href='index.php'>Inicio</a>";
@@ -51,6 +51,12 @@ function request_page(pn){
     dataSend = {
       ...dataSend,
       topic:getParameterByName("topic")
+    }
+  }
+
+  if(getParameterByName("article")!=undefined){
+    dataSend = {
+      article:getParameterByName("article")
     }
   }
 
