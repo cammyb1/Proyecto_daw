@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="resources/logo.png">
     <link rel="stylesheet" href="../../css/fa/fontawesome-all.css">
     <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
+      <link rel="stylesheet" href="../../css/main-page/meinpeich.css">
     <title>Imperio inca</title>
   </head>
   <body>
