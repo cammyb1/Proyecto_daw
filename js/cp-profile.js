@@ -158,22 +158,8 @@ $(document).ready(function(){
     }
 
     postWithType("controller/admincp-updatetable.xhr.php",arr,function(data){
-      let header = "Error";
-      let body = "Something went wrong.";
-
-      if(data.status=="success"){
-        header = "Success";
-        body = "Everything went ok.";
-      }
-
-      $("#alertbox_d").html(`
-        <div class='modal-header'>
-          ${header} <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button>
-        </div>
-        <div class='modal-body'>
-          ${body}
-          Everything went ok
-        </div>`);
+      let status = data.status;
+      handleStatusAlert("#tableAlert",status);
     },"json");
   });
 
@@ -181,31 +167,12 @@ $(document).ready(function(){
     e.preventDefault();
     var tbl_row = $(this).closest('tr');
     var row_id = tbl_row.attr('id');
-    $("#alertbox_d").removeClass();
-    $("#alertbox_d").html("");
 
     if(confirm("Are you sure you want to do this?.")){
-      postWithType("model/admincp-deletefromtable.xhr.php",{row_id:row_id},function(data){
-
-        let header = "Error";
-        let body = "Something went wrong.";
-
-        if(data.status=="success"){
-          header = "Success";
-          body = "Everything went ok.";
-        }
-
-        $("#alertbox_d").html(`
-          <div class='modal-header'>
-            ${header} <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button>
-          </div>
-          <div class='modal-body'>
-            ${body}
-            Everything went ok
-          </div>`);
+      postWithType("controller/admincp-deletefromtable.xhr.php",{row_id:row_id},function(data){
+        let status = data.status;
+        handleStatusAlert("#tableAlert",status);
       },"json");
-    }else{
-      $("#alertbox_d").html("<div class='modal-header'>Success <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'>Everything went ok</div>");
     }
   });
 
@@ -218,27 +185,17 @@ $(document).ready(function(){
     let currentData = data.data[0];
     for(var formElement of form){
       if(currentData[formElement.name]){
-         switch(formElement.tagName){
-           case "INPUT":{
-             switch(formElement.type){
-               case "checkbox":{
-                 $(formElement).attr("checked",currentData[formElement.name]==1?true:false);
-                 break;
-               }
-               case "file":{
-                 break;
-               }
-                default:{
-                  $(formElement).attr("value",currentData[formElement.name]);
-                  break;
-                }
-             }
-             break;
-           }
-           case "TEXTAREA":{
-             $(formElement).html(currentData[formElement.name]);
-           }
-         }
+         handleCustomDataType(formElement,currentData);
+      }
+    }
+  },"json");
+
+  postWithType("../MainComponents/controller/ProcessUserConfig.xhr.php",{table_name:"mp_config"},data=>{
+    let form = mp_form;
+    let currentData = data.data[0];
+    for(var formElement of form){
+      if(currentData[formElement.name]){
+         handleCustomDataType(formElement,currentData);
       }
     }
   },"json");
@@ -247,6 +204,31 @@ $(document).ready(function(){
 
 
 });
+
+
+function handleCustomDataType(formElement,currentData){
+  switch(formElement.tagName){
+    case "INPUT":{
+      switch(formElement.type){
+        case "checkbox":{
+          $(formElement).attr("checked",currentData[formElement.name]==1?true:false);
+          break;
+        }
+        case "file":{
+          break;
+        }
+         default:{
+           $(formElement).attr("value",currentData[formElement.name]);
+           break;
+         }
+      }
+      break;
+    }
+    case "TEXTAREA":{
+      $(formElement).html(currentData[formElement.name]);
+    }
+  }
+}
 
 function setWatched(e){
   let isWatched = $(e).attr("isWatched")=="true";
@@ -266,7 +248,7 @@ function setWatched(e){
 function deleteMail(e){
   let row_id = $(e).attr("row_id");
 
-  postWithType("model/admincp-deletefromtable.xhr.php",{row_id:row_id},function(data){},"json");
+  postWithType("controller/admincp-deletefromtable.xhr.php",{row_id:row_id},function(data){},"json");
   getEmails();
 }
 

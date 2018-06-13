@@ -22,11 +22,11 @@
 
     if($result["message"]==""){
       $result["status"]="Success";
-      $result["message"]="Enhorabuena!";
+      $result["message"]="Your request was handle successfuly!";
       $result["class"]="alert alert-success";
     }
   }else{
-    $result["message"]="Something went wrong";
+    $result["message"]="Your request failed!";
   }
 
   echo json_encode($result);

@@ -35,7 +35,7 @@
                 <form name='mp_form'>
                   <div class="form-group">
                     <label for="">Title</label>
-                    <input name="title" type="text" data-value-missing="Required" required>
+                    <input name="title" type="text" maxlength="255" required>
                   </div>
                   <div class="form-group">
                     <label for="">Description</label>
@@ -55,11 +55,11 @@
                 <form name='lp_form'>
                   <div class="form-group">
                     <label for="">Title</label>
-                    <input name="title" data-value-missing=”Translate(‘Required’) type="text">
+                    <input name="title" type="text" maxlength="255" required>
                   </div>
                   <div class="form-group">
                     <label for="">Description</label>
-                    <textarea name="description" rows="8" cols="80" maxlength="255"></textarea>
+                    <textarea name="description" rows="8" cols="80" maxlength="255" required></textarea>
                   </div>
                   <div class="form-group">
                     <label for="">Black coat</label><input name="blackcoat"  type="checkbox">

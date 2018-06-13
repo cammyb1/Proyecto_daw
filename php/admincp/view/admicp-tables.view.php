@@ -27,13 +27,6 @@ foreach ($all_headers[strtolower($name)] as $value) {
 }
 
 ?>
-<div class="modal fade" role="dialog" id="alertModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div id="alertbox_d"></div>
-    </div>
-  </div>
-</div>
 <div class="modal fade" role="dialog" id="addModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -86,6 +79,9 @@ foreach ($all_headers[strtolower($name)] as $value) {
   </div>
 </div>
 <div>
+<div class="container">
+  <div id="tableAlert"></div>
+</div>
 <table id='downlad_tables' class='table table-dark table-bordered table-hover'>
 <thead>
 <tr>

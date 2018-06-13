@@ -80,18 +80,29 @@ function getParameterByName(name, url) {
 
 function formValidation(formName,type,divId){
   var error = true;
+  var failMessage = "";
+  var totalElements = formName.elements.length;
+  var cont = 0;
+
   $(divId).removeClass();
   $(divId).html("");
 
-  if(formName.checkValidity()){
+  for(var formElement of formName){
+    if(formElement.checkValidity()){
+      cont++;
+    }else{
+      failMessage+="<li><b>"+formElement.name+"</b> has an error.</li>"
+    }
+  }
+
+  if(cont==totalElements){
     error=false;
-    console.log(formName.checkValidity());
   }
 
 
   if(error){
     $(divId).addClass("alert alert-danger");
-    $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4><ul><li>Something went wrong..</li></ul>");
+    $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4><ul>"+failMessage+"</ul>");
     $("#alert_close").click(()=>closeAlert(divId));
     $(divId).fadeIn(200);
   }else{
@@ -106,6 +117,26 @@ function formValidation(formName,type,divId){
   }
 
   return !error;
+}
+
+function handleStatusAlert(divId,status){
+
+  let currentStatus = status=="success";
+
+  $(divId).removeClass();
+  $(divId).html("");
+
+  if(!currentStatus){
+    $(divId).addClass("alert alert-danger");
+    $(divId).html(`<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4> Your request failed.<ul></ul>`);
+    $("#alert_close").click(()=>closeAlert(divId));
+    $(divId).fadeIn(200);
+  }else{
+    $(divId).addClass("alert alert-success");
+    $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Success</h4><ul><li>Your request was handle successfuly.</li></ul>");
+    $("#alert_close").click(()=>closeAlert(divId));
+    $(divId).fadeIn(200);
+  }
 }
 
 function closeAlert(divId){

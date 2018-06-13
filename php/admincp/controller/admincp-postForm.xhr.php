@@ -22,7 +22,7 @@
       if($value==""){
         $data["message"].="<li><b>$key</b> is missing.</li>";
       }else{
-        $data["data"][$key] = strtolower($value);
+        $data["data"][$key] = $value;
       }
     }
 
@@ -90,10 +90,12 @@
         if($had_file){
           if($canDelete){
             $last_file = $consultor -> getTableComplex($table_name,[$using_file_col],["id=$id"]);
-            $delete_route = $file_path.$last_file[0][$using_file_col];
+            if(strlen($last_file[0][$using_file_col])>0){
+              $delete_route = $file_path.$last_file[0][$using_file_col];
 
-            if(file_exists($delete_route)){
-              unlink($delete_route);
+              if(file_exists($delete_route)){
+                unlink($delete_route);
+              }
             }
           }
         }
@@ -113,7 +115,7 @@
 
     if($data["message"]==""){
       $data["class"]="alert alert-success";
-      $data["message"]="YAY!!";
+      $data["message"]="Your request was handle successfuly";
       $data["status"]="Sucess";
     }
   }
