@@ -41,9 +41,7 @@ function sendPostForm(url,data,success){
 }
 
 function refreshTables(){
-  get("controller/refreshTable.php",data=>{
-    console.log(data);
-  });
+  get("controller/refreshTable.php",data=>{});
 }
 
 function postForm(formElement,type,url,success){
@@ -113,7 +111,6 @@ function formValidation(formName,type,divId){
     $(divId).fadeIn(200);
   }else{
     postForm(formName,type,"controller/admincp-postForm.xhr.php",info=>{
-      console.log(info);
       let data = JSON.parse(info);
       $(divId).addClass(data.class);
       $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>"+data.status+"</h4><ul>"+data.message+"</ul>");

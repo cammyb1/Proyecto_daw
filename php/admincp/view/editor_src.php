@@ -13,7 +13,9 @@
       }
     }
 
-    echo $current_article["body"];
+    if(isset($current_article["body"])){
+      echo $current_article["body"];
+    }
 
     unset($_SESSION["edit"]);
     unset($_SESSION["modified_article"]);

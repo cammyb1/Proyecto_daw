@@ -2,14 +2,6 @@ $(document).ready(function(){
 
   setInterval(function(){
     setTime();
-    get("controller/admincp-tables_size.xhr.php",data => {
-      let info = JSON.parse(data);
-      $("#visitors").html(info["guest_users"].size);
-    });
-
-    get("controller/admincp-mailbox.xhr.php",data=>{
-      $("#mb_size").html(data);
-    });
   },1000);
 
   $("#mvc_refresh").click(function(){
@@ -19,6 +11,15 @@ $(document).ready(function(){
     callTables();
   });
 
+  get("controller/admincp-tables_size.xhr.php",data => {
+    let info = JSON.parse(data);
+    $("#visitors").html(info["guest_users"].size);
+  });
+
+  get("controller/admincp-mailbox.xhr.php",data=>{
+    $("#mb_size").html(data);
+  });
+  
   setTime();
   callTables();
   callCountries();

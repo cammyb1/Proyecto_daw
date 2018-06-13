@@ -128,7 +128,7 @@ class Consultor{
     $table_name = $this->db->escape_string($table_name);
     $orderBy = isset($orderBy)?"ORDER BY ".$this->db->escape_string($orderBy):"";
     $groupBy = isset($groupBy)?"GROUP BY ".$this->db->escape_string($groupBy):"";
-    $conditions = isset($conditions)?"WHERE ".implode($operator, $conditions):"";
+    $conditions = isset($conditions)&&!empty($conditions)?"WHERE ".implode($operator, $conditions):null;
     $cols = implode(",",$cols);
     $result = array();
 
@@ -173,11 +173,12 @@ class Consultor{
     return 0;
   }
 
-  public function getLimitedTable($table_name,$limit_start,$limit_end,$col_name,$order="DESC"){
+  public function getLimitedTable($table_name,$limit_start,$limit_end,$col_name,$conditions=null,$operator=" OR "){
     $result = array();
     $table_name = $this->db->escape_string($table_name);
     $col_name = $this->db->escape_string($col_name);
-    $consulta = "SELECT * FROM $table_name ORDER BY $col_name $order LIMIT $limit_start,$limit_end";
+    $conditions = isset($conditions)&&!empty($conditions)?"WHERE ".implode($operator, $conditions):null;
+    $consulta = "SELECT * FROM $table_name $conditions ORDER BY $col_name DESC LIMIT $limit_start,$limit_end";
 
     if($resultado=$this->db->query($consulta)){
       while($fila = $resultado->fetch_assoc()){

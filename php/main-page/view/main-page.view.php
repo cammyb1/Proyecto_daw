@@ -1,12 +1,11 @@
 <div id="root">
-  <header>
+  <header class="mainColor_mp">
       <div class="container-fluid">
           <div class="row">
               <div class="col-md-12 logo text-center">
-                  <div class="title">
-                      <h1>Titulo</h1>
+                  <div class="title" id="title_mp">
                   </div>
-                  <span>La civilizacion más grande y poderosa de América.</span>
+                  <span  id="desc_mp"></span>
               </div>
           </div>
       </div>
@@ -16,20 +15,15 @@
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                  <a class="nav-item nav-link active" href="#">Inicio </a>
-                  <a class="nav-item nav-link" href="#">Cultura</a>
-                  <a class="nav-item nav-link" href="#">Idioma</a>
-                  <a class="nav-item nav-link" href="#">Guias</a>
-            </div>
+              <div class="navbar-nav" id="mp_topics"></div>
           </div>
       </nav>
   </header>
     <div class="container">
         <div class="row">
-            <section class="col-md-9" id="articles"></section>
-            <aside class="col-md-3 mt-4">
-                <div class="aside popular">
+            <section class="col-md-8" id="articles"></section>
+            <aside class="col-md-4 mt-4">
+                <div class="aside popular mainColor_mp">
                     <div class="title">
                         <h1>Popular</h1>
                     </div>

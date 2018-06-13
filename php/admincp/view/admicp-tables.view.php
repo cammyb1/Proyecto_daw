@@ -38,7 +38,7 @@ foreach ($all_headers[strtolower($name)] as $value) {
       </div>
       <div class="modal-body">
         <div class="" role="alert" id="add_alert" style="display:none;"></div>
-        <form class="form-horizontal" name="add_form" id="form_add" role="form">
+        <form class="form-horizontal" name="add_form" id="form_add" role="form" accept-charset="UTF-8">
           <?php
             foreach($all_headers[strtolower($name)] as $value){
               if(!in_array($value,$excluded_values["td_editables"])){

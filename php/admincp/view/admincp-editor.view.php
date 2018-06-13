@@ -15,7 +15,7 @@
       $_SESSION["modified_article"]=$current_article;
     }
 
-    $_GET["dsb_t"]=$edit_value==0?"Add new post":"Update post";
+    $_GET["dsb_t"]=sizeof($current_article)>0?"Update post":"Add new post";
     $_GET["dsb_st"]="Posts";
     $_GET["dsb_d"]="Here you can add new article using a rich text editor";
 

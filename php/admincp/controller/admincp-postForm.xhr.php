@@ -1,5 +1,5 @@
 <?php
-  include "../model/admincp-common.xhr.php";
+  include "../../MainComponents/modelo/common.xhr.php";
 
   $file_temp= "";
   $file_path = "C:/xampp/htdocs/Proyecto_daw/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!

@@ -42,7 +42,8 @@
                     <textarea name="description" rows="8" cols="80" maxlength="255"></textarea>
                   </div>
                   <div class="form-group">
-                    <label for="">Color</label><input name="navColor" type="color">
+                    <label for="">Main Color</label><input name="mainColor" type="color">
+                    <label for="">Font Color</label><input name="fontColor" type="color">
                     <input type="hidden" name='table_name' value='mp_config'>
                     <input type='hidden' name='elem_id' value='1' />
                   </div>

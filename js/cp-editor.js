@@ -19,7 +19,7 @@ $(document).ready(function () {
       formValidation(article_form,"update","#alert-box");
     });
 
-    get("controller/admincp-tags.xhr.php",function(data){
+    get("../MainComponents/controller/get-tags.xhr.php",function(data){
       $("#tags").tokenfield({
         autocomplete:{
           source:JSON.parse(data),
@@ -29,7 +29,7 @@ $(document).ready(function () {
       });
     });
 
-    get("controller/admincp-topics.xhr.php",function(data){
+    get("../MainComponents/controller/get-topics.xhr.php",function(data){
       let info = JSON.parse(data);
       for(var i=0;i<info.length;i++){
         $("#topic").append("<option value="+info[i]+">"+info[i]+"</option>");

@@ -1,16 +1,21 @@
 <?php
-  require_once("../../MainComponents/modelo/Components/Logger.php");
-  require_once("../../MainComponents/modelo/Components/User.php");
-  require_once("../../MainComponents/modelo/Consultor.php");
+  include "../model/main-page-articles.model.php";
   session_start();
 
   if(isset($_POST["page"])){
     $consultor = new Consultor();
+    $logger = new Logger();
 
     $pn = $_POST["page"];
+    $topic = array();
 
-    $results_per_page = 10;
-    $number_of_results = $consultor -> getTableSize("articles");
+    $results_per_page = 2;
+
+    if(isset($_POST["topic"])){
+      $topic[] = "topic='".$_POST["topic"]."'";
+    }
+
+    $number_of_results = count($consultor -> getTableComplex("articles",["*"],$topic));
     $number_of_pages = ceil($number_of_results/$results_per_page);
 
     if ($pn < 1) {
@@ -30,7 +35,7 @@
       $users_names[$user["id"]] = $user["username"];
     }
 
-    $articles = $consultor -> getLimitedTable("articles",$this_page_first_result,$results_per_page,"date");
+    $articles = $consultor -> getLimitedTable("articles",$this_page_first_result,$results_per_page,"date",$topic);
 
     $found = false;
 
@@ -53,7 +58,7 @@
                 </div>
               </div>
               <div class="lower">
-                <img src="../../resources/tumbnails/'.end($article_tumbnail).'" alt="previewimg">
+                <img src="../../resources/images/'.end($article_tumbnail).'" alt="previewimg">
                 <p>'.strip_tags($article["body"]).'</p>
                 <div class="share">
                   <span>Share this at</span>
@@ -79,6 +84,10 @@
       }else{
         echo "<span>No se encontraron articulos</span>";
       }
+    }
+  }else{
+    if(isset($_POST["article"])){
+
     }
   }
 ?>

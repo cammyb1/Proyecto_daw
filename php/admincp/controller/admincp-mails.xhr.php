@@ -1,5 +1,5 @@
 <?php
-  include "../model/admincp-common.xhr.php";
+  include "../../MainComponents/modelo/common.xhr.php";
   session_start();
 
   $consultor = new Consultor();
