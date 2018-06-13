@@ -15,15 +15,6 @@ function post(url,data,success){
    success
   });
 }
-function getWithType(url,success,dataType){
-  $.ajax({
-   url,
-   type:"get",
-   method: 'GET',
-   dataType,
-   success
-  });
-}
 function postWithType(url,data,success,dataType){
   $.ajax({
    url,
@@ -49,7 +40,13 @@ function sendPostForm(url,data,success){
   });
 }
 
-function postForm(formElement,url,success){
+function refreshTables(){
+  get("controller/refreshTable.php",data=>{
+    console.log(data);
+  });
+}
+
+function postForm(formElement,type,url,success){
   let elements = formElement.elements;
   let excluded_tags = ["INPUT","TEXTAREA","SELECT"]
   let formData = new FormData();
@@ -59,12 +56,18 @@ function postForm(formElement,url,success){
 
     if(excluded_tags.includes(currentElement.tagName)){
       if(currentElement.type!="file"){
-        formData.append(currentElement.name,currentElement.value);
+        if(currentElement.type!="checkbox"){
+          formData.append(currentElement.name,currentElement.value);
+        }else{
+          formData.append(currentElement.name,currentElement.checked?1:0);
+        }
       }else{
         jQuery.each(jQuery("#file")[0].files, function(i, file) {
             formData.append(currentElement.name, file);
         });
       }
+
+      formData.append("type",type);
     }
   }
 
@@ -81,56 +84,36 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function formValidation(formName,divId){
-  var error = false;
+function formValidation(formName,type,divId){
+  var error = true;
+  var failMessage = "";
+  var totalElements = formName.elements.length;
+  var cont = 0;
+
   $(divId).removeClass();
   $(divId).html("");
-  var mailREGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  for(element of formName.elements){
-    if(element.name!=""){
-      switch(element.type){
-        case "file":{
-          let allowedExt = ["jpg","jpeg","png"]
-          let ext = element.value.split(".")[element.value.split(".").length-1].toLowerCase();
-
-          if(element.value.length == 0 || !allowedExt.includes(ext)){
-            error = true;
-          }
-          break;
-        }
-        case "text":{
-          if(element.value.length == 0 ){
-            error = true;
-          }
-          break;
-        }
-        case "email":{
-          if(!mailREGEX.test(element.value)){
-            error = true;
-          }
-          break;
-        }
-      }
-
-      switch(element.tagName){
-        case "TEXTAREA":{
-          if(element.value=="<br>"||element.value==""){
-            error = true;
-          }
-          break;
-        }
-      }
+  for(var formElement of formName){
+    if(formElement.checkValidity()){
+      cont++;
+    }else{
+      failMessage+="<li><b>"+formElement.name+"</b> has an error.</li>"
     }
   }
 
+  if(cont==totalElements){
+    error=false;
+  }
+
+
   if(error){
     $(divId).addClass("alert alert-danger");
-    $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4><ul><li>Something went wrong..</li></ul>");
+    $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4><ul>"+failMessage+"</ul>");
     $("#alert_close").click(()=>closeAlert(divId));
     $(divId).fadeIn(200);
   }else{
-    postForm(formName,"controller/admincp-postForm.xhr.php",info=>{
+    postForm(formName,type,"controller/admincp-postForm.xhr.php",info=>{
+      console.log(info);
       let data = JSON.parse(info);
       $(divId).addClass(data.class);
       $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>"+data.status+"</h4><ul>"+data.message+"</ul>");
@@ -140,6 +123,26 @@ function formValidation(formName,divId){
   }
 
   return !error;
+}
+
+function handleStatusAlert(divId,status){
+
+  let currentStatus = status=="success";
+
+  $(divId).removeClass();
+  $(divId).html("");
+
+  if(!currentStatus){
+    $(divId).addClass("alert alert-danger");
+    $(divId).html(`<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4> Your request failed.<ul></ul>`);
+    $("#alert_close").click(()=>closeAlert(divId));
+    $(divId).fadeIn(200);
+  }else{
+    $(divId).addClass("alert alert-success");
+    $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Success</h4><ul><li>Your request was handle successfuly.</li></ul>");
+    $("#alert_close").click(()=>closeAlert(divId));
+    $(divId).fadeIn(200);
+  }
 }
 
 function closeAlert(divId){

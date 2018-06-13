@@ -124,7 +124,7 @@ class Consultor{
     $orderBy = "Columna por la cual se quiere ordenar"
     $groupBy = "Columna por la cual se quiere agrupar"
   */
-  public function getTableComplex($table_name,$cols,$conditions,$orderBy,$groupBy,$operator=" OR "){
+  public function getTableComplex($table_name,$cols,$conditions=null,$orderBy=null,$groupBy=null,$operator=" OR "){
     $table_name = $this->db->escape_string($table_name);
     $orderBy = isset($orderBy)?"ORDER BY ".$this->db->escape_string($orderBy):"";
     $groupBy = isset($groupBy)?"GROUP BY ".$this->db->escape_string($groupBy):"";
@@ -244,7 +244,9 @@ class Consultor{
       $consulta = "UPDATE $table_name SET $sets WHERE $conditions;";
 
       if($resultado = $this->db->query($consulta)){
-        return true;
+        if($this->db->affected_rows > 0){
+          return true;
+        }
       }
     }
 

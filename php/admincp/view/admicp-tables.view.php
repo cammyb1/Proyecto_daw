@@ -11,7 +11,7 @@ $headers_as_options = ["options"=>"","theads"=>""];
 $excluded_values = [
   "options"=>["body","avatar","password"],
   "theads"=>["password"],
-  "td_editables"=>["id","date"]
+  "td_editables"=>["id","date","body","tumbnail","avatar"]
 ];
 $value_types = [
   "numeric"=>["article_id","active"],
@@ -27,13 +27,6 @@ foreach ($all_headers[strtolower($name)] as $value) {
 }
 
 ?>
-<div class="modal fade" role="dialog" id="alertModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div id="alertbox_d"></div>
-    </div>
-  </div>
-</div>
 <div class="modal fade" role="dialog" id="addModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -86,6 +79,9 @@ foreach ($all_headers[strtolower($name)] as $value) {
   </div>
 </div>
 <div>
+<div class="container">
+  <div id="tableAlert"></div>
+</div>
 <table id='downlad_tables' class='table table-dark table-bordered table-hover'>
 <thead>
 <tr>
@@ -122,23 +118,24 @@ if(sizeof($used_table)>0){
   $max_body_length = 25;
   echo "</thead><tbody id='tabla'>";
   foreach($used_table as $table){
-    echo "<tr id='".strtolower($name)."_".$table['id']."'>";
+    echo "<tr id='".strtolower($name)."-".$table['id']."'>";
     foreach ($table as $key=>$value) {
       if($key!="password"){
-        $elipsis = "";
+
+        $value = strip_tags($value);
 
         if($key=="body"){
           if(strlen($value)>$max_body_length){
-            $value = substr(strip_tags($value),0,$max_body_length)."...";
+            $value = substr($value,0,$max_body_length)."...";
           }
         }
         echo in_array($key,$excluded_values["td_editables"])?"<td><div>$value</div></td>":"<td><div class='table_data' edit_type='click' col_name='$key'>$value</div></td>";
       }
     }
     echo "
-      <td class='options'>
-          <button class='btn btn-primary edit_table'><i class='fa fa-pencil-alt'></i></button>
-          <button class='btn btn-danger save_table'><i class='fa fa-save'></i></button>
+      <td class='options'>";
+          echo $name!="Articles"?"<button class='btn btn-primary edit_table'><i class='fa fa-pencil-alt'></i></button>":"<a class='btn btn-primary' href='profile.php?articles&edit=".$table['id']."'><i class='fa fa-pencil-alt'></i></a>";
+          echo "<button class='btn btn-danger save_table'><i class='fa fa-save'></i></button>
           <button class='btn btn-secondary cancel_table'><i class='fa fa-times'></i></button>
           ".(strtolower($name)=="users"&&(($_SESSION["usuario"]->getId()==$table['id'])||($_SESSION["usuario"]->getType()<$table['type']))?"":"<a class='btn btn-danger delete_table' href='' data-toggle='modal' data-target='#alertModal'><i class='fa fa-trash'></i></a>")."
       </td>

@@ -1,18 +1,18 @@
 <?php
-  if(!isset($_SESSION)){
-    session_start();
-  }
+  require_once("../modelo/Components/Logger.php");
+  require_once("../modelo/Components/User.php");
+  require_once("../modelo/Consultor.php");
 
   $data=array(
     "data"=>array(),
     "status"=>"",
   );
 
-  if(isset($_GET["table_name"])){
+  if(isset($_POST["table_name"])){
     $consultor = new Consultor();
-    $table_name = $_GET["table_name"];
+    $table_name = $_POST["table_name"];
 
-    $result = $consultor->getItemsBy($table_name,"user_id",$_SESSION["usuario"]->getId());
+    $result = $consultor->getFullTable($table_name);
 
     if(sizeof($result)==0){
       $data["status"]="failed";
@@ -20,14 +20,13 @@
 
     if($data["status"]==""){
 
-      unset($data["user_id"]);
-      unset($data["id"]);
+      unset($result["id"]);
 
       $data=array(
         "data"=>$result,
         "status"=>"Success",
         "message"=>"Your request succeeded!",
-        "class"=>"alert alert-danger"
+        "class"=>"alert alertsuccess"
       );
     }
   }else{

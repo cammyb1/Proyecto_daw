@@ -1,21 +1,37 @@
 <div>
   <?php
-    $_GET["dsb_t"]="Add new post";
+    $edit_value=0;
+    $current_article=array();
+
+    if(isset($_GET["edit"])){
+      $edit_value = $_GET["edit"];
+      $tabla_articulo = $_SESSION["tables"]["articles"];
+      foreach ($tabla_articulo as $key => $value) {
+        if($tabla_articulo[$key]["id"]==$edit_value){
+          $current_article = $tabla_articulo[$key];
+        }
+      }
+      $_SESSION["edit"]=$edit_value;
+      $_SESSION["modified_article"]=$current_article;
+    }
+
+    $_GET["dsb_t"]=$edit_value==0?"Add new post":"Update post";
     $_GET["dsb_st"]="Posts";
     $_GET["dsb_d"]="Here you can add new article using a rich text editor";
 
     include "../MainComponents/vista/common-dashboar.view.php";
   ?>
+
   <div id="alert-box"></div>
   <form action="" method="POST" enctype="multipart/form-data" name="article_form">
     <div>
       <div class="form-group">
-        <label for="" class="input-label">Title</label><input type="text" name="title" size="100">
+        <label for="" class="input-label">Title</label><input type="text" name="title" size="100" value="<?php echo sizeof($current_article)>0?$current_article["title"]:""?>">
         <div class="input-group">
           <label for="">Topic : </label><select class="custom-select" name="topic" id="topic"></select>
         </div>
         <div class="input-group">
-          <label for="" class="input-label">Tags  </label><input type="text" name="tags" id="tags">
+          <label for="" class="input-label">Tags  </label><input type="text" name="tags" id="tags" value="<?php echo sizeof($current_article)>0?$current_article["tags"]:""?>">
         </div>
       </div>
       <div class="btn-group">
@@ -52,16 +68,25 @@
       </div>
       <div class="form-group">
         <textarea name="body" rows="8" cols="80" maxlength="50000" style="display:none;"></textarea>
-        <iframe name="richTextArea" style="width:1000px; height:500px; background-color: #fff;"></iframe>
+        <iframe name="richTextArea" style="width:1000px; height:500px; background-color: #fff;" src="view/editor_src.php"></iframe>
       </div>
       <div class="form-group">
         <label for="" class="input-label">Archivo: </label><input type="file" name="tumbnail" id="file">
       </div>
-      <input type="hidden" name='user_id' value='<?php echo $_SESSION["usuario"]->getId(); ?>'>
+      <input type="hidden" name='user_id' value="<?php echo sizeof($current_article)>0?$current_article["user_id"]:$_SESSION["usuario"]->getId()?>">
       <input type="hidden" name='table_name' value='articles'>
+      <?php
+        echo sizeof($current_article)>0?"<input type='hidden' name='elem_id' value='".$current_article['id']."' />":"";
+      ?>
     </div>
     <div>
-      <button class="btn btn-info" id="a_send" >Subir articulo</button>
+      <?php
+        if(sizeof($current_article)>0){
+          echo "<button class='btn btn-info' id='a_update' >Update article</button>";
+        }else{
+          echo "<button class='btn btn-info' id='a_send' >Upload article</button>";
+        }
+      ?>
     </div>
   </form>
 
