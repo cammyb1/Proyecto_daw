@@ -5,21 +5,21 @@
       <div class="container-fluid l-title">
           <h3>SIGN IN</h3>
       </div>
-      <form method="POST" action="">
+      <form method="POST" action="" name="login_form">
           <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon l-icon"><i class="fa fa-user-alt"></i></span>
-              <input type="text" class="form-control" name="login_user">
+              <input type="text" class="form-control" name="user" required>
             </div>
           </div>
           <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon l-icon"><i class="fa fa-lock"></i></span>
-              <input type="password" class="form-control" name="login_password" value="">
+              <input type="password" class="form-control" name="password" required>
             </div>
           </div>
           <div class="form-group l-lp">
-            <button type="submit" class="btn" name="login_submit">Login</button>
+            <button type="submit" class="btn" name="login_submit" id="login_sub">Login</button>
             <a href="index.php?recover">Lost your password?</a>
           </div>
       </form>

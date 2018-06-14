@@ -9,11 +9,11 @@
 
   $consultor = new Consultor();
 
-  $populars = $consultor -> getTableComplex("articles",["*"],["likes>=0"],"likes");
+  $populars = $consultor -> getLimitedTable("articles",0,5,"likes",["likes>=0"]);
 
   if($populars){
     foreach($populars as $popular){
-      $returnData["data"][$popular["id"]] = array(
+      $returnData["data"][] = array(
         "tumbnail"=>$popular["tumbnail"],
         "title"=>$popular["title"],
         "likes"=>$popular["likes"]

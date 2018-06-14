@@ -35,9 +35,7 @@ $(document).ready(function(){
     let currentData = info.data;
     let resultHtml = "";
 
-    let articles = Object.keys(currentData);
-    for(let article of articles){
-      let element = currentData[article];
+    for(let element of currentData){
       resultHtml+=`<div class="article">
               <div>
                   <img src="../../resources/images/${element.tumbnail}" alt="poparticle">

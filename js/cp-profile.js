@@ -104,7 +104,7 @@ $(document).ready(function(){
   $(".generate_link").click(function(){
     var row_id = $(this).closest('tr').attr('id');
   	var token = $(this).closest('td').attr('tokenValue');
-    
+
     if(token.length>0){
       Generated_link.g_l.value=`http://localhost/Proyecto_daw/php/admincp/index.php?user=${row_id.split("-")[1]}&token=${token}`;
     }
@@ -114,14 +114,16 @@ $(document).ready(function(){
 
 
   $(".cancel_table").click(function(){
-    var tbl_row = $(this).closest('td');
+    var tbl_row = $(this).closest('tr');
   	var row_id = tbl_row.attr('id');
 
-  	tbl_row.find('.save_table').fadeOut(100);
-  	tbl_row.find('.cancel_table').fadeOut(100);
+  	tbl_row.find('.save_table').hide();
+  	tbl_row.find('.cancel_table').hide();
 
-  	tbl_row.find('.edit_table').fadeIn(100);
-  	tbl_row.find('.delete_table').fadeIn(100);
+  	tbl_row.find('.edit_table').show();
+  	tbl_row.find('.delete_table').show();
+
+    console.log(tbl_row);
 
   	tbl_row.find('.table_data')
     .attr('edit_type', 'click')
@@ -141,11 +143,11 @@ $(document).ready(function(){
     var tbl_row = $(this).closest('tr');
     var row_id = tbl_row.attr('id');
 
-  	tbl_row.find('.save_table').fadeOut(100);
-  	tbl_row.find('.cancel_table').fadeOut(100);
+  	tbl_row.find('.save_table').hide();
+  	tbl_row.find('.cancel_table').hide();
 
-    tbl_row.find('.edit_table').fadeIn(100);
-    tbl_row.find('.delete_table').fadeIn(100);
+    tbl_row.find('.edit_table').show();
+    tbl_row.find('.delete_table').show();
 
 
   	tbl_row.find('.table_data')
@@ -210,10 +212,9 @@ $(document).ready(function(){
     }
   },"json");
 
-
-
-
 });
+
+
 
 
 function handleCustomDataType(formElement,currentData){

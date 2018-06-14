@@ -1,4 +1,6 @@
 <?php
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\Exception;
   include "../../MainComponents/modelo/common.xhr.php";
 
   $file_temp= "";
@@ -81,8 +83,34 @@
           $token = substr($token,0,10);
           $columns[] = "token";
           $sets[] = $token;
+          $email = $data["data"]["Email"];
 
-          $query = $consultor->insertElement($table_name,$columns,$sets);
+          $mail = new PHPMailer();
+          $id = $consultor-> insertID("users");
+
+          $mail->IsSMTP();
+          $mail->SMTPAuth = true;
+          $mail->SMTPSecure = 'ssl';
+          $mail->Host = "smtp.gmail.com";
+          $mail->Port = 465;
+          $mail->IsHTML(true);
+          $mail->Username = "emailproyectojonathan@gmail.com";
+          $mail->Password = "proyectoprueba123";
+          $mail->SetFrom("emailproyectojonathan@gmail.com");
+          $mail->Subject = "Create your password";
+          $mail->AddAddress($email,$data["data"]["Name"]);
+
+          $mail->Body="
+            Please click on the link below <br /><br />
+            <a href='http://localhost/Proyecto_daw/php/admincp/index.php?user=".$id."&token=".$token."'>Click AQUI</a>
+          ";//FIXME: CAMBIAR RUTA DE CORREO!
+
+          if($mail->send()){
+            $query = $consultor->insertElement($table_name,$columns,$sets);
+          }else{
+            $data["message"].="<li>Mail send Failed</li>";
+          }
+
         }else if($table_name=="comments"){
           $dir = "C:/xampp/htdocs/Proyecto_daw/resources/avatars"; //FIXME: CAMBIA ESTO GIL!
           $avatars = scandir($dir);
@@ -107,7 +135,12 @@
         unset($data["data"]["elem_id"]);
 
         foreach($data["data"] as $key=>$value){
-          $realsets[] = $key."='".$value."'";
+          if($key=="password"){
+            $encrypted_pass = base64_encode($value);
+            $realsets[] = "$key='$encrypted_pass'";
+          }else{
+            $realsets[] = $key."='".$value."'";
+          }
         }
 
         if($had_file){

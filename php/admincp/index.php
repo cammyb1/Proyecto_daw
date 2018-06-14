@@ -27,5 +27,6 @@
     <script src="../../js/bootstrap/bootstrap-tokenfield.js"></script>
     <script src="../../js/bootstrap/bootstrap-tokenfield.min.js"></script>
     <script type="text/javascript" src="../../js/js-utils.js"></script>
+    <script type="text/javascript" src="../../js/cp-login.js"></script>
   </body>
 </html>

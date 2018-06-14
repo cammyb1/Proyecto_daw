@@ -19,19 +19,30 @@ class Consultor{
       return $this->db;
   }
 
+  public function insertID($table_name){
+    $table_name = $this->db->escape_string($table_name);
+    $query = "SHOW TABLE STATUS LIKE '$table_name'";
+    $resultado = $this->db->query($query);
+    $fila = $resultado->fetch_assoc();
+    return $fila['Auto_increment'];
+  }
+
   public function getUser($username,$password){
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
+    $encoded_pass = base64_encode($password);
     $object_output = null;
-    $consulta = "SELECT id,name,lastname,username,email,date,type FROM users WHERE username='$username' AND password=PASSWORD($password) AND type!='0'";
 
-    if($this->elemetExist("users","username",$username)){
-      if($resultado = $this->db->query($consulta)){
-        $fila = $resultado->fetch_assoc();
-        $object_output = new User($fila["id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["date"],$fila["type"]);
+    $consulta = "SELECT * FROM users WHERE username='$username' AND password='$encoded_pass' AND type!='0' AND active='1'";
 
-        header("location:profile.php");
-      }
+    $this->logger->console($consulta);
+    $resultado = $this->db->query($consulta);
+
+    if($resultado->num_rows>0){
+      $fila = $resultado->fetch_assoc();
+      $object_output = new User($fila["id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["date"],$fila["type"]);
+
+      header("location:profile.php");
     }
 
     return $object_output;
