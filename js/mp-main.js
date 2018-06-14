@@ -78,6 +78,26 @@ $(document).ready(function(){
     alert("Thank you for your feedback");
   });
 
+  $(document).on("click",".send_love",function(){
+    let article_id = $(this).attr("article_id");
+    let element = $(this);
+    post("controller/main-page-love.xhr.php",{article_id:article_id},function(data){
+      let info = JSON.parse(data);
+
+      if(info.status=="success"){
+        alert("Ty for your vote!");
+      }
+
+      if(info.already){
+        alert("You already voted for this post!");
+      }
+
+      $(element).removeClass("send_love");
+      $(element).css("background-color","black");
+      $(element).css("color","red");
+    });
+  });
+
   request_page(1);
 });
 

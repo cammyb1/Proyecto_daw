@@ -61,15 +61,9 @@ class Consultor{
       $consulta = "SELECT * FROM $table_name WHERE $column_name='$colum_value'";
       if($resultado=$this->db->query($consulta)){
         if($resultado->num_rows>0){
-
-          //TODO: Remember to delete this for security
-          $this->logger->console("[DB-RESULT] Value $colum_value exist in database.");
           return true;
         }
       }
-
-      //TODO: this too
-      $this->logger->console("[DB-ERROR] Value $colum_value does not exist in database.");
       return false;
   }
 

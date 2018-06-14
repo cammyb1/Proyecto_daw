@@ -29,9 +29,7 @@
   </div>
   <div class="lower">
     <p><?php echo $article["body"] ?></p>
-    <div class="share">
-      <span>Share this at</span>
-    </div>
+    <a class=''></a>
   </div>
 </article>
 <div class='comments'>
