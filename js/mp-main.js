@@ -40,7 +40,7 @@ $(document).ready(function(){
               <div>
                   <img src="../../resources/images/${element.tumbnail}" alt="poparticle">
               </div>
-              <h3>${element.title}</h3>
+              <h3><a href="index.php?article=${element.id}">${element.title}</a></h3>
               <span>${element.likes}</span>
           </div>
           <div class="article">`;

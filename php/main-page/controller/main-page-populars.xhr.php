@@ -16,7 +16,8 @@
       $returnData["data"][] = array(
         "tumbnail"=>$popular["tumbnail"],
         "title"=>$popular["title"],
-        "likes"=>$popular["likes"]
+        "likes"=>$popular["likes"],
+        "id"=>$popular["id"]
       );
     }
   }

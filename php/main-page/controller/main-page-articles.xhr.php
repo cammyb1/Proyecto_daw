@@ -18,7 +18,7 @@
     $pn = $_POST["page"];
     $topic = array();
 
-    $results_per_page = 2;
+    $results_per_page = 5;
 
     if(isset($_POST["topic"])){
       $topic[] = "topic='".$_POST["topic"]."'";
