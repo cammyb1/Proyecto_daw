@@ -1,6 +1,5 @@
 <?php
   include "model/admincp-login.model.php";
-  include "view/admincp-login.view.php";
   session_start();
 
   $consultor = new Consultor("users");
@@ -15,8 +14,14 @@
       if($usuario!=null){
         $_SESSION["usuario"]=$usuario;
       }
-    }else{
-      $consultor->console_log("No hay usuario ni contraseña!");
     }
+  }
+
+  if(isset($_GET["recover"])){
+    include "view/admincp-recover.view.php";
+  }else if(isset($_GET["user"])&&isset($_GET["token"])){
+    include "view/admincp-setPassword.view.php";
+  }else{
+    include "view/admincp-login.view.php";
   }
 ?>

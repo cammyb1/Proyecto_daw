@@ -96,7 +96,12 @@
 
           $columns[] = "avatar";
           $sets[] = $pick_random_avatar;
-          $query = $consultor->insertElement($table_name,$columns,$sets);
+
+          if(in_array("",$sets)){
+            $data["message"].="<li>Something is missing.</li>";
+          }else{
+            $query = $consultor->insertElement($table_name,$columns,$sets);
+          }
         }else{
           $query = $consultor->insertElement($table_name,$columns,$sets);
         }

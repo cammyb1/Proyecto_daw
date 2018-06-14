@@ -9,9 +9,9 @@ if(sizeof($used_table)<=0){
 
 $headers_as_options = ["options"=>"","theads"=>""];
 $excluded_values = [
-  "options"=>["body","avatar","password"],
-  "theads"=>["password"],
-  "td_editables"=>["id","date","body","tumbnail","avatar"]
+  "options"=>["avatar","password","token","id","date"],
+  "theads"=>["password","token"],
+  "td_editables"=>["id","date","body","tumbnail","avatar","token"]
 ];
 $value_types = [
   "numeric"=>["article_id","active"],
@@ -23,7 +23,9 @@ $numeric_values = [
 ];
 
 foreach ($all_headers[strtolower($name)] as $value) {
-  $headers_as_options["theads"].="<th>$value</th>";
+  if(!in_array($value,$excluded_values["theads"])){
+    $headers_as_options["theads"].="<th>$value</th>";
+  }
 }
 
 ?>
@@ -41,7 +43,7 @@ foreach ($all_headers[strtolower($name)] as $value) {
         <form class="form-horizontal" name="add_form" id="form_add" role="form" accept-charset="UTF-8">
           <?php
             foreach($all_headers[strtolower($name)] as $value){
-              if(!in_array($value,$excluded_values["td_editables"])){
+              if(!in_array($value,strtolower($name)=="comments"?$excluded_values["options"]:$excluded_values["td_editables"])){
                 echo "<div class='form-group'>
                   <label  class='col-sm-2 control-label'>".ucfirst($value)."*</label>
                   <div class='col-sm-12'>";
@@ -74,6 +76,26 @@ foreach ($all_headers[strtolower($name)] as $value) {
       <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-success" id="add_element">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" role="dialog" id="generateL">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Generated Link</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" name="Generated_link" role="form" accept-charset="UTF-8">
+          <input type='text' name='g_l' class='form-control' readonly/>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -120,7 +142,7 @@ if(sizeof($used_table)>0){
   foreach($used_table as $table){
     echo "<tr id='".strtolower($name)."-".$table['id']."'>";
     foreach ($table as $key=>$value) {
-      if($key!="password"){
+      if($key!="password"&&$key!="token"){
 
         $value = strip_tags($value);
 
@@ -133,11 +155,12 @@ if(sizeof($used_table)>0){
       }
     }
     echo "
-      <td class='options'>";
+      <td class='options' tokenValue='".(!empty($table["token"])?$table["token"]:"")."'>";
           echo $name!="Articles"?"<button class='btn btn-primary edit_table'><i class='fa fa-pencil-alt'></i></button>":"<a class='btn btn-primary' href='profile.php?articles&edit=".$table['id']."'><i class='fa fa-pencil-alt'></i></a>";
           echo "<button class='btn btn-danger save_table'><i class='fa fa-save'></i></button>
           <button class='btn btn-secondary cancel_table'><i class='fa fa-times'></i></button>
-          ".(strtolower($name)=="users"&&(($_SESSION["usuario"]->getId()==$table['id'])||($_SESSION["usuario"]->getType()<$table['type']))?"":"<a class='btn btn-danger delete_table' href='' data-toggle='modal' data-target='#alertModal'><i class='fa fa-trash'></i></a>")."
+          ".(strtolower($name)=="users"&&(($_SESSION["usuario"]->getId()==$table['id'])||($_SESSION["usuario"]->getType()==2&&$table['type']==1))?"":"<a class='btn btn-danger delete_table' href='' data-toggle='modal' data-target='#alertModal'><i class='fa fa-trash'></i></a>")."
+          ".((strtolower($name)=="users"&&isset($table["active"])&&$table["active"]==0)?"<a class='btn btn-secondary generate_link' data-toggle='modal' data-target='#generateL'><i class='fa fa-external-link-square-alt'></i></a>":"")."
       </td>
     </tr>";
   }

@@ -22,96 +22,60 @@
   </header>
     <div class="container">
         <div class="row">
-            <section class="col-md-8" id="articles"></section>
+            <section class="col-md-8" id="articles">
+              <?php
+                if(isset($_GET["article"])){
+                  include "view/main-page-singleArticle.view.php";
+                }
+              ?>
+            </section>
             <aside class="col-md-4 mt-4">
                 <div class="aside popular mainColor_mp">
                     <div class="title">
                         <h1>Popular</h1>
                     </div>
-                    <div class="article-container">
-                        <div class="article">
-                            <h3>titulo</h3>
-                            <div>
-                                <img src="" alt="poparticle">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores dolores modi
-                                    veritatis facere non? Nisi magnam ipsum dicta? Odio</p>
-                            </div>
-                        </div>
-                        <div class="article">
-                            <h3>titulo</h3>
-                            <div>
-                                <img src="" alt="poparticle">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores dolores modi
-                                    veritatis facere non? Nisi magnam ipsum dicta? Odio</p>
-                            </div>
-                        </div>
-                        <div class="article">
-                            <h3>titulo</h3>
-                            <div>
-                                <img src="" alt="poparticle">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores dolores modi
-                                    veritatis facere non? Nisi magnam ipsum dicta? Odio</p>
-                            </div>
-                        </div>
-                        <div class="article">
-                            <h3>titulo</h3>
-                            <div>
-                                <img src="" alt="poparticle">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores dolores modi
-                                    veritatis facere non? Nisi magnam ipsum dicta? Odio</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="article-container" id="article_container"></div>
                 </div>
                 <div class="aside category">
                     <div class="title">
                         <h1>Categories</h1>
                     </div>
                     <div class="category-container">
-                        <ul>
-                            <li><span>></span><a href="">Fauna</a></li>
-                            <li><span>></span><a href="">Economia</a></li>
-                            <li><span>></span><a href="">Arquitectura</a></li>
-                        </ul>
+                        <ul id="categories"></ul>
                     </div>
                 </div>
             </aside>
         </div>
     </div>
-    <!--<footer>-->
-    <!--  <div class="row">-->
-    <!--    <span></span>-->
-    <!--    <ul>-->
-    <!--      <li><a href="">item1</a></li>-->
-    <!--      <li><a href="">item2</a></li>-->
-    <!--      <li><a href="">item3</a></li>-->
-    <!--    </ul>-->
-    <!--  </div>-->
-    <!--</footer>-->
     <footer class="page-footer font-small pt-4 mt-4">
         <div class="container-fluid text-center text-md-left">
             <div class="row">
                 <div class="col-md-6 mt-md-0 mt-3">
-                    <h5 class="text-uppercase">Imperio Inca</h5>
-                    <p>wawawawawawawawawa wa wawa wa wwawa awawawawaw aw aw aw awawawwawwa awaw awa aw aw awa</p>
+                    <h5 class="text-uppercase" id="titlef_mp">Imperio Inca</h5>
+                    <p id="descf_mp">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                 </div>
                 <hr class="clearfix w-100 d-md-none pb-3">
                 <div class="col-md-6 mb-md-0 mb-3">
-                    <h5 class="text-uppercase">Links</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#">Link 4</a>
-                        </li>
-                    </ul>
+                  <div>
+                    <h3>Feedback</h3>
+                    <form name="form_contact">
+                        <div class="form-group">
+                          <label for="">Name</label><input type="text" name="name">
+                        </div>
+                        <div class="form-group">
+                          <label for="">Subject</label><input type="text" name="subject">
+                        </div>
+                        <div class="form-group">
+                          <label for="">Email</label><input type="email" name="email">
+                        </div>
+                        <div class="form-group">
+                          <label for="">Message</label>
+                          <textarea name="message" rows="8" cols="80" maxlength="255"></textarea>
+                          <input type="hidden" name="table_name" value="mail_box">
+                        </div>
+                    </form>
+                    <button class="btn btn-primary" id="send_mail">Send</button>
+                  </div>
                 </div>
             </div>
         </div>

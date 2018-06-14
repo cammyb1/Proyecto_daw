@@ -33,6 +33,9 @@ function sendPostForm(url,data,success){
    type:"post",
    data,
    success,
+   error: function (request, status, error) {
+        alert(request.responseText);
+    },
    cache: false,
    contentType: false,
    processData: false,
@@ -82,14 +85,11 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function formValidation(formName,type,divId){
+function formValidation(formName,type,divId=null){
   var error = true;
   var failMessage = "";
   var totalElements = formName.elements.length;
   var cont = 0;
-
-  $(divId).removeClass();
-  $(divId).html("");
 
   for(var formElement of formName){
     if(formElement.checkValidity()){
@@ -103,19 +103,29 @@ function formValidation(formName,type,divId){
     error=false;
   }
 
+  if(divId){
+    $(divId).removeClass();
+    $(divId).html("");
+  }
+
 
   if(error){
-    $(divId).addClass("alert alert-danger");
-    $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4><ul>"+failMessage+"</ul>");
-    $("#alert_close").click(()=>closeAlert(divId));
-    $(divId).fadeIn(200);
-  }else{
-    postForm(formName,type,"controller/admincp-postForm.xhr.php",info=>{
-      let data = JSON.parse(info);
-      $(divId).addClass(data.class);
-      $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>"+data.status+"</h4><ul>"+data.message+"</ul>");
+    if(divId){
+      $(divId).addClass("alert alert-danger");
+      $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4><ul>"+failMessage+"</ul>");
       $("#alert_close").click(()=>closeAlert(divId));
       $(divId).fadeIn(200);
+    }
+  }else{
+    postForm(formName,type,"controller/admincp-postForm.xhr.php",info=>{
+      console.log(info);
+      let data = JSON.parse(info);
+      if(divId){
+        $(divId).addClass(data.class);
+        $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>"+data.status+"</h4><ul>"+data.message+"</ul>");
+        $("#alert_close").click(()=>closeAlert(divId));
+        $(divId).fadeIn(200);
+      }
     });
   }
 

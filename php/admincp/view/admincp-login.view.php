@@ -1,6 +1,7 @@
 <div class="login">
   <div class="row">
     <div class="col">
+      <div id="alert_login"></div>
       <div class="container-fluid l-title">
           <h3>SIGN IN</h3>
       </div>
@@ -19,7 +20,7 @@
           </div>
           <div class="form-group l-lp">
             <button type="submit" class="btn" name="login_submit">Login</button>
-            <a href="lostpassword.php">Lost your password?</a>
+            <a href="index.php?recover">Lost your password?</a>
           </div>
       </form>
     </div>

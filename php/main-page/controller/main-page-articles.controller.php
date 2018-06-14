@@ -18,4 +18,21 @@
   }
 
    $consultor->removeElement("guest_users",["time_visited<$guest_timeout"]);
+
+   if(isset($_GET["article"])){
+
+      $article = $_GET["article"];
+      $users = $consultor -> getTableComplex("users",["id","username"]);
+
+      $users_names = array();
+
+      foreach($users as $user){
+        $users_names[$user["id"]] = $user["username"];
+      }
+
+
+      $_GET["article"]=$consultor -> getTableComplex("articles",["*"],["id=$article"]);
+      $_GET["comments"]=$consultor -> getTableComplex("comments",["*"],["article_id=$article"]);
+      $_GET["usernames"]=$users_names;
+   }
 ?>

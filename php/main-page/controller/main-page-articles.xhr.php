@@ -63,12 +63,10 @@
                     <p>'.strip_tags($article["body"]).'</p>
                   </div>
                 </div>
-                <div class="share">
-                  <span>Share this at</span>
-                </div>
               </div>
               <div class="more d-flex justify-content-md-end">
-                <a href="index.php?article='.$article["id"].'">+</a>
+                <a class="btn send_love" article_id='.$article["id"].'><i class="fa fa-heart"></i></a>
+                <a class="btn" href="index.php?article='.$article["id"].'"><i class="fa fa-plus"></i></a>
               </div>
             </article>
           ';
@@ -93,6 +91,7 @@
       $article_id = $_POST["article"];
 
       $articles = $consultor -> getItemsBy("articles","id",$article_id);
+      $comments_of_article = $consultor -> getTableComplex("comments",["*"],["article_id=$article_id"]);
 
       if(sizeof($articles)>0){
         foreach($articles as $article){
@@ -112,13 +111,15 @@
               </div>
               <div class="lower">
                 <p>'.$article["body"].'</p>
-                <div class="share">
-                  <span>Share this at</span>
-                </div>
               </div>
             </article>
           ';
         }
+
+        $_GET["comments"]=$comments_of_article;
+        $_GET["article_id"]=$article_id;
+
+        include "../view/main-page-postComment.view.php";
       }else{
         echo "<span>No se encontro este articulo.</span>";
       }

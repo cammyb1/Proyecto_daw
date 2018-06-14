@@ -101,10 +101,20 @@ $(document).ready(function(){
     });
   });
 
+  $(".generate_link").click(function(){
+    var row_id = $(this).closest('tr').attr('id');
+  	var token = $(this).closest('td').attr('tokenValue');
+    
+    if(token.length>0){
+      Generated_link.g_l.value=`http://localhost/Proyecto_daw/php/admincp/index.php?user=${row_id.split("-")[1]}&token=${token}`;
+    }
+
+  });
+
 
 
   $(".cancel_table").click(function(){
-    var tbl_row = $(this).closest('tr');
+    var tbl_row = $(this).closest('td');
   	var row_id = tbl_row.attr('id');
 
   	tbl_row.find('.save_table').fadeOut(100);

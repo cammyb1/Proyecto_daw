@@ -23,10 +23,9 @@ class Consultor{
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
     $object_output = null;
-    $consulta = "SELECT id,name,lastname,username,email,date,type FROM users WHERE username='$username' AND password=PASSWORD($password) AND type='1' AND active='1'";
+    $consulta = "SELECT id,name,lastname,username,email,date,type FROM users WHERE username='$username' AND password=PASSWORD($password) AND type!='0'";
 
     if($this->elemetExist("users","username",$username)){
-      $this->logger->console($consulta);
       if($resultado = $this->db->query($consulta)){
         $fila = $resultado->fetch_assoc();
         $object_output = new User($fila["id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["date"],$fila["type"]);
