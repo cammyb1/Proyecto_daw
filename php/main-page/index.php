@@ -17,11 +17,10 @@
     <?php include "controller/main-page.controller.php" ?>
 
     <!--Bootstrap and jquery js-->
+    <script src="../../js/bootstrap/bootstrap.min.js"></script>
     <script src="../../js/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../../js/jquery/jquery-ui.min.js"></script>
     <script src="../../js/jquery/jquery.dotdotdot.js"></script>
     <script type="text/javascript" src="../../js/mp-main.js"></script>
     <script type="text/javascript" src="../../js/js-utils.js"></script>
-    <script src="../../js/bootstrap/bootstrap.min.js"></script>
   </body>
 </html>
