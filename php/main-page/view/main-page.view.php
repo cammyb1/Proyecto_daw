@@ -31,8 +31,8 @@
               }
             ?>
           </section>
-          <aside class="col-md-4 mt-4">
-              <div class="aside popular mainColor_mp">
+          <aside class="col-md-4 mt-4 mainColor_mp">
+              <div class="aside popular">
                   <div class="title">
                       <h3>Popular</h3>
                   </div>
@@ -44,7 +44,7 @@
                   <div class="title">
                       <h3>Categories</h3>
                   </div>
-                  <div class="category-container mainColor_mp">
+                  <div class="category-container">
                       <ul id="categories">
                         <img id="wait" src="../../resources/loading-icon.gif" alt="">
                       </ul>

@@ -17,10 +17,10 @@
         <div class="card-header"><i class="fa fa-address-book"></i> User info</div>
         <div class="card-body">
           <div class="row container">
-            <div class="col-md-3 d-flex align-items-center justify-content-center user-info">
+            <div class="col-md-12 col-lg-3 d-flex align-items-center justify-content-center user-info">
               <i class="fa fa-user-tie"></i>
             </div>
-            <div class="col-md-9 d-flex align-items-center">
+            <div class="col-md-12 col-lg-9 d-flex align-items-center">
               <ul >
                 <li><p>Welcome <strong><?php echo $user->getName();?></strong>!</p></li>
                 <hr>
@@ -45,7 +45,7 @@
                 for($i=0;$i<5;$i++){
                   $article = isset($articles[($total_articles-1)-$i])?$articles[($total_articles-1)-$i]:null;
                   if(isset($article)){
-                    echo "<li class='list-group-item ".($i==0?"active":"")." '><span class='badge badge-dark'>".($i+1)."</span> ".$article["title"]." <span class='float-right'>".date("H:i a",strtotime($article["date"]))."</span></li>";
+                    echo "<li class='list-group-item ".($i==0?"active bg-info":"")." '><span class='badge badge-dark'>".($i+1)."</span> ".$article["title"]." <span class='float-right'>".date("H:i a",strtotime($article["date"]))."</span></li>";
                   }
                 }
               }else{
@@ -67,11 +67,11 @@
                     $comment = isset($comments[($total_comments-1)-$i])?$comments[($total_comments-1)-$i]:null;
                     if(isset($comment)){
                       echo '
-                      <li class="list-group-item '.($i==0?"active":"").' ">
+                      <li class="list-group-item '.($i==0?"active bg-info":"").' ">
                         <div class="media">
-                          <img class="mr-3" src="../../resources/avatars/'.$comment["avatar"].'" alt="Avatar" />
+                          <img class="mr-3 mt-2" src="../../resources/avatars/'.$comment["avatar"].'" alt="Avatar" />
                           <div class="media-body">
-                            <h5 class="mt-0">'.$comment["name"].'</h5>
+                            <h5 class="mt-0"><u>'.$comment["name"].'</u></h5>
                             <p>'.strip_tags($comment["body"]).'</p>
                           </div>
                         </div>

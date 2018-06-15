@@ -47,10 +47,7 @@ footer a{
   border:1px solid lightgrey;
   border-radius:5px;
 }
-.active{
-  background-color: #09775c !important;
-  border-color: #0CA682 !important;
-}
+
 .list-group-item img{
   width: 50px;
 }

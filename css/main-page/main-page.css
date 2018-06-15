@@ -22,6 +22,7 @@ header.container-fluid{
   background-color: #fff !important;
   padding: 10px;
   margin-bottom: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
 }
 
 #navbarNavAltMarkup #mp_topics a{
@@ -30,6 +31,7 @@ header.container-fluid{
 .single_comment{
   border: 1px solid lightgrey;
   padding: 5px;
+  margin-bottom: 10px;
 }
 .single_comment img{
   width:60px;
@@ -142,6 +144,12 @@ article .more a {
 
 
 /* Aside*/
+aside{
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+}
+aside.col-md-4{
+  padding: 0;
+}
 .aside {
     width: 100%;
 }
