@@ -48,25 +48,25 @@
               <div class="upper">
                 <h1>'.$article["title"].'</h1>
                 <div>
-                  <span>'.date("h:i A",strtotime($article_date)).'</span>
-                  /<span>'.$users_names[$article["user_id"]].'</span>
-                  /<span>'.$article["topic"].'</span>
-                  /<span>'.$article["likes"].'</span>
+                  <span><i class="far fa-clock"></i> '.date("h:i A",strtotime($article_date)).'</span>
+                  <span><i class="fa fa-user"></i> '.$users_names[$article["user_id"]].' </span>
+                  <span><i class="fa fa-list-alt"></i> '.$article["topic"].' </span>
+                  <span><i class="fa fa-heart"></i> '.$article["likes"].' </span>
                 </div>
               </div>
               <div class="lower">
-                <div class="body">
-                  <div class="tumbail">
+                <div class="row">
+                  <div class="col-xs-3">
                     <img src="../../resources/images/'.end($article_tumbnail).'" alt="previewimg">
                   </div>
-                  <div class="content">
-                    <p>'.strip_tags($article["body"]).'</p>
+                  <div class="col content">
+                    <p id="test">'.strip_tags($article["body"]).'</p>
                   </div>
                 </div>
               </div>
               <div class="more d-flex justify-content-md-end">
                 <a class="btn send_love" article_id='.$article["id"].'><i class="fa fa-heart"></i></a>
-                <a class="btn" href="index.php?article='.$article["id"].'"><i class="fa fa-plus"></i></a>
+                <a class="btn mainTextColor" href="index.php?article='.$article["id"].'"><i class="fa fa-plus"></i></a>
               </div>
             </article>
           ';

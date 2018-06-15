@@ -12,7 +12,7 @@
     $table_name = $table_info[0];
     $row_id = $table_info[1];
     $hasFile = false;
-    $fileRoute = "C:/xampp/htdocs/Proyecto_daw/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
+    $fileRoute = $_SERVER['DOCUMENT_ROOT']."/Proyecto_daw/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
     $existing_file_colnames = array("tumbnail","bg_landing");
 
     $beforeRemoveValue = $consultor->getTableComplex($table_name,["*"],["id=$row_id"]);

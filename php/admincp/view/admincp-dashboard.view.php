@@ -13,19 +13,22 @@
 ?>
 <div class="row">
   <div class="col-md-4">
-    <div class="card card-primary">
+    <div class="card card-primary mt-4">
         <div class="card-header"><i class="fa fa-address-book"></i> User info</div>
         <div class="card-body">
-          <div class="row">
-            <div class="col-xs-3">
-              <i class="fa fa-user-tie" style="font-size:50px;"></i>
+          <div class="row container">
+            <div class="col-md-3 d-flex align-items-center justify-content-center user-info">
+              <i class="fa fa-user-tie"></i>
             </div>
-            <div class="col-xs-9">
-              <ul>
+            <div class="col-md-9 d-flex align-items-center">
+              <ul >
                 <li><p>Welcome <strong><?php echo $user->getName();?></strong>!</p></li>
+                <hr>
                 <li><p>Your role here is <b><?php echo $user->getType()==1?"Web master":"Moderator";?></b></p></li>
+                <hr>
                 <li><p>There are a total of <strong id="visitors">0</strong> visitors right now!</p></li>
-                <li><p>Your ip is <strong><?php echo $_SERVER["REMOTE_ADDR"]  ?></strong></p></li>
+                <hr>
+                <li><p>Your ip is <strong><u><?php echo $_SERVER["REMOTE_ADDR"] ?></u></strong></p></li>
               </ul>
             </div>
           </div>
@@ -33,10 +36,10 @@
     </div>
   </div>
   <div class="col-md-4">
-    <div class="card card-primary">
+    <div class="card card-primary mt-4">
         <div class="card-header"><i class="fa fa-book-open"></i> Last <b>5</b> posts</div>
         <div class="card-body">
-          <ul class='list-group'>
+          <ul class='list-group posts_list'>
           <?php
               if($total_articles>0){
                 for($i=0;$i<5;$i++){
@@ -54,7 +57,7 @@
     </div>
   </div>
   <div class="col-md-4">
-    <div class="card card-primary">
+    <div class="card card-primary  mt-4">
         <div class="card-header"><i class="fa fa-comment"></i> Last <b>3</b> comments</div>
         <div class="card-body">
           <ul class="list-group">
@@ -69,7 +72,7 @@
                           <img class="mr-3" src="../../resources/avatars/'.$comment["avatar"].'" alt="Avatar" />
                           <div class="media-body">
                             <h5 class="mt-0">'.$comment["name"].'</h5>
-                            '.$comment["body"].'
+                            <p>'.strip_tags($comment["body"]).'</p>
                           </div>
                         </div>
                       </li>'
@@ -88,21 +91,25 @@
 <hr>
 <div class="row">
   <div class="col-md-4">
-    <div class="card card-primary">
+    <div class="card card-primary  mt-4">
         <div class="card-header"><i class="fa fa-server"></i> Server info</div>
         <div class="card-body">
           <ul>
             <li><b>Server name: </b><?php echo $_SERVER["SERVER_NAME"] ?></li>
+            <hr>
             <li><b>Server IP: </b><?php echo $_SERVER["SERVER_ADDR"] ?></li>
+            <hr>
             <li><b>Server software: </b><?php echo explode("/",$_SERVER["SERVER_SOFTWARE"])[0] ?></li>
+            <hr>
             <li><b>Server port: </b><?php echo $_SERVER["SERVER_PORT"] ?></li>
+            <hr>
             <li><b>Total memory: </b><?php echo $total_memory . " <small>MB</small>" ?></li>
           </ul>
         </div>
     </div>
   </div>
   <div class="col-md-4">
-    <div class="card card-primary">
+    <div class="card card-primary  mt-4">
         <div class="card-header"><i class="fa fa-globe"></i> Most visited countries <a class="float-right text-white" id="mvc_refresh"><i class="fa fa-sync"></i></a></div>
         <div class="card-body">
           <div id="most_visited_c" style="height: 440px;">
@@ -111,7 +118,7 @@
     </div>
   </div>
   <div class="col-md-4">
-    <div class="card card-primary">
+    <div class="card card-primary  mt-4">
         <div class="card-header"><li class="fa fa-chart-bar"></li> Tables metrics <a class="float-right text-white" id="tm_refresh"><i class="fa fa-sync"></i></a></div>
         <div class="card-body">
           <div id="table-metrics" style="height: 440px;">

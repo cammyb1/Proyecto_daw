@@ -15,6 +15,7 @@
           </div>
           <div class="form-group l-lp">
             <button type="submit" class="btn" name="recover_submit" id="recover_sub">Recover</button>
+            <a href="index.php">I already have an know my password.</a>
           </div>
       </form>
     </div>

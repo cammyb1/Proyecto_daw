@@ -20,6 +20,21 @@ footer a{
 .inner-button{
   background-color: black;
 }
+.user-info i{
+  font-size:70px;
+  background-color: rgba(0,0,0,.05);
+  padding: 20px;
+  color:grey;
+  border:1px solid lightgrey;
+  border-radius:5px;
+}
+.active{
+  background-color: #09775c !important;
+  border-color: #0CA682 !important;
+}
+.list-group-item img{
+  width: 50px;
+}
 .area-modal{
   resize: none;
 }

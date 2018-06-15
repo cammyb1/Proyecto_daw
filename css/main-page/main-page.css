@@ -1,13 +1,65 @@
 @import url('https://fonts.googleapis.com/css?family=Skranji');
 
-body {
+body{
     background-color: #ddd;
+    height: 100%;
+    width: 100%;
 }
 
+html,#root{
+  height: 100%;
+  width: 100%;
+}
+header.container-fluid{
+  padding: none !important;
+}
+#articles .comments{
+  background-color: #fff !important;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+#navbarNavAltMarkup #mp_topics a{
+  padding: 10px !important;
+}
+.single_comment{
+  border: 1px solid lightgrey;
+  padding: 5px;
+}
+.single_comment img{
+  width:60px;
+  height:60px;
+  margin-right: 10px;
+  border-right: 1px solid lightgrey;
+}
+.single_comment span{
+  padding: 2px;
+  margin-bottom: 5px;
+  display: block;
+}
+.single_comment .body{
+  width: 100%;
+}
+.single_comment p{
+  border: 1px solid lightgrey;
+  margin: 2px 0px;
+  padding: 2px;
+  border-radius: 5px;
+  text-indent: 5px;
+  width: 50%;
+}
 /*Header*/
 header {
     width: 100%;
     font-family: "Skranji";
+}
+
+.navbar-toggler i{
+  color:white !important;
+}
+/*Main Content*/
+.main-content{
+  min-height: 70%;
 }
 
 /*Nav*/
@@ -16,9 +68,15 @@ header {
 }
 
 .navbar-nav .nav-item {
-    border-right: 1px dotted white;
     font-size: 17px !important;
     padding: 0 15px !important;
+}
+
+.footer_form input,.footer_form textarea{
+  /* width: 70%; */
+}
+textarea{
+  resize: none;
 }
 
 .navbar-nav .nav-item {
@@ -30,10 +88,15 @@ header {
     font-weight: 600 !important;
 }
 /*Article*/
+
+article .upper{
+  margin-bottom: 10px;
+}
+
 article .upper div {
     padding: 5px;
-    border-top: 1px dotted tomato;
-    border-bottom: 1px dotted tomato;
+    border-top: 1px dotted #333;
+    border-bottom: 1px dotted #333;
 }
 
 article {
@@ -52,6 +115,11 @@ article {
 article .lower {
     overflow: hidden;
 }
+article .content, article .content p{
+  max-height: 150px;
+  overflow-y: hidden;
+  text-align: justify;
+}
 
 article .lower img {
     width: 150px;
@@ -60,18 +128,13 @@ article .lower img {
     float: left;
 }
 
-article .lower .share {
-    clear: both;
-    width: 100%;
-}
-
 article .more a {
-    background-color: rgba(246, 125, 125, 1);
-    border-color: tomato;
     padding: 5px 10px;
-    border-radius: 50%;
-
+    border-radius: 0px;
+    color:teal !important;
 }
+
+
 
 /* Aside*/
 .aside {
@@ -90,7 +153,6 @@ article .more a {
 
 .aside .article {
     margin: 10px auto;
-    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .aside .category-container li {
@@ -98,9 +160,56 @@ article .more a {
     list-style: none;
 }
 
+.aside .category-container li i{
+    color:white;
+    padding: 5px;
+}
+
+.aside .category-container li a{
+    color:white;
+    font-size: 18px;
+}
+
+.popular .article-container{
+  text-align: center;
+}
+.popular .article-container h3{
+  line-height: 100px;
+}
+.popular .article-container h3 a{
+  color: white;
+}
+.popular .article-container .row{
+  padding: 0;
+  margin: 0 auto;
+}
+.popular .article-container .col{
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 0;
+  height: 100px;
+}
+
+.popular .article-container .col span{
+  position: absolute;
+  top:0;
+  right: 0;
+  margin-right: 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color:white;
+  box-shadow: 0px 1px 1px black;
+  padding: 0px 5px 2px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.popular .article-container img{
+  height: 100px;
+  width: 100px;
+}
+
 /*Footer*/
-footer {
+.page-footer{
     background-color: #333 !important;
-    font-family: "Skranji" !important;
-    color: white !important;
+    font-family: "Calibri" !important;
+    color:white;
 }

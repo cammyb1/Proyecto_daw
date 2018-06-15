@@ -1,12 +1,15 @@
 $(document).ready(function(){
+  request_page(1);
   postWithType("../MainComponents/controller/ProcessUserConfig.xhr.php",{table_name:"mp_config"},function(data){
     let currentData = data.data[0];
 
     let defaultData = {
       title:"Machu Picchu",
       description:"The largest and most powerful civilization in America",
+      ftitle:"Machu Picchu",
+      fdescription:"The largest and most powerful civilization in America",
       mainColor:"teal",
-      fontColor:"#333"
+      fontColor:"white"
     }
 
     if(!currentData){
@@ -22,11 +25,11 @@ $(document).ready(function(){
     $("#title_mp").html("<h1>"+currentData.title+"</h1>");
     $("#desc_mp").html(currentData.description);
 
-    $("#title_mp").css("color",currentData.fontColor);
-    $("#desc_mp").css("color",currentData.fontColor);
+    $(".mainText_mp").css("color",currentData.fontColor);
+    $(".mainTextColor").css("color",currentData.mainColor);
 
-    $("#titlef_mp").html("<h1>"+currentData.title+"</h1>");
-    $("#descf_mp").html(currentData.description);
+    $("#titlef_mp").html("<h1>"+currentData.ftitle+"</h1>");
+    $("#descf_mp").html(currentData.fdescription);
     $(".mainColor_mp").css("background-color",currentData.mainColor);
   },"json");
 
@@ -36,14 +39,16 @@ $(document).ready(function(){
     let resultHtml = "";
 
     for(let element of currentData){
-      resultHtml+=`<div class="article">
-              <div>
+      resultHtml+=`
+          <div class="row container">
+              <div class="col-xs-3">
                   <img src="../../resources/images/${element.tumbnail}" alt="poparticle">
               </div>
-              <h3><a href="index.php?article=${element.id}">${element.title}</a></h3>
-              <span>${element.likes}</span>
-          </div>
-          <div class="article">`;
+              <div class="col">
+                <h3><a href="index.php?article=${element.id}">${element.title}</a></h3>
+                <span>${element.likes} x <i class="fa fa-heart"></i></span>
+              </div>
+          </div>`;
     }
 
     $("#article_container").html(resultHtml);
@@ -56,7 +61,7 @@ $(document).ready(function(){
 
     let info = JSON.parse(data);
     for(var id in info){
-      categoriesHtml+=`<li><span>></span><a href="index.php?topic=${info[id]}">${info[id]}</a></li>`;
+      categoriesHtml+=`<li><i class="fa fa-caret-right"></i> <a href="index.php?topic=${info[id]}">${info[id]}</a></li>`;
       navHtml+=`<a class="nav-item nav-link" href="index.php?topic=${info[id]}">${info[id]}</a>`;
     }
 
@@ -71,9 +76,12 @@ $(document).ready(function(){
 
   $("#send_mail").click(function(e){
     e.preventDefault();
-    formValidation(form_contact,"insert");
+    if(formValidation(form_contact,"insert")){
+      alert("Thanyou for your feedback");
+    }else{
+      alert("Oops something went wrong.");
+    }
     form_contact.reset()
-    alert("Thank you for your feedback");
   });
 
   $(document).on("click",".send_love",function(){
@@ -89,14 +97,8 @@ $(document).ready(function(){
       if(info.already){
         alert("You already voted for this post!");
       }
-
-      $(element).removeClass("send_love");
-      $(element).css("background-color","black");
-      $(element).css("color","red");
     });
   });
-
-  request_page(1);
 });
 
 function request_page(pn){
@@ -115,6 +117,9 @@ function request_page(pn){
 
     post("controller/main-page-articles.xhr.php",dataSend,(data)=>{
       $("#articles").html(data);
+      $("#test").dotdotdot({
+         ellipsis: "\u2026 "
+      });
     });
   }
 }

@@ -3,6 +3,8 @@ function get(url,success){
    url,
    type:"get",
    method: 'GET',
+   beforeSend: function() { $('#wait').show(); },
+   complete: function() { $('#wait').hide(); },
    success
   });
 }
@@ -12,6 +14,8 @@ function post(url,data,success){
    type:"post",
    method: 'POST',
    data,
+   beforeSend: function() { $('#wait').show(); },
+   complete: function() { $('#wait').hide(); },
    success
   });
 }
@@ -22,6 +26,8 @@ function postWithType(url,data,success,dataType){
    method: 'POST',
    data,
    dataType,
+   beforeSend: function() { $('#wait').show(); },
+   complete: function() { $('#wait').hide(); },
    encode:true,
    success
   });
@@ -37,6 +43,8 @@ function sendPostForm(url,data,success){
         alert(request.responseText);
     },
    cache: false,
+   beforeSend: function() { $('#wait').show(); },
+   complete: function() { $('#wait').hide(); },
    contentType: false,
    processData: false,
    method: 'POST'
@@ -147,8 +155,6 @@ function formValidation(formName,type,divId=null){
     postForm(formName,type,"controller/admincp-postForm.xhr.php",info=>{
       console.log(info);
       let data = JSON.parse(info);
-
-      console.log(data);
       if(divId){
         $(divId).addClass(data.class);
         $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>"+data.status+"</h4><ul>"+data.message+"</ul>");

@@ -11,3 +11,11 @@ a{
 ul{
 	list-style: none;
 }
+
+#wait {
+	width: 50px !important;
+  height: 50px !important;
+	line-height: 50px;
+  display: block;
+  margin: 0 auto;
+}

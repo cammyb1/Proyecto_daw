@@ -115,10 +115,17 @@ Class Connect {
       `id` int(11) NOT NULL AUTO_INCREMENT,
       `title` varchar(255) NOT NULL,
       `description` varchar(255) NOT NULL,
+      `ftitle` varchar(255) NOT NULL,
+      `fdescription` varchar(255) NOT NULL,
       `mainColor` varchar(255) NOT NULL,
       `fontColor` varchar(255) NOT NULL,
       PRIMARY KEY (`id`)
     );";
+
+    $mysqli->query($query);
+
+    //MAIN PAGE CONFIG ROW
+    $query = "INSERT INTO `mp_config` (`id`, `title`, `description`,`ftitle`, `fdescription` ,`mainColor`, `fontColor`) VALUES (1, '', '', '','', '', '');";
 
     $mysqli->query($query);
 
@@ -131,6 +138,11 @@ Class Connect {
       `bg_landing` varchar(255) NOT NULL,
       PRIMARY KEY (`id`)
     );";
+
+    $mysqli->query($query);
+
+    //LANDING PAGE CONFIG ROW
+    $query = "INSERT INTO `lp_config` (`id`, `title`, `description`, `blackcoat`, `bg_landing`) VALUES (1, '', '', '1', '');";
 
     $mysqli->query($query);
 

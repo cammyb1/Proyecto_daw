@@ -14,6 +14,7 @@
           </div>
           <div class="form-group l-lp">
             <button type="submit" class="btn" name="set_submit" id="set_sub">SUBMIT</button>
+            <a href="index.php">Test my new password.</a>
           </div>
       </form>
     </div>

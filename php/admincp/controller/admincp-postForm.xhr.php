@@ -4,7 +4,7 @@
   include "../../MainComponents/modelo/common.xhr.php";
 
   $file_temp= "";
-  $file_path = "C:/xampp/htdocs/Proyecto_daw/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
+  $file_path = $_SERVER['DOCUMENT_ROOT']."/Proyecto_daw/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
   $file_with_path="";
   $consultor = new Consultor();
   $had_file = false;
@@ -78,7 +78,7 @@
     if(isset($table_name)&&isset($columns)&&isset($sets)){
       if($type=="insert"){
         if($table_name=="users"){
-          $token = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890$#%/!\&*";
+          $token = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890%!<>*";
           $token = str_shuffle($token);
           $token = substr($token,0,10);
           $columns[] = "token";
@@ -99,18 +99,17 @@
           $mail->SetFrom("emailproyectojonathan@gmail.com");
           $mail->Subject = "Create your password";
           $mail->AddAddress($email,$data["data"]["Name"]);
+          $_GET["title"]="Welcome!";
+          $_GET["desc"]= "We sent you and invitation to join us";
+          $_GET["redir"]="http://localhost/Proyecto_daw/php/admincp/index.php?user=".$id."&token=".$token;
+          $mail->Body= include_once("../view/email.view.php");//FIXME: CAMBIAR RUTA DE CORREO!
 
-          $mail->Body="
-            Please click on the link below <br /><br />
-            <a href='http://localhost/Proyecto_daw/php/admincp/index.php?user=".$id."&token=".$token."'>Click AQUI</a>
-          ";//FIXME: CAMBIAR RUTA DE CORREO!
-
-          if($mail->send()){
-            $query = $consultor->insertElement($table_name,$columns,$sets);
-          }else{
-            $data["message"].="<li>Mail send Failed</li>";
+          $query = $consultor->insertElement($table_name,$columns,$sets);
+          if($query){
+            if(!$mail->send()){
+              $data["message"].="<li>Mail send Failed</li>";
+            }
           }
-
         }else if($table_name=="comments"){
           $dir = "C:/xampp/htdocs/Proyecto_daw/resources/avatars"; //FIXME: CAMBIA ESTO GIL!
           $avatars = scandir($dir);

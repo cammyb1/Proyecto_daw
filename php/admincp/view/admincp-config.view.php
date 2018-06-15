@@ -42,6 +42,14 @@
                     <textarea name="description" rows="8" cols="80" maxlength="255"></textarea>
                   </div>
                   <div class="form-group">
+                    <label for="">Footer title</label>
+                    <input name="ftitle" type="text" maxlength="255">
+                  </div>
+                  <div class="form-group">
+                    <label for="">Footer description</label>
+                    <textarea name="fdescription" rows="8" cols="80" maxlength="255"></textarea>
+                  </div>
+                  <div class="form-group">
                     <label for="">Main Color</label><input name="mainColor" type="color">
                     <label for="">Font Color</label><input name="fontColor" type="color">
                     <input type="hidden" name='table_name' value='mp_config'>
