@@ -163,6 +163,9 @@ aside.col-md-4{
 .aside .article-container, .aside .category-container {
     padding: 5px 10px;
 }
+.art{
+  margin-bottom: 10px !important;
+}
 
 .aside .article {
     margin: 10px auto;

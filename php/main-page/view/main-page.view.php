@@ -26,8 +26,16 @@
       <div class="row">
           <section class="col-md-8" id="articles">
             <?php
-              if(isset($_GET["article"])){
+              if(isset($_GET["article"])&&!empty($_GET["article"])){
                 include "view/main-page-singleArticle.view.php";
+              }else if(empty($_GET["article"])){
+                echo "
+                  <article>
+                    <div class='alert alert-warning'>
+                      There is no such articlie
+                    </div>
+                  </article>
+                ";
               }
             ?>
           </section>

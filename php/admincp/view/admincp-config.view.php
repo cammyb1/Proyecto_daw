@@ -1,6 +1,7 @@
 <?php
   $_GET["dsb_t"]="Config";
   $_GET["dsb_d"]="Here you can modify all kind of stuff";
+  $_GET["dsb_i"]="fa-wrench";
 
   include "../MainComponents/vista/common-dashboar.view.php";
 ?>

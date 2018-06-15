@@ -40,7 +40,7 @@ $(document).ready(function(){
 
     for(let element of currentData){
       resultHtml+=`
-          <div class="row container">
+          <div class="row container art">
               <div class="col-xs-3">
                   <img src="../../resources/images/${element.tumbnail}" alt="poparticle">
               </div>

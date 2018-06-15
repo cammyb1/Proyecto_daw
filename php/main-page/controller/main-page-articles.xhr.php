@@ -83,7 +83,11 @@
         }
         echo "</div>";
       }else{
-        echo "<span>No se encontraron articulos</span>";
+        echo "<article>
+          <div class='alert alert-warning'>
+            There is no such articlie
+          </div>
+        </article>";
       }
     }
   }else{
