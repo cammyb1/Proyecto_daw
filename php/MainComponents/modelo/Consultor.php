@@ -247,7 +247,6 @@ class Consultor{
       $sets = implode(",",$sets);
 
       $consulta = "UPDATE $table_name SET $sets WHERE $conditions;";
-
       if($resultado = $this->db->query($consulta)){
         if($this->db->affected_rows > 0){
           return true;

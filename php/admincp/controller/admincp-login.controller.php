@@ -59,7 +59,6 @@
         $mail->SetFrom("emailproyectojonathan@gmail.com");
         $mail->Subject = "Password recovery System";
         $mail->AddAddress($email,$name);
-
         $_GET["title"] = "Here is your password <b>$name</b>";
         $_GET["desc"] = "Be aware of peepers <i class='far fa-eye'></i> <br> Your password is $decryp_password";
         $_GET["redir"]="https://incablogp.000webhostapp.com/php/admincp/index.php";//FIXME: CAMBIAR RUTA DE CORREO!

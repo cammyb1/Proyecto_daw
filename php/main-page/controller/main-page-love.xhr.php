@@ -4,7 +4,8 @@
 
   $result = array(
     "status"=>"failed",
-    "already"=>false
+    "already"=>false,
+    "message"=>""
   );
 
   $consultor = new Consultor();
@@ -13,13 +14,16 @@
     $article_id = $_POST["article_id"];
     $user_ip = $_SERVER['REMOTE_ADDR'];
     $worked = false;
+    $voted = $consultor->getTableComplex("article_voted",["article_id","guest_ip"],["article_id='$article_id'","guest_ip='$user_ip'"],null,null," AND ");
 
-    if($consultor->elemetExist("article_voted","guest_ip",$user_ip)){
+    if(isset($voted[0])){
       $result["already"]=true;
     }else{
       $inserted = $consultor->insertElement("article_voted",["article_id","guest_ip"],[$article_id,$user_ip]);
+      $result["message"]=$inserted;
       if($inserted){
         $worked = $consultor-> updateElement("articles",["likes=likes+1"],["id=$article_id"]);
+        $result["message"]=$worked;
       }
     }
 

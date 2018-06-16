@@ -72,20 +72,20 @@
           ';
         }
 
-        echo "<div class='pagination'>";
+        echo "<div class='pagination d-flex justify-content-between align-items-center'>";
         if($number_of_pages!=1){
           if($pn!=$number_of_pages){
-            echo '<button class="btn btn-primary float-rigth" onclick="request_page('.($pn+1).')">Older posts</button>';
+            echo '<button class="btn mainColor_mp" onclick="request_page('.($pn+1).')">Older posts</button>';
           }
           if($pn>1){
-            echo '<button class="btn btn-primary float-left" onclick="request_page('.($pn-1).')">Newer posts</button>';
+            echo '<button class="btn mainColor_mp" onclick="request_page('.($pn-1).')">Newer posts</button>';
           }
         }
         echo "</div>";
       }else{
         echo "<article>
           <div class='alert alert-warning'>
-            There is no such articlie
+            There are no articles
           </div>
         </article>";
       }

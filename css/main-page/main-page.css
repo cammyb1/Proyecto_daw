@@ -128,7 +128,7 @@ article .content, article .content p{
   text-align: justify;
 }
 
-article .lower img {
+.preview .lower img, aside article .lower img {
     width: 150px;
     height: 150px;
     display: block;
@@ -189,9 +189,7 @@ aside.col-md-4{
 .popular .article-container{
   text-align: center;
 }
-.popular .article-container h3{
-  line-height: 100px;
-}
+
 .popular .article-container h3 a{
   color: white;
 }
@@ -208,15 +206,15 @@ aside.col-md-4{
 
 .popular .article-container .col span{
   position: absolute;
-  top:0;
+  bottom:0;
   right: 0;
   margin-right: 20px;
   background-color: rgba(0, 0, 0, 0.3);
   color:white;
-  box-shadow: 0px 1px 1px black;
+  box-shadow: 1px 0px 1px black;
   padding: 0px 5px 2px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .popular .article-container img{
   height: 100px;
