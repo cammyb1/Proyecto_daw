@@ -11,28 +11,29 @@
       echo "<div class='alert alert-warning'>Sorry you dont have permissions :(</div>";
     }else{
   ?>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-2">
+    <div class="container config_panel">
+      <div class="row row_container">
+        <div class="col-md-2 nav_panel">
           <ul class="list-group">
             <li class="list-group-item"><a class="active" href="#home" data-toggle="tab">Mail</a></li>
             <li class="list-group-item"><a href="#mp" data-toggle="tab">Main page</a></li>
             <li class="list-group-item"><a href="#lp" data-toggle="tab">Landing page</a></li>
           </ul>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-10 main_content">
           <div class="tab-content" id='content'>
             <div class="tab-content">
               <div class="tab-pane fade in show active" id='home'>
-                <div class='clearfix'>
+                <div class='clearfix d-flex align-items-center'>
                   <h1>Mail</h1>
-                  <a class="float-right text-white" id="refresh_mails"><i class="fa fa-sync"></i></a>
+                  <a class="text-success p-4" id="refresh_mails"><i class="fa fa-sync"></i></a>
                 </div>
                 <div id='mail-content'></div>
               </div>
               <div id='mp' class="tab-pane fade">
                 <div id="alert_mp"></div>
-                <h3><u>Main page configuration.</u></h3>
+                <h1>Main page configuration.</h1>
+                <hr>
                 <form name='mp_form'>
                   <div class="row">
                     <div class="col">
@@ -80,11 +81,12 @@
                     <input type='hidden' name='elem_id' value='1' />
                   </div>
                 </form>
-                <Button id='send_mp' class="btn btn-primary">Update Main Page</Button>
+                <Button id='send_mp' class="btn btn-dark">Update Main Page</Button>
               </div>
               <div id='lp' class="tab-pane fade">
                 <div id="alert_lp"></div>
-                <h3><u>Landing page configuration.</u></h3>
+                <h1>Landing page configuration.</h1>
+                <hr>
                 <form name='lp_form'>
                   <div class="row">
                     <div class="col">
@@ -121,7 +123,7 @@
                     <input type='hidden' name='elem_id' value='1' />
                   </div>
                 </form>
-                <Button id='send_lp' class="btn btn-primary ">Update Landing</Button>
+                <Button id='send_lp' class="btn btn-dark ">Update Landing</Button>
               </div>
             </div>
         </div>

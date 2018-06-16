@@ -289,7 +289,7 @@ function getEmails(){
 
       $("#mail-content").html(fullMails).hide().fadeIn(200);
     }else{
-      $("#mail-content").html("<div><p>Nothing to show here!</p></div>");
+      $("#mail-content").html("<div class='alert alert-warning'>There is no feedback yet <i class='far fa-frown'></i></div>");
     }
   });
 }

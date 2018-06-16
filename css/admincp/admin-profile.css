@@ -48,6 +48,27 @@ footer a{
   border-radius:5px;
 }
 
+.config_panel{
+  background-color: white;
+  min-height: 500px;
+  border-radius: 5px;
+  position: relative;
+}
+.config_panel .row_container{
+  padding: 20px;
+}
+.config_panel .nav_panel{
+  left: 0;
+  padding: 0;
+  height: 100%;
+  text-align: center;
+}
+.config_panel .main_content{
+  border:1px solid lightgrey;
+  min-height: 500px;
+  padding: 20px;
+}
+
 .list-group-item img{
   width: 50px;
 }
