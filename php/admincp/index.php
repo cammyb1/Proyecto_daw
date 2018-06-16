@@ -13,10 +13,6 @@
     <title>Imperio inca</title>
   </head>
   <body>
-    <!-- <video class="bg-video" autoplay loop>
-      <source src="../../resources/videos/bg-video.mp4" type="video/mp4">
-    </video>
-    <div class="black-coat"></div> -->
     <div class="container">
       <?php
         include "controller/admincp-login.controller.php";
@@ -31,5 +27,6 @@
     <script src="../../js/bootstrap/bootstrap-tokenfield.js"></script>
     <script src="../../js/bootstrap/bootstrap-tokenfield.min.js"></script>
     <script type="text/javascript" src="../../js/js-utils.js"></script>
+    <script type="text/javascript" src="../../js/cp-login.js"></script>
   </body>
 </html>

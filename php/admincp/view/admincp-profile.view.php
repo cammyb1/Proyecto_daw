@@ -30,32 +30,39 @@
     $used_table = array();
     $table_headers = array();
     $name = "";
+    $icon = "";
 
     if(isset($_GET["u"])){
       $used_table = $user_table;
       $name = "Users";
+      $icon = "fa-user";
     }
     if(isset($_GET["a"])){
       $used_table = $article_table;
       $name = "Articles";
+      $icon = "fa-file-alt";
     }
     if(isset($_GET["c"])){
       $used_table = $comments_table;
       $name = "Comments";
+      $icon = "fa-comments";
     }
     if(isset($_GET["t"])){
       $used_table = $topics_table;
       $name = "Topics";
+      $icon = "fa-list-alt";
     }
     if(isset($_GET["ta"])){
       $used_table = $tags_table;
       $name = "Tags";
+      $icon = "fa-tags";
     }
 
     $table_headers = $all_headers[strtolower($name)];
 
     $_GET["dsb_t"]=$name;
     $_GET["dsb_d"]=sizeof($used_table)>0?"Here you can see all the $name in the database":"Your database does not have enought data to show.";
+    $_GET["dsb_i"]=$icon;
 
 
     include "../MainComponents/vista/common-dashboar.view.php";

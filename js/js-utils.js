@@ -3,6 +3,8 @@ function get(url,success){
    url,
    type:"get",
    method: 'GET',
+   beforeSend: function() { $('#wait').show(); },
+   complete: function() { $('#wait').hide(); },
    success
   });
 }
@@ -12,6 +14,8 @@ function post(url,data,success){
    type:"post",
    method: 'POST',
    data,
+   beforeSend: function() { $('#wait').show(); },
+   complete: function() { $('#wait').hide(); },
    success
   });
 }
@@ -22,6 +26,8 @@ function postWithType(url,data,success,dataType){
    method: 'POST',
    data,
    dataType,
+   beforeSend: function() { $('#wait').show(); },
+   complete: function() { $('#wait').hide(); },
    encode:true,
    success
   });
@@ -33,7 +39,12 @@ function sendPostForm(url,data,success){
    type:"post",
    data,
    success,
+   error: function (request, status, error) {
+        alert(request.responseText);
+    },
    cache: false,
+   beforeSend: function() { $('#wait').show(); },
+   complete: function() { $('#wait').hide(); },
    contentType: false,
    processData: false,
    method: 'POST'
@@ -41,9 +52,7 @@ function sendPostForm(url,data,success){
 }
 
 function refreshTables(){
-  get("controller/refreshTable.php",data=>{
-    console.log(data);
-  });
+  get("controller/refreshTable.php",data=>{});
 }
 
 function postForm(formElement,type,url,success){
@@ -73,25 +82,11 @@ function postForm(formElement,type,url,success){
 
   sendPostForm(url,formData,success);
 }
-
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
-function formValidation(formName,type,divId){
+function basicformValidation(formName,divId=null){
   var error = true;
   var failMessage = "";
   var totalElements = formName.elements.length;
   var cont = 0;
-
-  $(divId).removeClass();
-  $(divId).html("");
 
   for(var formElement of formName){
     if(formElement.checkValidity()){
@@ -105,27 +100,86 @@ function formValidation(formName,type,divId){
     error=false;
   }
 
+  if(divId!=null){
+    $(divId).removeClass();
+    $(divId).html("");
+
+    handleStatusAlert(divId,!error?"success":"failed",failMessage);
+  }
+
+  return !error;
+}
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function formValidation(formName,type,divId=null){
+  var error = true;
+  var failMessage = "";
+  var totalElements = formName.elements.length;
+  var cont = 0;
+
+  for(var formElement of formName){
+    if(formElement.checkValidity()){
+      cont++;
+    }else{
+      failMessage+="<li><b>"+formElement.name+"</b> has an error.</li>"
+    }
+  }
+
+  if(cont==totalElements){
+    error=false;
+  }
+
+  if(divId){
+    $(divId).removeClass();
+    $(divId).html("");
+  }
+
 
   if(error){
-    $(divId).addClass("alert alert-danger");
-    $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4><ul>"+failMessage+"</ul>");
-    $("#alert_close").click(()=>closeAlert(divId));
-    $(divId).fadeIn(200);
+    if(divId){
+      $(divId).addClass("alert alert-danger");
+      $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4><ul>"+failMessage+"</ul>");
+      $("#alert_close").click(()=>closeAlert(divId));
+      $(divId).fadeIn(200);
+    }
   }else{
     postForm(formName,type,"controller/admincp-postForm.xhr.php",info=>{
       console.log(info);
       let data = JSON.parse(info);
-      $(divId).addClass(data.class);
-      $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>"+data.status+"</h4><ul>"+data.message+"</ul>");
-      $("#alert_close").click(()=>closeAlert(divId));
-      $(divId).fadeIn(200);
+      if(divId){
+        $(divId).addClass(data.class);
+        $(divId).html("<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>"+data.status+"</h4><ul>"+data.message+"</ul>");
+        $("#alert_close").click(()=>closeAlert(divId));
+        $(divId).fadeIn(200);
+      }
     });
   }
 
   return !error;
 }
 
-function handleStatusAlert(divId,status){
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}
+
+function handleStatusAlert(divId,status,errorMessage=null){
 
   let currentStatus = status=="success";
 
@@ -134,7 +188,7 @@ function handleStatusAlert(divId,status){
 
   if(!currentStatus){
     $(divId).addClass("alert alert-danger");
-    $(divId).html(`<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4> Your request failed.<ul></ul>`);
+    $(divId).html(`<button type='button' class='close' id='alert_close'><span aria-hidden='true'>&times;</span></button><h4 class='alert-heading'>Error</h4>${errorMessage!=null?errorMessage:"Your request failed."}<ul></ul>`);
     $("#alert_close").click(()=>closeAlert(divId));
     $(divId).fadeIn(200);
   }else{

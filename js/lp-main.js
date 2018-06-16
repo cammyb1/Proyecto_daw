@@ -22,7 +22,11 @@ postWithType("../MainComponents/controller/ProcessUserConfig.xhr.php",{table_nam
   }
 
   currentData.blackcoat==1?$("#coat").show():$("#coat").hide();
-  $("#l-bg").attr("src","../../resources/images/"+currentData.bg_landing);
+  $("#landing").css("background","url('../../resources/images/"+currentData.bg_landing+"')");
+  $("#landing").css("background-repeat","no-repeat");
+  $("#landing").css("background-attachment","fixed");
+  $("#landing").css("background-size","cover");
+  $("#landing").css("background-position","center");
   $("#l-title").html("<h1>"+currentData.title+"</h1>");
   $("#l-desc").html(currentData.description);
   $("#content_lp").fadeIn(200);

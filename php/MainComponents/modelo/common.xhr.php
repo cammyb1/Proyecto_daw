@@ -1,0 +1,10 @@
+<?php
+require_once("../../MainComponents/modelo/Components/Exception.php");
+require_once("../../MainComponents/modelo/Components/OAuth.php");
+require_once("../../MainComponents/modelo/Components/POP3.php");
+require_once("../../MainComponents/modelo/Components/SMTP.php");
+require_once("../../MainComponents/modelo/Components/PHPMailer.php");
+require_once("../../MainComponents/modelo/Components/Logger.php");
+require_once("../../MainComponents/modelo/Components/User.php");
+require_once("../../MainComponents/modelo/Consultor.php");
+?>

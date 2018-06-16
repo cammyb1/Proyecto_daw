@@ -19,31 +19,41 @@ class Consultor{
       return $this->db;
   }
 
+  public function insertID($table_name){
+    $table_name = $this->db->escape_string($table_name);
+    $query = "SHOW TABLE STATUS LIKE '$table_name'";
+    $resultado = $this->db->query($query);
+    $fila = $resultado->fetch_assoc();
+    return $fila['Auto_increment'];
+  }
+
   public function getUser($username,$password){
     $username = $this->db->escape_string($username);
     $password = $this->db->escape_string($password);
+    $encoded_pass = base64_encode($password);
     $object_output = null;
-    $consulta = "SELECT id,name,lastname,username,email,date,type FROM users WHERE username='$username' AND password=PASSWORD($password) AND type='1' AND active='1'";
 
-    if($this->elemetExist("users","username",$username)){
-      $this->logger->console($consulta);
-      if($resultado = $this->db->query($consulta)){
-        $fila = $resultado->fetch_assoc();
-        $object_output = new User($fila["id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["date"],$fila["type"]);
+    $consulta = "SELECT * FROM users WHERE username='$username' AND password='$encoded_pass' AND type!='0' AND active='1'";
 
-        header("location:profile.php");
-      }
+    $this->logger->console($consulta);
+    $resultado = $this->db->query($consulta);
+
+    if($resultado->num_rows>0){
+      $fila = $resultado->fetch_assoc();
+      $object_output = new User($fila["id"],$fila["username"],$fila["lastname"],$fila["name"],$fila["email"],$fila["date"],$fila["type"]);
+
+      header("location:profile.php");
     }
 
     return $object_output;
   }
 
-  public function getItemsBy($table,$column,$value){
+  public function getItemsBy($table,$column,$value,$operator="="){
     $column = $this->db->escape_string($column);
     $value = $this->db->escape_string($value);
     $table = $this->db->escape_string($table);
     $result = array();
-    $consulta = "SELECT * FROM $table WHERE $column=$value";
+    $consulta = "SELECT * FROM $table WHERE $column$operator$value";
 
     if($resultado = $this->db->query($consulta) ){
       while($fila = $resultado->fetch_assoc()){
@@ -62,15 +72,9 @@ class Consultor{
       $consulta = "SELECT * FROM $table_name WHERE $column_name='$colum_value'";
       if($resultado=$this->db->query($consulta)){
         if($resultado->num_rows>0){
-
-          //TODO: Remember to delete this for security
-          $this->logger->console("[DB-RESULT] Value $colum_value exist in database.");
           return true;
         }
       }
-
-      //TODO: this too
-      $this->logger->console("[DB-ERROR] Value $colum_value does not exist in database.");
       return false;
   }
 
@@ -128,7 +132,7 @@ class Consultor{
     $table_name = $this->db->escape_string($table_name);
     $orderBy = isset($orderBy)?"ORDER BY ".$this->db->escape_string($orderBy):"";
     $groupBy = isset($groupBy)?"GROUP BY ".$this->db->escape_string($groupBy):"";
-    $conditions = isset($conditions)?"WHERE ".implode($operator, $conditions):"";
+    $conditions = isset($conditions)&&!empty($conditions)?"WHERE ".implode($operator, $conditions):null;
     $cols = implode(",",$cols);
     $result = array();
 
@@ -173,11 +177,12 @@ class Consultor{
     return 0;
   }
 
-  public function getLimitedTable($table_name,$limit_start,$limit_end,$col_name,$order="DESC"){
+  public function getLimitedTable($table_name,$limit_start,$limit_end,$col_name,$conditions=null,$operator=" OR "){
     $result = array();
     $table_name = $this->db->escape_string($table_name);
     $col_name = $this->db->escape_string($col_name);
-    $consulta = "SELECT * FROM $table_name ORDER BY $col_name $order LIMIT $limit_start,$limit_end";
+    $conditions = isset($conditions)&&!empty($conditions)?"WHERE ".implode($operator, $conditions):null;
+    $consulta = "SELECT * FROM $table_name $conditions ORDER BY $col_name DESC LIMIT $limit_start,$limit_end";
 
     if($resultado=$this->db->query($consulta)){
       while($fila = $resultado->fetch_assoc()){
@@ -242,7 +247,6 @@ class Consultor{
       $sets = implode(",",$sets);
 
       $consulta = "UPDATE $table_name SET $sets WHERE $conditions;";
-
       if($resultado = $this->db->query($consulta)){
         if($this->db->affected_rows > 0){
           return true;

@@ -1,10 +1,8 @@
 <?php
-  use PHPMailer\PHPMailer\PHPMailer;
-  use PHPMailer\PHPMailer\Exception;
   include "../../MainComponents/modelo/common.xhr.php";
 
   $file_temp= "";
-  $file_path = $_SERVER['DOCUMENT_ROOT']."/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
+  $file_path = $_SERVER["DOCUMENT_ROOT"]."/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
   $file_with_path="";
   $consultor = new Consultor();
   $had_file = false;
@@ -78,38 +76,13 @@
     if(isset($table_name)&&isset($columns)&&isset($sets)){
       if($type=="insert"){
         if($table_name=="users"){
-          $token = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890%!<>*";
+          $token = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890$#%/!\&*";
           $token = str_shuffle($token);
           $token = substr($token,0,10);
           $columns[] = "token";
           $sets[] = $token;
-          $email = $data["data"]["Email"];
-
-          $mail = new PHPMailer();
-          $id = $consultor-> insertID("users");
-
-          $mail->IsSMTP();
-          $mail->SMTPAuth = true;
-          $mail->SMTPSecure = 'ssl';
-          $mail->Host = "smtp.gmail.com";
-          $mail->Port = 465;
-          $mail->IsHTML(true);
-          $mail->Username = "emailproyectojonathan@gmail.com";
-          $mail->Password = "proyectoprueba123";
-          $mail->SetFrom("emailproyectojonathan@gmail.com");
-          $mail->Subject = "Create your password";
-          $mail->AddAddress($email,$data["data"]["Name"]);
-          $_GET["title"]="Welcome!";
-          $_GET["desc"]= "We sent you and invitation to join us";
-          $_GET["redir"]="https://incablogp.000webhostapp.com/php/admincp/index.php?user=".$id."&token=".$token;
-          $mail->Body= include_once("../view/email.view.php");//FIXME: CAMBIAR RUTA DE CORREO!
 
           $query = $consultor->insertElement($table_name,$columns,$sets);
-          if($query){
-            if(!$mail->send()){
-              $data["message"].="<li>Mail send Failed</li>";
-            }
-          }
         }else if($table_name=="comments"){
           $dir = $_SERVER["DOCUMENT_ROOT"]."/resources/avatars"; //FIXME: CAMBIA ESTO GIL!
           $avatars = scandir($dir);
@@ -123,7 +96,12 @@
 
           $columns[] = "avatar";
           $sets[] = $pick_random_avatar;
-          $query = $consultor->insertElement($table_name,$columns,$sets);
+
+          if(in_array("",$sets)){
+            $data["message"].="<li>Something is missing.</li>";
+          }else{
+            $query = $consultor->insertElement($table_name,$columns,$sets);
+          }
         }else{
           $query = $consultor->insertElement($table_name,$columns,$sets);
         }
@@ -134,12 +112,7 @@
         unset($data["data"]["elem_id"]);
 
         foreach($data["data"] as $key=>$value){
-          if($key=="password"){
-            $encrypted_pass = base64_encode($value);
-            $realsets[] = "$key='$encrypted_pass'";
-          }else{
-            $realsets[] = $key."='".$value."'";
-          }
+          $realsets[] = $key."='".$value."'";
         }
 
         if($had_file){
