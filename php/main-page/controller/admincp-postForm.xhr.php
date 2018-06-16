@@ -2,7 +2,7 @@
   include "../../MainComponents/modelo/common.xhr.php";
 
   $file_temp= "";
-  $file_path = "C:/xampp/htdocs/Proyecto_daw/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
+  $file_path = $_SERVER["DOCUMENT_ROOT"]."/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
   $file_with_path="";
   $consultor = new Consultor();
   $had_file = false;
@@ -84,7 +84,7 @@
 
           $query = $consultor->insertElement($table_name,$columns,$sets);
         }else if($table_name=="comments"){
-          $dir = "C:/xampp/htdocs/Proyecto_daw/resources/avatars"; //FIXME: CAMBIA ESTO GIL!
+          $dir = $_SERVER["DOCUMENT_ROOT"]."/resources/avatars"; //FIXME: CAMBIA ESTO GIL!
           $avatars = scandir($dir);
           unset($avatars[0]);
           unset($avatars[1]);

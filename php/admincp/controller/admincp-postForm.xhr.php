@@ -4,7 +4,7 @@
   include "../../MainComponents/modelo/common.xhr.php";
 
   $file_temp= "";
-  $file_path = $_SERVER['DOCUMENT_ROOT']."/Proyecto_daw/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
+  $file_path = $_SERVER['DOCUMENT_ROOT']."/resources/images/";//FIXME: ACUERDATE DE CAMBIARLO GIL!
   $file_with_path="";
   $consultor = new Consultor();
   $had_file = false;
@@ -101,7 +101,7 @@
           $mail->AddAddress($email,$data["data"]["Name"]);
           $_GET["title"]="Welcome!";
           $_GET["desc"]= "We sent you and invitation to join us";
-          $_GET["redir"]="http://localhost/Proyecto_daw/php/admincp/index.php?user=".$id."&token=".$token;
+          $_GET["redir"]="https://incablogp.000webhostapp.com/php/admincp/index.php?user=".$id."&token=".$token;
           $mail->Body= include_once("../view/email.view.php");//FIXME: CAMBIAR RUTA DE CORREO!
 
           $query = $consultor->insertElement($table_name,$columns,$sets);
@@ -111,7 +111,7 @@
             }
           }
         }else if($table_name=="comments"){
-          $dir = "C:/xampp/htdocs/Proyecto_daw/resources/avatars"; //FIXME: CAMBIA ESTO GIL!
+          $dir = $_SERVER["DOCUMENT_ROOT"]."/resources/avatars"; //FIXME: CAMBIA ESTO GIL!
           $avatars = scandir($dir);
           unset($avatars[0]);
           unset($avatars[1]);
