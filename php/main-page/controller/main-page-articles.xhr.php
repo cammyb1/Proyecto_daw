@@ -48,7 +48,7 @@
               <div class="upper">
                 <h1>'.$article["title"].'</h1>
                 <div>
-                  <span><i class="far fa-clock"></i> '.date("h:i A",strtotime($article_date)).'</span>
+                  <span><i class="far fa-calendar-alt"></i> '.date("d/m/Y",strtotime($article_date)).'</span>
                   <span><i class="fa fa-user"></i> '.$users_names[$article["user_id"]].' </span>
                   <span><i class="fa fa-list-alt"></i> '.$article["topic"].' </span>
                   <span><i class="fa fa-heart"></i> '.$article["likes"].' </span>
@@ -71,14 +71,13 @@
             </article>
           ';
         }
-
-        echo "<div class='pagination d-flex justify-content-between align-items-center'>";
+        echo "<div class='pagination clearfix align-items-center'>";
         if($number_of_pages!=1){
           if($pn!=$number_of_pages){
-            echo '<button class="btn mainColor_mp" onclick="request_page('.($pn+1).')">Older posts</button>';
+            echo '<button class="btn btn-info text-white float-left mr-auto" onclick="request_page('.($pn+1).')"><i class="fa fa-angle-double-left text-white"></i>Older posts</button>';
           }
           if($pn>1){
-            echo '<button class="btn mainColor_mp" onclick="request_page('.($pn-1).')">Newer posts</button>';
+            echo '<button class="btn btn-info text-white float-right ml-auto" onclick="request_page('.($pn-1).')">Newer posts <i class="fa fa-angle-double-right text-white"></i></button>';
           }
         }
         echo "</div>";
